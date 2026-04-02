@@ -6,7 +6,7 @@ const videos = [
   { title: "Breaking News Update", category: "News", videoId: "KlyvXNZWDZk" },
   { title: "Top Political Discussion", category: "Debate", videoId: "hdEp1t_PRbI" },
   { title: "Celebrity Segment", category: "Entertainment", videoId: "92DsruOUAD0" },
-  { title: "Public Reaction Clip", category: "Voices", videoId: "ScMzIvxBSi4" },
+  { title: "Public Reaction Clip", category: "Voices", videoId: "ma0ZPMJg5B4" },
   { title: "Special Focus Story", category: "Special Report", videoId: "1Ch2vJ1qmzM" },
   { title: "Weekend Roundup", category: "Highlights", videoId: "fXBpB0-NFk4" },
 ];
