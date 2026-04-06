@@ -123,7 +123,7 @@ export default function HomePage() {
                     </Link>
 
                     <Link href="/contact" className="btn-secondary">
-                      Discuss Full Revamp
+                      Advertise with us
                     </Link>
                   </div>
 
