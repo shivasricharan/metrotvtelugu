@@ -3,12 +3,36 @@ import SectionTitle from "../../components/SectionTitle";
 import VideoCard from "../../components/VideoCard";
 
 const videos = [
-  { title: "Breaking News Update", category: "News", videoId: "KlyvXNZWDZk" },
-  { title: "Top Political Discussion", category: "Debate", videoId: "hdEp1t_PRbI" },
-  { title: "Celebrity Segment", category: "Entertainment", videoId: "92DsruOUAD0" },
-  { title: "Public Reaction Clip", category: "Voices", videoId: "ma0ZPMJg5B4" },
-  { title: "Special Focus Story", category: "Special Report", videoId: "1Ch2vJ1qmzM" },
-  { title: "Weekend Roundup", category: "Highlights", videoId: "fXBpB0-NFk4" },
+  {
+    title: "Breaking Bulletin: Top updates of the day",
+    category: "News",
+    videoId: "KlyvXNZWDZk",
+  },
+  {
+    title: "Prime Time Discussion: The big political talking points",
+    category: "Debate",
+    videoId: "hdEp1t_PRbI",
+  },
+  {
+    title: "Cinema Spotlight: Stories from the Telugu entertainment world",
+    category: "Entertainment",
+    videoId: "92DsruOUAD0",
+  },
+  {
+    title: "On Ground Reactions: What people are saying",
+    category: "Public Voice",
+    videoId: "ma0ZPMJg5B4",
+  },
+  {
+    title: "Issue Focus: A deeper look at the story behind the headlines",
+    category: "Special Report",
+    videoId: "fXBpB0-NFk4",
+  },
+  {
+    title: "Top moments, big stories and standout segments of the week",
+    category: "Weekend Highlights",
+    videoId: "XdwVUXcL_Fs",
+  },
 ];
 
 export default function VideosPage() {
@@ -16,11 +40,11 @@ export default function VideosPage() {
     <section className="section-space">
       <div className="container">
         <FadeIn>
-          <div className="glass-strong rounded-[30px] p-8 md:p-10">
+          <div className="glass-strong rounded-3xl p-8 md:p-10">
             <SectionTitle
               eyebrow="Videos"
-              title="Video-first browsing without backend complexity"
-              desc="Just replace these placeholder IDs with real Metro TV Telugu YouTube IDs so the demo feels authentic."
+              title="Watch Metro TV Telugu videos"
+              desc="Explore featured bulletins, discussion segments, interviews and special stories from Metro TV Telugu in a cleaner, video-first experience."
             />
           </div>
         </FadeIn>
@@ -28,7 +52,11 @@ export default function VideosPage() {
         <div className="mt-10 grid gap-6 md:grid-cols-3">
           {videos.map((video, index) => (
             <FadeIn key={video.title} delay={index * 0.08}>
-              <VideoCard {...video} />
+              <VideoCard
+                title={video.title}
+                category={video.category}
+                videoId={video.videoId}
+              />
             </FadeIn>
           ))}
         </div>
