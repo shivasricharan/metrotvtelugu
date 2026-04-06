@@ -56,7 +56,7 @@ export default function Header() {
         <div className="flex items-center gap-3">
           <ThemeToggle />
           <Link href="/contact" className="btn-primary text-sm">
-            Discuss Revamp
+            Advertise with us
           </Link>
         </div>
       </div>
