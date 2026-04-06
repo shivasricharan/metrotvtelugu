@@ -5,6 +5,7 @@ import FadeIn from "../components/FadeIn";
 import SectionTitle from "../components/SectionTitle";
 import VideoCard from "../components/VideoCard";
 import NewsCard from "../components/NewsCard";
+import { tickerItems } from "../lib/tickerData";
 
 const featuredVideos = [
   {
@@ -75,13 +76,18 @@ export default function HomePage() {
         <div className="container py-3">
           <div className="glass rounded-full px-4 py-2 text-sm ticker">
             <div className="ticker-track">
-              <span className="mr-10 inline-flex items-center gap-2">
-                <CircleDot className="h-4 w-4 text-red-500" />
-                LIVE STYLE DEMO EXPERIENCE
-              </span>
-              <span className="mr-10">Premium Metro TV Telugu digital presentation</span>
-              <span className="mr-10">Video-first browsing and richer UI</span>
-              <span className="mr-10">Designed for viewers, partners and advertisers</span>
+              {tickerItems.map((item, index) => (
+                <span key={index} className="mr-10 inline-flex items-center gap-2">
+                  {index === 0 ? (
+                    <>
+                      <CircleDot className="h-4 w-4 text-red-500" />
+                      {item}
+                    </>
+                  ) : (
+                    item
+                  )}
+                </span>
+              ))}
             </div>
           </div>
         </div>
