@@ -36,10 +36,10 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="text-lg font-semibold">Demo purpose</h3>
+            <h3 className="text-lg font-semibold">Connect</h3>
             <p className="mt-4 text-sm leading-7" style={{ color: "var(--muted)" }}>
-              This is a pitch-ready prototype to show how Metro TV Telugu can look live,
-              premium, modern and advertiser-friendly before the full build starts.
+              Metro TV Telugu brings news, discussions, regional stories, entertainment and public-interest coverage 
+              together in a more modern digital experience for today’s audience.
             </p>
           </div>
         </div>
