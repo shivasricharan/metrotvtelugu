@@ -45,7 +45,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-10 border-t pt-6 text-sm" style={{ borderColor: "var(--border)", color: "var(--muted)" }}>
-          Metro TV Telugu • Demo Prototype
+          Metro TV Telugu • Digital Experience
         </div>
       </div>
     </footer>
