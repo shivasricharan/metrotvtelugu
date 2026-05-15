@@ -54,7 +54,7 @@ const keyContacts = [
   {
     name: "Mr. Sagar Pragnapuram",
     role: "CEO",
-    phone: "+91 00000 00000",
+    phone: "+91 8790739192",
     email: "sagar@metrotvtelugu.com",
     desc: "Business operations, partnerships, growth and strategic enquiries.",
   },
