@@ -1,6 +1,15 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Tv, Radio, MonitorSmartphone, Megaphone, Play, CircleDot } from "lucide-react";
+import {
+  Tv,
+  Radio,
+  MonitorSmartphone,
+  Megaphone,
+  Play,
+  CircleDot,
+  Newspaper,
+  Users,
+} from "lucide-react";
 import FadeIn from "../components/FadeIn";
 import SectionTitle from "../components/SectionTitle";
 import VideoCard from "../components/VideoCard";
@@ -28,44 +37,63 @@ const featuredVideos = [
 const featuredNews = [
   {
     category: "Top Story",
-    title: "A stronger digital presentation for Telugu audiences",
+    title: "Regional stories, public issues and people-first reporting",
     excerpt:
-      "This demo shows how Metro TV Telugu can look more current, more immersive and easier to explore.",
+      "Metro TV Telugu focuses on stories that matter to Telugu-speaking audiences across news, society, governance, business and culture.",
   },
   {
-    category: "Entertainment",
-    title: "Cleaner content architecture for news, shows and video",
+    category: "Digital",
+    title: "A modern video-first platform for today’s audience",
     excerpt:
-      "Instead of looking flat or text-heavy, the website can feel like a true media destination.",
+      "The new website brings videos, shows, updates and editorial sections into a cleaner and more accessible digital experience.",
   },
   {
-    category: "Advertiser Value",
-    title: "A more credible digital face for sponsors and partners",
+    category: "Advertisers",
+    title: "Better visibility for brands, businesses and campaigns",
     excerpt:
-      "A premium web experience increases confidence among advertisers, agencies and strategic partners.",
+      "The platform creates stronger opportunities for advertisers through sponsored content, video visibility and business enquiry flows.",
   },
 ];
 
 const strengths = [
   {
     icon: Tv,
-    title: "Broadcast presence, digitally elevated",
-    desc: "A look and feel that reflects television credibility with a modern web experience.",
+    title: "Broadcast credibility",
+    desc: "A digital presence that reflects the trust, familiarity and recognition of a Telugu news channel.",
   },
   {
-    icon: Radio,
-    title: "Content-first browsing",
-    desc: "A cleaner structure for viewers to discover shows, clips and stories faster.",
+    icon: Newspaper,
+    title: "News-led structure",
+    desc: "Clean sections for updates, stories, categories, shows and featured editorial content.",
   },
   {
     icon: MonitorSmartphone,
-    title: "Mobile-friendly experience",
-    desc: "Designed to feel richer across phone, tablet and desktop screens.",
+    title: "Mobile-first experience",
+    desc: "Designed for viewers who discover and consume news mostly through mobile and social platforms.",
   },
   {
     icon: Megaphone,
-    title: "Advertiser-ready positioning",
-    desc: "Helps Metro TV present stronger value to brands and media buyers.",
+    title: "Advertiser-ready pages",
+    desc: "Clear pathways for brands, agencies and local businesses to explore partnership opportunities.",
+  },
+];
+
+const businessBlocks = [
+  {
+    title: "Sponsored Stories",
+    desc: "Native editorial-style visibility for brands, public campaigns, institutions and local businesses.",
+  },
+  {
+    title: "Video Promotions",
+    desc: "Featured video slots, YouTube-led campaign visibility and digital-first content amplification.",
+  },
+  {
+    title: "Local Business Campaigns",
+    desc: "Campaign pages and enquiry flows for real estate, education, health, retail and service businesses.",
+  },
+  {
+    title: "Event Coverage",
+    desc: "Digital presentation for launches, public programs, interviews, community events and special features.",
   },
 ];
 
@@ -95,57 +123,55 @@ export default function HomePage() {
 
       <section className="section-space">
         <div className="container">
-          <div className="hero-panel glass-strong rounded-3xl p-8 md:p-14">
-            <div className="grid gap-10 md:grid-cols-2 items-center">
+          <div className="hero-panel glass-strong rounded-3xl p-6 md:p-14">
+            <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
               <FadeIn>
                 <div>
-                  <div className="badge-pill">Premium Demo Prototype</div>
+                  <div className="badge-pill">Metro TV Telugu Digital</div>
 
                   <h1 className="mt-6 text-4xl font-black leading-tight md:text-6xl">
-                    Metro TV Telugu
-                    <br />
-                    redesigned to feel live, modern and premium
+                    News, stories and videos for a changing Telugu audience
                   </h1>
 
                   <p
                     className="mt-6 max-w-xl text-lg leading-8"
                     style={{ color: "var(--muted)" }}
                   >
-                    This is a high-impact demo concept built to show how Metro TV Telugu can
-                    look richer, feel more premium and present content in a way that better
-                    serves viewers, partners and advertisers.
+                    Metro TV Telugu brings regional news, public-interest coverage,
+                    discussions, shows and digital-first video content together in one
+                    modern destination for viewers, partners and advertisers.
                   </p>
 
                   <div className="mt-8 flex flex-wrap gap-4">
                     <Link href="/videos" className="btn-primary">
                       <Play className="h-4 w-4" />
-                      Explore Videos
+                      Watch Videos
                     </Link>
 
-                    <Link href="/contact" className="btn-secondary">
+                    <Link href="/advertise" className="btn-secondary">
                       Advertise with us
                     </Link>
                   </div>
 
                   <div className="mt-10 grid gap-4 md:grid-cols-3">
                     <div className="glass rounded-2xl p-5">
-                      <div className="text-3xl font-extrabold">6</div>
+                      <div className="text-3xl font-extrabold">News</div>
                       <div className="mt-2 text-sm" style={{ color: "var(--muted)" }}>
-                        Demo pages
+                        Regional updates
                       </div>
                     </div>
 
                     <div className="glass rounded-2xl p-5">
-                      <div className="text-3xl font-extrabold">V2</div>
+                      <div className="text-3xl font-extrabold">Shows</div>
                       <div className="mt-2 text-sm" style={{ color: "var(--muted)" }}>
-                        Premium concept
+                        Programs & discussions
                       </div>
                     </div>
 
                     <div className="glass rounded-2xl p-5">
-                      <div className="text-3xl font-extrabold">Live</div>
+                      <div className="text-3xl font-extrabold">Video</div>
                       <div className="mt-2 text-sm" style={{ color: "var(--muted)" }}>
-                        Broadcast feel
+                        Digital-first stories
                       </div>
                     </div>
                   </div>
@@ -165,7 +191,7 @@ export default function HomePage() {
                     />
 
                     <div className="rounded-full border border-red-400/30 bg-red-500/10 px-3 py-1 text-xs font-bold uppercase tracking-[0.2em] text-red-300">
-                      On Air Feel
+                      Featured
                     </div>
                   </div>
 
@@ -180,16 +206,16 @@ export default function HomePage() {
 
                   <div className="mt-5 grid gap-4 md:grid-cols-2">
                     <div className="glass rounded-2xl p-4">
-                      <div className="text-sm font-semibold">Content Discovery</div>
+                      <div className="text-sm font-semibold">Video-led discovery</div>
                       <div className="mt-2 text-sm" style={{ color: "var(--muted)" }}>
-                        Better story flow, show access and video-led sections.
+                        Featured stories, discussions and updates in a cleaner format.
                       </div>
                     </div>
 
                     <div className="glass rounded-2xl p-4">
-                      <div className="text-sm font-semibold">Advertiser Confidence</div>
+                      <div className="text-sm font-semibold">Partner visibility</div>
                       <div className="mt-2 text-sm" style={{ color: "var(--muted)" }}>
-                        Stronger presentation for brand conversations and partnerships.
+                        Stronger presentation for advertisers, sponsors and campaigns.
                       </div>
                     </div>
                   </div>
@@ -204,9 +230,9 @@ export default function HomePage() {
         <div className="container">
           <FadeIn>
             <SectionTitle
-              eyebrow="What this demo communicates"
-              title="Why this version feels more authentic"
-              desc="The goal is not to build the full production platform today. The goal is to make the future website feel real enough to approve."
+              eyebrow="A modern media platform"
+              title="Built for viewers, stories and business growth"
+              desc="The new Metro TV Telugu website is structured to support audience engagement, video discovery, editorial sections and advertiser conversations."
               center={true}
             />
           </FadeIn>
@@ -236,8 +262,8 @@ export default function HomePage() {
           <FadeIn>
             <SectionTitle
               eyebrow="Featured Videos"
-              title="A stronger video-first browsing experience"
-              desc="Use selected real Metro TV Telugu YouTube IDs here so the demo feels authentic immediately."
+              title="Watch latest stories, bulletins and discussions"
+              desc="Selected Metro TV Telugu videos can be highlighted here to make the website feel current, active and video-first."
             />
           </FadeIn>
 
@@ -252,6 +278,12 @@ export default function HomePage() {
               </FadeIn>
             ))}
           </div>
+
+          <div className="mt-8">
+            <Link href="/videos" className="btn-secondary">
+              View all videos
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -259,9 +291,9 @@ export default function HomePage() {
         <div className="container">
           <FadeIn>
             <SectionTitle
-              eyebrow="Editorial Experience"
-              title="News and story blocks that feel more premium"
-              desc="This helps Metro TV Telugu look like a more serious digital media property instead of a basic static website."
+              eyebrow="News & Editorial"
+              title="A cleaner way to present news and stories"
+              desc="The site can support top stories, regional updates, entertainment, public-interest coverage, interviews and category-led browsing."
             />
           </FadeIn>
 
@@ -276,6 +308,12 @@ export default function HomePage() {
               </FadeIn>
             ))}
           </div>
+
+          <div className="mt-8">
+            <Link href="/news" className="btn-secondary">
+              Explore news
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -283,38 +321,78 @@ export default function HomePage() {
         <div className="container">
           <FadeIn>
             <div className="glass-strong rounded-3xl p-8 md:p-12">
-              <div className="grid gap-8 md:grid-cols-2 items-center">
+              <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
                 <div>
-                  <div className="badge-pill">Advertiser Potential</div>
+                  <div className="badge-pill">Advertise with Metro TV</div>
 
                   <h2 className="mt-5 text-3xl font-black leading-tight md:text-5xl">
-                    A better site can support stronger ad conversations
+                    Reach audiences through trusted regional media
                   </h2>
 
                   <p
                     className="mt-5 max-w-xl leading-8"
                     style={{ color: "var(--muted)" }}
                   >
-                    This demo also signals future room for sponsored content, featured shows,
-                    campaign pages, partner integrations and premium digital visibility.
+                    Metro TV Telugu can support advertisers, agencies, institutions and
+                    local businesses through video visibility, sponsored stories,
+                    campaign pages and digital media partnerships.
                   </p>
+
+                  <div className="mt-8 flex flex-wrap gap-4">
+                    <Link href="/advertise" className="btn-primary">
+                      Explore advertising
+                    </Link>
+                    <Link href="/contact" className="btn-secondary">
+                      Contact team
+                    </Link>
+                  </div>
                 </div>
 
                 <div className="grid gap-4 md:grid-cols-2">
-                  <div className="glass rounded-3xl p-6">
-                    <h3 className="text-lg font-semibold">Sponsored Sections</h3>
-                    <p className="mt-2 text-sm leading-7" style={{ color: "var(--muted)" }}>
-                      Branded stories, sponsored programming pages and digital visibility blocks.
-                    </p>
-                  </div>
-
-                  <div className="glass rounded-3xl p-6">
-                    <h3 className="text-lg font-semibold">Campaign Pages</h3>
-                    <p className="mt-2 text-sm leading-7" style={{ color: "var(--muted)" }}>
-                      Future-ready structure for custom advertiser campaigns and integrations.
-                    </p>
-                  </div>
+                  {businessBlocks.map((item) => (
+                    <div key={item.title} className="glass rounded-3xl p-6">
+                      <h3 className="text-lg font-semibold">{item.title}</h3>
+                      <p className="mt-2 text-sm leading-7" style={{ color: "var(--muted)" }}>
+                        {item.desc}
+                      </p>
+                    </div>
+                  ))}
                 </div>
+              </div>
+            </div>
+          </FadeIn>
+        </div>
+      </section>
+
+      <section className="section-space">
+        <div className="container">
+          <FadeIn>
+            <div className="grid gap-6 md:grid-cols-3">
+              <div className="glass-strong rounded-3xl p-7">
+                <Radio className="h-8 w-8" style={{ color: "var(--gold)" }} />
+                <h3 className="mt-4 text-xl font-bold">Shows & Discussions</h3>
+                <p className="mt-3 text-sm leading-7" style={{ color: "var(--muted)" }}>
+                  Dedicated pages for programs, interviews, debates, special features and
+                  audience-focused content.
+                </p>
+              </div>
+
+              <div className="glass-strong rounded-3xl p-7">
+                <Users className="h-8 w-8" style={{ color: "var(--gold)" }} />
+                <h3 className="mt-4 text-xl font-bold">Community Stories</h3>
+                <p className="mt-3 text-sm leading-7" style={{ color: "var(--muted)" }}>
+                  Space for regional voices, local stories, public issues and people-led
+                  coverage across Telugu communities.
+                </p>
+              </div>
+
+              <div className="glass-strong rounded-3xl p-7">
+                <Megaphone className="h-8 w-8" style={{ color: "var(--gold)" }} />
+                <h3 className="mt-4 text-xl font-bold">Business Enquiries</h3>
+                <p className="mt-3 text-sm leading-7" style={{ color: "var(--muted)" }}>
+                  Clear contact paths for brands, sponsors, advertisers and strategic
+                  media partners.
+                </p>
               </div>
             </div>
           </FadeIn>
