@@ -14,24 +14,18 @@ import FadeIn from "../../components/FadeIn";
 import SectionTitle from "../../components/SectionTitle";
 import ContactForm from "../../components/ContactForm";
 
-/*
-  UPDATE THIS SECTION WITH REAL DETAILS
-*/
 const officeDetails = {
   addressLine1: "Metro TV Telugu",
-  addressLine2: "603, Above Axis Bank,Maruthi Plaza,Khairathabad",
-  cityState: "Hyderabad, Telangana",
+  addressLine2: "603, Above Axis Bank, Maruthi Plaza, Khairathabad",
+  cityState: "Hyderabad - 500004, Telangana",
   country: "India",
   phone: "+91 40-40159550",
   email: "admin@metrotvtelugu.com",
 };
 
-/*
-  UPDATE THESE 4 LEADERSHIP CONTACTS WITH REAL DETAILS
-*/
 const keyContacts = [
   {
-    name: "Mr.Rakesh Dasari",
+    name: "Mr. Rakesh Dasari",
     role: "Managing Director",
     phone: "+91 9490235700",
     email: "rakesh@metrotvtelugu.com",
@@ -40,12 +34,12 @@ const keyContacts = [
   {
     name: "Mr. Kondaveeti Jayaprasad",
     role: "Chief Editor",
-    phone: "+91 9848038375/ 9248734566",
+    phone: "+91 9848038375 / 9248734566",
     email: "admin@metrotvtelugu.com",
     desc: "Editorial leadership, news direction and content oversight.",
   },
   {
-    name: "Mr.B. Chandrasekhar",
+    name: "Mr. B. Chandrasekhar",
     role: "Editor",
     phone: "+91 9963996704",
     email: "chandrasekhar@metrotvtelugu.com",
@@ -181,7 +175,9 @@ export default function ContactPage() {
                   Official email ID for Metro TV Telugu communication.
                 </p>
 
-                <p className="mt-3 font-semibold">{officeDetails.email}</p>
+                <p className="mt-3 font-semibold wrap-break-word">
+                  {officeDetails.email}
+                </p>
               </div>
             </FadeIn>
           </div>
@@ -199,7 +195,7 @@ export default function ContactPage() {
             />
           </FadeIn>
 
-          <div className="grid gap-6 md:grid-cols-4">
+          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
             {keyContacts.map((contact, index) => (
               <FadeIn key={contact.role} delay={index * 0.08}>
                 <div className="glass-strong card-hover rounded-3xl p-6">
@@ -212,27 +208,31 @@ export default function ContactPage() {
                     {contact.role}
                   </p>
 
-                  <h3 className="mt-3 text-xl font-bold">{contact.name}</h3>
+                  <h3 className="mt-3 text-xl font-bold leading-snug">
+                    {contact.name}
+                  </h3>
 
                   <p className="mt-3 text-sm leading-7" style={{ color: "var(--muted)" }}>
                     {contact.desc}
                   </p>
 
-                  <div className="mt-5 grid gap-2 text-sm">
+                  <div className="mt-5 grid gap-3 text-sm">
                     <div className="flex items-start gap-2">
                       <Phone
                         className="mt-0.5 h-4 w-4 shrink-0"
                         style={{ color: "var(--gold)" }}
                       />
-                      <span>{contact.phone}</span>
+                      <span className="leading-6">{contact.phone}</span>
                     </div>
 
-                    <div className="flex items-start gap-2">
+                    <div className="flex min-w-0 items-start gap-2">
                       <Mail
                         className="mt-0.5 h-4 w-4 shrink-0"
                         style={{ color: "var(--gold)" }}
                       />
-                      <span className="break-all">{contact.email}</span>
+                      <span className="min-w-0 wrap-break-word text-sm leading-6">
+                        {contact.email}
+                      </span>
                     </div>
                   </div>
                 </div>
