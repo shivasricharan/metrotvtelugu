@@ -24,11 +24,25 @@ export default function Header() {
   return (
     <header
       className="sticky top-0 z-50 border-b backdrop-blur-xl"
-      style={{ background: "rgba(7, 17, 31, 0.92)", borderColor: "var(--border)" }}
+      style={{
+        background: "var(--bg-soft)",
+        borderColor: "var(--border)",
+        color: "var(--text)",
+      }}
     >
       <div className="container flex items-center justify-between gap-4 py-4">
-        <Link href="/" className="flex items-center gap-3" onClick={() => setOpen(false)}>
-          <div className="overflow-hidden rounded-xl border bg-white/5 p-1" style={{ borderColor: "var(--border)" }}>
+        <Link
+          href="/"
+          className="flex items-center gap-3"
+          onClick={() => setOpen(false)}
+        >
+          <div
+            className="overflow-hidden rounded-xl border p-1"
+            style={{
+              borderColor: "var(--border)",
+              background: "var(--card)",
+            }}
+          >
             <Image
               src="/metrotvlogo.png"
               alt="Metro TV Telugu"
@@ -39,7 +53,12 @@ export default function Header() {
           </div>
 
           <div className="hidden lg:block">
-            <div className="text-sm font-bold tracking-[0.22em]">METRO TV TELUGU</div>
+            <div
+              className="text-sm font-bold tracking-[0.22em]"
+              style={{ color: "var(--text)" }}
+            >
+              METRO TV TELUGU
+            </div>
             <div className="text-xs" style={{ color: "var(--muted)" }}>
               News • Shows • Digital
             </div>
@@ -54,12 +73,10 @@ export default function Header() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={
-                  active
-                    ? "font-semibold"
-                    : "transition hover:opacity-80"
-                }
-                style={active ? { color: "var(--gold)" } : undefined}
+                className={active ? "font-semibold" : "transition hover:opacity-80"}
+                style={{
+                  color: active ? "var(--gold)" : "var(--text)",
+                }}
               >
                 {link.label}
               </Link>
@@ -88,7 +105,13 @@ export default function Header() {
       </div>
 
       {open && (
-        <div className="lg:hidden border-t" style={{ borderColor: "var(--border)" }}>
+        <div
+          className="lg:hidden border-t"
+          style={{
+            borderColor: "var(--border)",
+            background: "var(--bg-soft)",
+          }}
+        >
           <nav className="container grid gap-2 py-4 text-sm">
             {links.map((link) => {
               const active = pathname === link.href;
