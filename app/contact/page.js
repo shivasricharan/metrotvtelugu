@@ -175,7 +175,7 @@ export default function ContactPage() {
                   Official email ID for Metro TV Telugu communication.
                 </p>
 
-                <p className="mt-3 font-semibold wrap-break-word">
+                <p className="mt-3 font-semibold whitespace-nowrap text-sm md:text-base">
                   {officeDetails.email}
                 </p>
               </div>
@@ -195,10 +195,10 @@ export default function ContactPage() {
             />
           </FadeIn>
 
-          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+          <div className="grid gap-6 md:grid-cols-2">
             {keyContacts.map((contact, index) => (
               <FadeIn key={contact.role} delay={index * 0.08}>
-                <div className="glass-strong card-hover rounded-3xl p-6">
+                <div className="glass-strong card-hover rounded-3xl p-7">
                   <UserRound className="h-8 w-8" style={{ color: "var(--gold)" }} />
 
                   <p
@@ -208,7 +208,7 @@ export default function ContactPage() {
                     {contact.role}
                   </p>
 
-                  <h3 className="mt-3 text-xl font-bold leading-snug">
+                  <h3 className="mt-3 text-2xl font-bold leading-snug">
                     {contact.name}
                   </h3>
 
@@ -230,7 +230,7 @@ export default function ContactPage() {
                         className="mt-0.5 h-4 w-4 shrink-0"
                         style={{ color: "var(--gold)" }}
                       />
-                      <span className="min-w-0 wrap-break-word text-sm leading-6">
+                      <span className="min-w-0 whitespace-nowrap text-[13px] leading-6 md:text-sm">
                         {contact.email}
                       </span>
                     </div>
