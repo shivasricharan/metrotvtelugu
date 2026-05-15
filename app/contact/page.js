@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import FadeIn from "../../components/FadeIn";
 import SectionTitle from "../../components/SectionTitle";
+import ContactForm from "../../components/ContactForm";
 
 const enquiryTypes = [
   {
@@ -83,36 +84,10 @@ export default function ContactPage() {
                 <SectionTitle
                   eyebrow="Send an Enquiry"
                   title="Tell us how you would like to connect"
-                  desc="This form can later be connected to email, Google Sheets, CRM or WhatsApp depending on the final workflow."
+                  desc="Submit advertising, editorial, event, partnership or business enquiries. The enquiry can be saved and continued as a structured WhatsApp conversation."
                 />
 
-                <form className="mt-8 grid gap-5">
-                  <input type="text" placeholder="Your Name" className="input" />
-                  <input type="email" placeholder="Email Address" className="input" />
-                  <input type="tel" placeholder="Phone / WhatsApp Number" className="input" />
-                  <input type="text" placeholder="Company / Organisation" className="input" />
-
-                  <select className="input" defaultValue="">
-                    <option value="" disabled>
-                      Select enquiry type
-                    </option>
-                    <option>Advertising / Sponsorship</option>
-                    <option>News / Editorial</option>
-                    <option>Event Coverage</option>
-                    <option>Video Promotion</option>
-                    <option>Partnership</option>
-                    <option>General Enquiry</option>
-                  </select>
-
-                  <textarea
-                    placeholder="Tell us about your requirement"
-                    className="textarea"
-                  />
-
-                  <button type="button" className="btn-primary w-fit">
-                    Send Enquiry
-                  </button>
-                </form>
+                <ContactForm />
               </div>
             </FadeIn>
 
