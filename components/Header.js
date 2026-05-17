@@ -3,9 +3,15 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Smartphone, Apple, Download } from "lucide-react";
 import { useState } from "react";
 import ThemeToggle from "./ThemeToggle";
+
+const playStoreLink =
+  "https://play.google.com/store/apps/details?id=com.ht.metro_tv";
+
+const appStoreLink =
+  "https://apps.apple.com/in/app/metro-tv-telugu/id6756271666";
 
 const links = [
   { href: "/", label: "Home" },
@@ -20,6 +26,7 @@ const links = [
 export default function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const [downloadOpen, setDownloadOpen] = useState(false);
 
   return (
     <header
@@ -34,7 +41,10 @@ export default function Header() {
         <Link
           href="/"
           className="flex items-center gap-3"
-          onClick={() => setOpen(false)}
+          onClick={() => {
+            setOpen(false);
+            setDownloadOpen(false);
+          }}
         >
           <div
             className="overflow-hidden rounded-xl border p-1"
@@ -46,13 +56,13 @@ export default function Header() {
             <Image
               src="/metrotvlogo.png"
               alt="Metro TV Telugu"
-              width={132}
-              height={74}
+              width={120}
+              height={68}
               priority
             />
           </div>
 
-          <div className="hidden lg:block">
+          <div className="hidden 2xl:block">
             <div
               className="text-sm font-bold tracking-[0.22em]"
               style={{ color: "var(--text)" }}
@@ -65,7 +75,7 @@ export default function Header() {
           </div>
         </Link>
 
-        <nav className="hidden lg:flex items-center gap-7 text-sm">
+        <nav className="hidden xl:flex items-center gap-5 text-sm">
           {links.map((link) => {
             const active = pathname === link.href;
 
@@ -84,14 +94,56 @@ export default function Header() {
           })}
         </nav>
 
-        <div className="hidden lg:flex items-center gap-3">
+        <div className="hidden xl:flex items-center gap-3">
           <ThemeToggle />
-          <Link href="/advertise" className="btn-primary text-sm">
-            Advertise with us
-          </Link>
+
+          <div className="relative">
+            <button
+              type="button"
+              className="btn-primary text-sm"
+              onClick={() => setDownloadOpen((value) => !value)}
+            >
+              <Download className="h-4 w-4" />
+              Download App
+            </button>
+
+            {downloadOpen && (
+              <div
+                className="absolute right-0 mt-3 w-56 rounded-3xl border p-3 shadow-2xl"
+                style={{
+                  background: "var(--bg-soft)",
+                  borderColor: "var(--border)",
+                }}
+              >
+                <a
+                  href={playStoreLink}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex items-center gap-3 rounded-2xl px-4 py-3 text-sm transition hover:opacity-80"
+                  onClick={() => setDownloadOpen(false)}
+                  style={{ background: "var(--card)" }}
+                >
+                  <Smartphone className="h-4 w-4" style={{ color: "var(--gold)" }} />
+                  <span>Google Play</span>
+                </a>
+
+                <a
+                  href={appStoreLink}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-2 flex items-center gap-3 rounded-2xl px-4 py-3 text-sm transition hover:opacity-80"
+                  onClick={() => setDownloadOpen(false)}
+                  style={{ background: "var(--card)" }}
+                >
+                  <Apple className="h-4 w-4" style={{ color: "var(--gold)" }} />
+                  <span>App Store</span>
+                </a>
+              </div>
+            )}
+          </div>
         </div>
 
-        <div className="flex items-center gap-3 lg:hidden">
+        <div className="flex items-center gap-3 xl:hidden">
           <ThemeToggle />
           <button
             type="button"
@@ -106,7 +158,7 @@ export default function Header() {
 
       {open && (
         <div
-          className="lg:hidden border-t"
+          className="xl:hidden border-t"
           style={{
             borderColor: "var(--border)",
             background: "var(--bg-soft)",
@@ -132,13 +184,36 @@ export default function Header() {
               );
             })}
 
-            <Link
-              href="/advertise"
-              onClick={() => setOpen(false)}
-              className="btn-primary mt-2 text-sm"
-            >
-              Advertise with us
-            </Link>
+            <div className="mt-3 rounded-3xl border p-4" style={{ borderColor: "var(--border)" }}>
+              <div className="mb-3 flex items-center gap-2 text-sm font-semibold">
+                <Download className="h-4 w-4" style={{ color: "var(--gold)" }} />
+                Download Metro TV Telugu App
+              </div>
+
+              <div className="grid gap-3 sm:grid-cols-2">
+                <a
+                  href={playStoreLink}
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={() => setOpen(false)}
+                  className="btn-secondary text-sm"
+                >
+                  <Smartphone className="h-4 w-4" />
+                  Google Play
+                </a>
+
+                <a
+                  href={appStoreLink}
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={() => setOpen(false)}
+                  className="btn-secondary text-sm"
+                >
+                  <Apple className="h-4 w-4" />
+                  App Store
+                </a>
+              </div>
+            </div>
           </nav>
         </div>
       )}
