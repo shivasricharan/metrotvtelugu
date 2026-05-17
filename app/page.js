@@ -9,12 +9,20 @@ import {
   CircleDot,
   Newspaper,
   Users,
+  Download,
+  ExternalLink,
 } from "lucide-react";
 import FadeIn from "../components/FadeIn";
 import SectionTitle from "../components/SectionTitle";
 import VideoCard from "../components/VideoCard";
 import NewsCard from "../components/NewsCard";
 import { tickerItems } from "../lib/tickerData";
+
+const appLinks = {
+  playStore: "https://play.google.com/store/apps/details?id=com.ht.metro_tv",
+  appStore: "https://apps.apple.com/in/app/metro-tv-telugu/id6756271666",
+  youtube: "https://youtube.com/@metrotvtelugunews?si=Ma595RbHnX0Rn_yw",
+};
 
 const featuredVideos = [
   {
@@ -148,9 +156,15 @@ export default function HomePage() {
                       Watch Videos
                     </Link>
 
-                    <Link href="/advertise" className="btn-secondary">
-                      Advertise with us
-                    </Link>
+                    <a
+                      href={appLinks.playStore}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="btn-secondary"
+                    >
+                      <Download className="h-4 w-4" />
+                      Download App
+                    </a>
                   </div>
 
                   <div className="mt-10 grid gap-4 md:grid-cols-3">
@@ -171,7 +185,7 @@ export default function HomePage() {
                     <div className="glass rounded-2xl p-5">
                       <div className="text-3xl font-extrabold">Video</div>
                       <div className="mt-2 text-sm" style={{ color: "var(--muted)" }}>
-                        Digital-first stories
+                        Long videos & Shorts
                       </div>
                     </div>
                   </div>
@@ -208,14 +222,14 @@ export default function HomePage() {
                     <div className="glass rounded-2xl p-4">
                       <div className="text-sm font-semibold">Video-led discovery</div>
                       <div className="mt-2 text-sm" style={{ color: "var(--muted)" }}>
-                        Featured stories, discussions and updates in a cleaner format.
+                        Featured stories, discussions, updates and Shorts in a cleaner format.
                       </div>
                     </div>
 
                     <div className="glass rounded-2xl p-4">
-                      <div className="text-sm font-semibold">Partner visibility</div>
+                      <div className="text-sm font-semibold">App + YouTube reach</div>
                       <div className="mt-2 text-sm" style={{ color: "var(--muted)" }}>
-                        Stronger presentation for advertisers, sponsors and campaigns.
+                        Viewers can watch Metro TV Telugu through the website, app and YouTube.
                       </div>
                     </div>
                   </div>
@@ -279,11 +293,100 @@ export default function HomePage() {
             ))}
           </div>
 
-          <div className="mt-8">
+          <div className="mt-8 flex flex-wrap gap-4">
             <Link href="/videos" className="btn-secondary">
               View all videos
             </Link>
+
+            <a
+              href={appLinks.youtube}
+              target="_blank"
+              rel="noreferrer"
+              className="btn-secondary"
+            >
+              YouTube Channel
+              <ExternalLink className="h-4 w-4" />
+            </a>
           </div>
+        </div>
+      </section>
+
+      <section className="section-space">
+        <div className="container">
+          <FadeIn>
+            <div className="glass-strong rounded-3xl p-8 md:p-12">
+              <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
+                <div>
+                  <div className="badge-pill">Metro TV Telugu App</div>
+
+                  <h2 className="mt-5 text-3xl font-black leading-tight md:text-5xl">
+                    Watch Metro TV Telugu anytime on mobile
+                  </h2>
+
+                  <p className="mt-5 max-w-xl leading-8" style={{ color: "var(--muted)" }}>
+                    Stay connected with live streaming, latest news videos, shows, Shorts
+                    and updates from Metro TV Telugu through the official mobile app and
+                    YouTube channel.
+                  </p>
+
+                  <div className="mt-8 flex flex-wrap gap-4">
+                    <a
+                      href={appLinks.playStore}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="btn-primary"
+                    >
+                      <Download className="h-4 w-4" />
+                      Google Play
+                    </a>
+
+                    <a
+                      href={appLinks.appStore}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="btn-secondary"
+                    >
+                      App Store
+                      <ExternalLink className="h-4 w-4" />
+                    </a>
+
+                    <a
+                      href={appLinks.youtube}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="btn-secondary"
+                    >
+                      YouTube
+                      <ExternalLink className="h-4 w-4" />
+                    </a>
+                  </div>
+                </div>
+
+                <div className="grid gap-4 md:grid-cols-2">
+                  <div className="glass rounded-3xl p-6">
+                    <MonitorSmartphone
+                      className="h-8 w-8"
+                      style={{ color: "var(--gold)" }}
+                    />
+                    <h3 className="mt-4 text-lg font-semibold">Live & on-demand</h3>
+                    <p className="mt-2 text-sm leading-7" style={{ color: "var(--muted)" }}>
+                      Viewers can follow Metro TV Telugu through app-based access, videos,
+                      updates and digital-first content.
+                    </p>
+                  </div>
+
+                  <div className="glass rounded-3xl p-6">
+                    <Play className="h-8 w-8" style={{ color: "var(--gold)" }} />
+                    <h3 className="mt-4 text-lg font-semibold">Long videos & Shorts</h3>
+                    <p className="mt-2 text-sm leading-7" style={{ color: "var(--muted)" }}>
+                      The videos section can showcase regular YouTube uploads along with
+                      mobile-style Shorts for faster discovery.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </FadeIn>
         </div>
       </section>
 
