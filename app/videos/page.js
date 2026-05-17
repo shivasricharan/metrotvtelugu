@@ -113,10 +113,10 @@ export const metadata = {
 
 function ShortCard({ short }) {
   return (
-    <div className="glass-strong card-hover rounded-[2rem] p-4">
-      <div className="mx-auto max-w-[230px]">
+    <div className="glass-strong card-hover rounded-4xl p-4">
+      <div className="mx-auto max-w-60">
         <div
-          className="relative overflow-hidden rounded-[1.75rem] border bg-black"
+          className="relative overflow-hidden rounded-3xl border bg-black"
           style={{
             borderColor: "var(--border)",
             aspectRatio: "9 / 16",
