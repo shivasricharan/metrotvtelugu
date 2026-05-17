@@ -6,12 +6,17 @@ import {
   MessageCircle,
   Newspaper,
   Film,
+  MonitorSmartphone,
+  ExternalLink,
 } from "lucide-react";
 import FadeIn from "../../components/FadeIn";
 import SectionTitle from "../../components/SectionTitle";
 import VideoCard from "../../components/VideoCard";
 
-const videos = [
+const youtubeChannel =
+  "https://youtube.com/@metrotvtelugunews?si=Ma595RbHnX0Rn_yw";
+
+const longVideos = [
   {
     title: "Breaking Bulletin: Top updates of the day",
     category: "News",
@@ -44,6 +49,39 @@ const videos = [
   },
 ];
 
+const shorts = [
+  {
+    title: "Metro TV Telugu Short Update",
+    category: "Shorts",
+    videoId: "KlyvXNZWDZk",
+  },
+  {
+    title: "Public Voice Short Clip",
+    category: "Public Voice",
+    videoId: "hdEp1t_PRbI",
+  },
+  {
+    title: "Breaking News Short",
+    category: "News",
+    videoId: "92DsruOUAD0",
+  },
+  {
+    title: "Cinema Short Update",
+    category: "Entertainment",
+    videoId: "ma0ZPMJg5B4",
+  },
+  {
+    title: "Political Short Clip",
+    category: "Politics",
+    videoId: "fXBpB0-NFk4",
+  },
+  {
+    title: "Weekend Highlight Short",
+    category: "Highlights",
+    videoId: "XdwVUXcL_Fs",
+  },
+];
+
 const videoSections = [
   {
     icon: Newspaper,
@@ -70,8 +108,43 @@ const videoSections = [
 export const metadata = {
   title: "Videos | Metro TV Telugu",
   description:
-    "Watch Metro TV Telugu videos, bulletins, discussions, interviews, public voice segments and entertainment coverage.",
+    "Watch Metro TV Telugu long videos, bulletins, discussions, interviews, public voice segments, entertainment coverage and YouTube Shorts.",
 };
+
+function ShortCard({ short }) {
+  return (
+    <div className="glass-strong card-hover rounded-[2rem] p-4">
+      <div className="mx-auto max-w-[230px]">
+        <div
+          className="relative overflow-hidden rounded-[1.75rem] border bg-black"
+          style={{
+            borderColor: "var(--border)",
+            aspectRatio: "9 / 16",
+          }}
+        >
+          <iframe
+            src={`https://www.youtube.com/embed/${short.videoId}`}
+            title={short.title}
+            className="absolute inset-0 h-full w-full"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          />
+        </div>
+      </div>
+
+      <div className="mt-5">
+        <p
+          className="text-xs font-bold uppercase tracking-[0.18em]"
+          style={{ color: "var(--gold)" }}
+        >
+          {short.category}
+        </p>
+
+        <h3 className="mt-3 text-lg font-semibold leading-snug">{short.title}</h3>
+      </div>
+    </div>
+  );
+}
 
 export default function VideosPage() {
   return (
@@ -84,18 +157,30 @@ export default function VideosPage() {
                 <div className="badge-pill">Metro TV Telugu Videos</div>
 
                 <h1 className="mt-6 text-4xl font-black leading-tight md:text-6xl">
-                  Watch latest bulletins, discussions and special stories
+                  Watch long videos, latest updates and YouTube Shorts
                 </h1>
 
-                <p className="mt-6 text-lg leading-8" style={{ color: "var(--muted)" }}>
-                  Explore Metro TV Telugu video coverage across news updates,
-                  interviews, public voice segments, special reports, entertainment
-                  features and weekly highlights.
+                <p
+                  className="mt-6 text-lg leading-8"
+                  style={{ color: "var(--muted)" }}
+                >
+                  Explore Metro TV Telugu video coverage across news bulletins,
+                  discussions, interviews, public voice segments, special reports,
+                  entertainment features and short-format updates.
                 </p>
 
                 <div className="mt-8 flex flex-wrap gap-4">
-                  <Link href="/shows" className="btn-primary">
+                  <a
+                    href={youtubeChannel}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="btn-primary"
+                  >
                     <PlayCircle className="h-4 w-4" />
+                    Visit YouTube Channel
+                  </a>
+
+                  <Link href="/shows" className="btn-secondary">
                     Explore shows
                   </Link>
 
@@ -113,14 +198,14 @@ export default function VideosPage() {
         <div className="container">
           <FadeIn>
             <SectionTitle
-              eyebrow="Featured Videos"
-              title="Video stories from Metro TV Telugu"
-              desc="Selected YouTube videos can be highlighted here for viewers to quickly discover important updates and featured segments."
+              eyebrow="Long Videos"
+              title="Bulletins, discussions and special video stories"
+              desc="Watch selected Metro TV Telugu long-format videos including bulletins, debates, interviews, public voice segments and special reports."
             />
           </FadeIn>
 
           <div className="grid gap-6 md:grid-cols-3">
-            {videos.map((video, index) => (
+            {longVideos.map((video, index) => (
               <FadeIn key={video.title} delay={index * 0.08}>
                 <VideoCard
                   title={video.title}
@@ -129,6 +214,50 @@ export default function VideosPage() {
                 />
               </FadeIn>
             ))}
+          </div>
+
+          <div className="mt-8">
+            <a
+              href={youtubeChannel}
+              target="_blank"
+              rel="noreferrer"
+              className="btn-secondary"
+            >
+              View more on YouTube
+              <ExternalLink className="h-4 w-4" />
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section className="section-space">
+        <div className="container">
+          <FadeIn>
+            <SectionTitle
+              eyebrow="YouTube Shorts"
+              title="Short updates in a mobile-first format"
+              desc="Metro TV Telugu Shorts can be displayed like mobile screens, making the website feel current for viewers who consume quick video updates."
+            />
+          </FadeIn>
+
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {shorts.map((short, index) => (
+              <FadeIn key={short.title} delay={index * 0.08}>
+                <ShortCard short={short} />
+              </FadeIn>
+            ))}
+          </div>
+
+          <div className="mt-8">
+            <a
+              href={youtubeChannel}
+              target="_blank"
+              rel="noreferrer"
+              className="btn-secondary"
+            >
+              Watch more Shorts on YouTube
+              <ExternalLink className="h-4 w-4" />
+            </a>
           </div>
         </div>
       </section>
@@ -152,7 +281,10 @@ export default function VideosPage() {
                   <div className="glass-strong card-hover rounded-3xl p-6">
                     <Icon className="h-8 w-8" style={{ color: "var(--gold)" }} />
                     <h3 className="mt-4 text-lg font-semibold">{item.title}</h3>
-                    <p className="mt-3 text-sm leading-7" style={{ color: "var(--muted)" }}>
+                    <p
+                      className="mt-3 text-sm leading-7"
+                      style={{ color: "var(--muted)" }}
+                    >
                       {item.desc}
                     </p>
                   </div>
@@ -177,18 +309,60 @@ export default function VideosPage() {
 
                 <div>
                   <p className="leading-8" style={{ color: "var(--muted)" }}>
-                    The videos page can become one of the strongest parts of the website,
-                    especially if Metro TV Telugu regularly updates YouTube links,
-                    featured interviews, bulletins, debates and short-format stories.
+                    The videos page can become one of the strongest parts of the website.
+                    Long videos can showcase depth, while Shorts can keep the website fresh
+                    with regular quick updates from Metro TV Telugu’s YouTube channel.
                   </p>
 
                   <div className="mt-8 flex flex-wrap gap-4">
                     <Link href="/news" className="btn-primary">
                       Explore news
                     </Link>
+
                     <Link href="/advertise" className="btn-secondary">
                       Sponsor video content
                     </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </FadeIn>
+        </div>
+      </section>
+
+      <section className="section-space">
+        <div className="container">
+          <FadeIn>
+            <div className="glass-strong rounded-3xl p-8 md:p-12">
+              <div className="grid gap-8 md:grid-cols-2 md:items-center">
+                <div>
+                  <MonitorSmartphone
+                    className="h-10 w-10"
+                    style={{ color: "var(--gold)" }}
+                  />
+                  <h2 className="mt-5 text-3xl font-black leading-tight md:text-5xl">
+                    Long videos and Shorts can be managed from the CMS
+                  </h2>
+                </div>
+
+                <div>
+                  <p className="leading-8" style={{ color: "var(--muted)" }}>
+                    In the full CMS setup, Metro TV Telugu can manage long videos and
+                    Shorts from Google Sheets. The team can add YouTube IDs, choose
+                    whether a video is Long or Short, and publish or hide content without
+                    touching code.
+                  </p>
+
+                  <div className="mt-8">
+                    <a
+                      href={youtubeChannel}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="btn-secondary"
+                    >
+                      Open Metro TV Telugu YouTube
+                      <ExternalLink className="h-4 w-4" />
+                    </a>
                   </div>
                 </div>
               </div>
