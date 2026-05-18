@@ -47,7 +47,7 @@ const highlights = [
   {
     icon: MonitorSmartphone,
     title: "App & Digital Access",
-    desc: "Metro TV Telugu can be discovered through the website, mobile app, YouTube and digital-first viewing habits.",
+    desc: "The channel can be discovered through the website, mobile app, YouTube and digital-first viewing habits.",
   },
 ];
 
@@ -133,9 +133,9 @@ export default async function AboutPage() {
                   className="mt-6 text-lg leading-8"
                   style={{ color: "var(--muted)" }}
                 >
-                  Metro TV Telugu is a regional Telugu media platform bringing together
-                  news, public-interest stories, programs, video coverage, digital updates
-                  and community-focused conversations for Telugu-speaking audiences.
+                  Metro TV Telugu brings together regional news, public-interest
+                  stories, programs, video coverage, digital updates and community-focused
+                  conversations for Telugu-speaking audiences.
                 </p>
 
                 <div className="mt-8 flex flex-wrap gap-4">
@@ -173,9 +173,9 @@ export default async function AboutPage() {
 
                 <p className="mt-5 leading-8" style={{ color: "var(--muted)" }}>
                   Audiences now discover news and stories through television, YouTube,
-                  mobile apps, social platforms, search and websites. Metro TV Telugu’s
-                  new digital presence brings these touchpoints together into a cleaner,
-                  more credible and easier-to-navigate experience.
+                  mobile apps, social platforms, search and websites. The new digital
+                  presence brings these touchpoints together into a cleaner, more credible
+                  and easier-to-navigate experience.
                 </p>
 
                 <p className="mt-5 leading-8" style={{ color: "var(--muted)" }}>
@@ -200,9 +200,9 @@ export default async function AboutPage() {
                 <div className="glass rounded-3xl p-6">
                   <h3 className="text-xl font-bold">Our Digital Direction</h3>
                   <p className="mt-3 leading-7" style={{ color: "var(--muted)" }}>
-                    To make Metro TV Telugu more discoverable across mobile, YouTube,
-                    search, social media and digital platforms while keeping the familiarity
-                    of a regional media brand.
+                    To make the platform more discoverable across mobile, YouTube, search,
+                    social media and digital channels while keeping the familiarity of a
+                    regional media brand.
                   </p>
                 </div>
 
@@ -224,7 +224,7 @@ export default async function AboutPage() {
         <div className="container">
           <FadeIn>
             <SectionTitle
-              eyebrow="What Metro TV Telugu brings together"
+              eyebrow="What the platform brings together"
               title="News, videos, programs, app access and regional visibility"
               desc="The platform is structured to support viewers, communities, businesses, advertisers and public conversations."
               center={true}
@@ -260,7 +260,7 @@ export default async function AboutPage() {
             <SectionTitle
               eyebrow="Coverage Areas"
               title="Stories across public life, business, culture and communities"
-              desc="Metro TV Telugu can cover a broad set of content verticals relevant to Telugu-speaking audiences and regional businesses."
+              desc="The channel can cover a broad set of content verticals relevant to Telugu-speaking audiences and regional businesses."
             />
           </FadeIn>
 
@@ -296,12 +296,12 @@ export default async function AboutPage() {
                   <Smartphone className="h-10 w-10" style={{ color: "var(--gold)" }} />
 
                   <h2 className="mt-5 text-3xl font-black leading-tight md:text-5xl">
-                    Watch Metro TV Telugu across web, YouTube and mobile apps
+                    Watch across web, YouTube and mobile apps
                   </h2>
 
                   <p className="mt-5 leading-8" style={{ color: "var(--muted)" }}>
-                    Viewers can follow Metro TV Telugu through the website, YouTube channel
-                    and official mobile apps. This makes the platform accessible for people
+                    Viewers can follow the channel through the website, YouTube and
+                    official mobile apps. This makes the experience accessible for people
                     who prefer long videos, short updates, mobile viewing and on-demand
                     discovery.
                   </p>
@@ -388,9 +388,9 @@ export default async function AboutPage() {
                 className="mx-auto mt-5 max-w-3xl leading-8"
                 style={{ color: "var(--muted)" }}
               >
-                Metro TV Telugu’s digital presence can become a destination for viewers,
-                a platform for stories and a media channel for brands, institutions and
-                local businesses that want meaningful regional visibility.
+                This digital presence can become a destination for viewers, a platform
+                for stories and a media channel for brands, institutions and local
+                businesses that want meaningful regional visibility.
               </p>
 
               <div className="mt-8 flex justify-center">
