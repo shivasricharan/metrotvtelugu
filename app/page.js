@@ -29,7 +29,7 @@ const fallbackAppLinks = {
 
 const featuredVideos = [
   {
-    title: "Metro Prime Time Bulletin",
+    title: "Prime Time Bulletin",
     category: "News",
     videoId: "KlyvXNZWDZk",
   },
@@ -50,13 +50,13 @@ const featuredNews = [
     category: "Top Story",
     title: "Regional stories, public issues and people-first reporting",
     excerpt:
-      "Metro TV Telugu focuses on stories that matter to Telugu-speaking audiences across news, society, governance, business and culture.",
+      "Stories that matter to Telugu-speaking audiences across society, governance, business and culture.",
   },
   {
     category: "Digital",
     title: "A modern video-first platform for today’s audience",
     excerpt:
-      "The new website brings videos, shows, updates and editorial sections into a cleaner and more accessible digital experience.",
+      "The website brings videos, shows, updates and editorial sections into a cleaner and more accessible digital experience.",
   },
   {
     category: "Advertisers",
@@ -168,9 +168,9 @@ export default async function HomePage() {
                     className="mt-6 max-w-xl text-lg leading-8"
                     style={{ color: "var(--muted)" }}
                   >
-                    Metro TV Telugu brings regional news, public-interest coverage,
-                    discussions, shows and digital-first video content together in one
-                    modern destination for viewers, partners and advertisers.
+                    A modern digital destination bringing regional news, public-interest
+                    coverage, discussions, shows and video-first content together for
+                    viewers, partners and advertisers.
                   </p>
 
                   <div className="mt-8 flex flex-wrap gap-4">
@@ -235,7 +235,7 @@ export default async function HomePage() {
                   <div className="embed-wrap">
                     <iframe
                       src={`https://www.youtube.com/embed/${homepageFeaturedVideoId}`}
-                      title="Metro TV Telugu Featured Video"
+                      title="Featured Video"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
                     />
@@ -252,7 +252,7 @@ export default async function HomePage() {
                     <div className="glass rounded-2xl p-4">
                       <div className="text-sm font-semibold">App + YouTube reach</div>
                       <div className="mt-2 text-sm" style={{ color: "var(--muted)" }}>
-                        Viewers can watch Metro TV Telugu through the website, app and YouTube.
+                        Viewers can watch through the website, mobile app and YouTube.
                       </div>
                     </div>
                   </div>
@@ -269,7 +269,7 @@ export default async function HomePage() {
             <SectionTitle
               eyebrow="A modern media platform"
               title="Built for viewers, stories and business growth"
-              desc="The new Metro TV Telugu website is structured to support audience engagement, video discovery, editorial sections and advertiser conversations."
+              desc="The website is structured to support audience engagement, video discovery, editorial sections and advertiser conversations."
               center={true}
             />
           </FadeIn>
@@ -300,7 +300,7 @@ export default async function HomePage() {
             <SectionTitle
               eyebrow="Featured Videos"
               title="Watch latest stories, bulletins and discussions"
-              desc="Selected Metro TV Telugu videos can be highlighted here to make the website feel current, active and video-first."
+              desc="Selected videos can be highlighted here to make the website feel current, active and video-first."
             />
           </FadeIn>
 
@@ -340,16 +340,15 @@ export default async function HomePage() {
             <div className="glass-strong rounded-3xl p-8 md:p-12">
               <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
                 <div>
-                  <div className="badge-pill">Metro TV Telugu App</div>
+                  <div className="badge-pill">Official Mobile App</div>
 
                   <h2 className="mt-5 text-3xl font-black leading-tight md:text-5xl">
-                    Watch Metro TV Telugu anytime on mobile
+                    Watch anytime on mobile
                   </h2>
 
                   <p className="mt-5 max-w-xl leading-8" style={{ color: "var(--muted)" }}>
                     Stay connected with live streaming, latest news videos, shows, Shorts
-                    and updates from Metro TV Telugu through the official mobile app and
-                    YouTube channel.
+                    and updates through the official mobile app and YouTube channel.
                   </p>
 
                   <div className="mt-8 flex flex-wrap gap-4">
@@ -393,8 +392,8 @@ export default async function HomePage() {
                     />
                     <h3 className="mt-4 text-lg font-semibold">Live & on-demand</h3>
                     <p className="mt-2 text-sm leading-7" style={{ color: "var(--muted)" }}>
-                      Viewers can follow Metro TV Telugu through app-based access, videos,
-                      updates and digital-first content.
+                      Viewers can follow updates through app-based access, videos and
+                      digital-first content.
                     </p>
                   </div>
 
@@ -459,9 +458,9 @@ export default async function HomePage() {
                     className="mt-5 max-w-xl leading-8"
                     style={{ color: "var(--muted)" }}
                   >
-                    Metro TV Telugu can support advertisers, agencies, institutions and
-                    local businesses through video visibility, sponsored stories,
-                    campaign pages and digital media partnerships.
+                    The platform can support advertisers, agencies, institutions and local
+                    businesses through video visibility, sponsored stories, campaign pages
+                    and digital media partnerships.
                   </p>
 
                   <div className="mt-8 flex flex-wrap gap-4">
