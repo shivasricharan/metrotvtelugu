@@ -94,12 +94,12 @@ export const metadata = {
 
 function normalizeShow(item) {
   return {
-    showName: item.showName || item.title || "Metro TV Telugu Program",
+    showName: item.showName || item.title || "Program",
     category: item.category || "Program",
     description:
       item.description ||
       item.desc ||
-      "Program details and coverage information from Metro TV Telugu.",
+      "Program details and coverage information from the channel.",
     timing: item.timing || "To be updated",
     anchor: item.anchor || "Metro TV Team",
   };
@@ -108,9 +108,10 @@ function normalizeShow(item) {
 export default async function ShowsPage() {
   const cmsShows = await getMetroCmsData("shows");
 
-  const shows = Array.isArray(cmsShows) && cmsShows.length > 0
-    ? cmsShows.map(normalizeShow)
-    : fallbackShows;
+  const shows =
+    Array.isArray(cmsShows) && cmsShows.length > 0
+      ? cmsShows.map(normalizeShow)
+      : fallbackShows;
 
   return (
     <>
@@ -126,9 +127,9 @@ export default async function ShowsPage() {
                 </h1>
 
                 <p className="mt-6 text-lg leading-8" style={{ color: "var(--muted)" }}>
-                  Explore Metro TV Telugu programming across news, business, lifestyle,
-                  education, health, entertainment, public issues, technology, agriculture,
-                  spirituality, civic stories and community-focused content.
+                  Explore programming across news, business, lifestyle, education, health,
+                  entertainment, public issues, technology, agriculture, spirituality,
+                  civic stories and community-focused content.
                 </p>
 
                 <div className="mt-8 flex flex-wrap gap-4">
@@ -151,8 +152,8 @@ export default async function ShowsPage() {
           <FadeIn>
             <SectionTitle
               eyebrow="Programs & Coverage Areas"
-              title="Content verticals from Metro TV Telugu"
-              desc="These program categories can be updated directly from the Google Sheets CMS by the Metro TV team."
+              title="Content verticals and recurring program themes"
+              desc="These program categories can be updated directly from the Google Sheets CMS by the team."
             />
           </FadeIn>
 
@@ -222,9 +223,9 @@ export default async function ShowsPage() {
 
                 <div>
                   <p className="leading-8" style={{ color: "var(--muted)" }}>
-                    Metro TV Telugu can manage program names, categories, descriptions,
-                    timings and anchors directly from Google Sheets. This keeps the website
-                    easy to update without touching code.
+                    The team can manage program names, categories, descriptions, timings
+                    and anchors directly from Google Sheets. This keeps the website easy
+                    to update without touching code.
                   </p>
 
                   <div className="mt-8 flex flex-wrap gap-4">
