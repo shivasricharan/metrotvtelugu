@@ -186,29 +186,43 @@ export default async function Footer() {
 
           <div>
             <h3 className="text-lg font-semibold">Digital Access</h3>
-            <div className="mt-4 grid gap-3 text-sm" style={{ color: "var(--muted)" }}>
+
+            <div className="mt-4 flex flex-wrap gap-3">
               <a
                 href={instagramUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-2"
+                aria-label="Open Instagram"
+                className="theme-toggle inline-flex h-10 w-10 items-center justify-center p-0"
+                title="Instagram"
               >
                 <SocialImage src="/instagram.png" alt="Instagram" />
-                Instagram
-                <ExternalLink className="h-3.5 w-3.5" />
               </a>
 
               <a
                 href={facebookUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-2"
+                aria-label="Open Facebook"
+                className="theme-toggle inline-flex h-10 w-10 items-center justify-center p-0"
+                title="Facebook"
               >
                 <SocialImage src="/facebook.png" alt="Facebook" />
-                Facebook
-                <ExternalLink className="h-3.5 w-3.5" />
               </a>
 
+              <a
+                href={youtubeUrl}
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Open YouTube"
+                className="theme-toggle inline-flex h-10 w-10 items-center justify-center p-0"
+                title="YouTube"
+              >
+                <Video className="h-4 w-4" style={{ color: "var(--gold)" }} />
+              </a>
+            </div>
+
+            <div className="mt-5 grid gap-3 text-sm" style={{ color: "var(--muted)" }}>
               <a
                 href={youtubeUrl}
                 target="_blank"
