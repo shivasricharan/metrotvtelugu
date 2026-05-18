@@ -27,13 +27,16 @@ function getSetting(settings, key, fallback) {
   return settings?.[key] || fallback;
 }
 
-function SocialBadge({ label }) {
+function SocialImage({ src, alt }) {
   return (
-    <span
-      className="text-xs font-black tracking-[0.12em]"
-      style={{ color: "var(--gold)" }}
-    >
-      {label}
+    <span className="relative inline-flex h-5 w-5 items-center justify-center">
+      <Image
+        src={src}
+        alt={alt}
+        width={20}
+        height={20}
+        className="object-contain"
+      />
     </span>
   );
 }
@@ -116,7 +119,7 @@ export default async function Footer() {
                 className="theme-toggle inline-flex h-10 w-10 items-center justify-center p-0"
                 title="Instagram"
               >
-                <SocialBadge label="IG" />
+                <SocialImage src="/instagram.png" alt="Instagram" />
               </a>
 
               <a
@@ -127,7 +130,7 @@ export default async function Footer() {
                 className="theme-toggle inline-flex h-10 w-10 items-center justify-center p-0"
                 title="Facebook"
               >
-                <SocialBadge label="FB" />
+                <SocialImage src="/facebook.png" alt="Facebook" />
               </a>
 
               <a
@@ -190,7 +193,7 @@ export default async function Footer() {
                 rel="noreferrer"
                 className="inline-flex items-center gap-2"
               >
-                <SocialBadge label="IG" />
+                <SocialImage src="/instagram.png" alt="Instagram" />
                 Instagram
                 <ExternalLink className="h-3.5 w-3.5" />
               </a>
@@ -201,7 +204,7 @@ export default async function Footer() {
                 rel="noreferrer"
                 className="inline-flex items-center gap-2"
               >
-                <SocialBadge label="FB" />
+                <SocialImage src="/facebook.png" alt="Facebook" />
                 Facebook
                 <ExternalLink className="h-3.5 w-3.5" />
               </a>
