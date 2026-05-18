@@ -78,9 +78,8 @@ export default async function Footer() {
               className="mt-4 max-w-xl text-sm leading-7"
               style={{ color: "var(--muted)" }}
             >
-              Metro TV Telugu brings regional news, public-interest stories, shows,
-              videos, Shorts, app access and digital media opportunities together for
-              today’s Telugu-speaking audience.
+              Regional news, public-interest stories, shows, videos, Shorts, app access
+              and digital media opportunities for today’s Telugu-speaking audience.
             </p>
 
             <div className="mt-6 grid gap-3 text-sm" style={{ color: "var(--muted)" }}>
