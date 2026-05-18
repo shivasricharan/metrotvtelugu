@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import {
   Mail,
   Phone,
@@ -9,6 +10,7 @@ import {
   Handshake,
   Building2,
   UserRound,
+  ExternalLink,
 } from "lucide-react";
 import FadeIn from "../../components/FadeIn";
 import SectionTitle from "../../components/SectionTitle";
@@ -24,6 +26,12 @@ const fallbackOfficeDetails = {
   country: "India",
   phone: "+91 40-40159550",
   email: "admin@metrotvtelugu.com",
+};
+
+const fallbackSocialLinks = {
+  instagramurl: "https://www.instagram.com/metrotv_telugu?igsh=MXoyNXY0YmY1YXZm",
+  facebookurl: "https://www.facebook.com/share/1DipSWBgGs/?mibextid=wwXIfr",
+  youtubechannelurl: "https://youtube.com/@metrotvtelugunews?si=Ma595RbHnX0Rn_yw",
 };
 
 const fallbackKeyContacts = [
@@ -105,6 +113,10 @@ function buildOfficeDetails(settings = {}) {
   };
 }
 
+function getSetting(settings, key, fallback) {
+  return settings?.[key] || fallback;
+}
+
 function normalizeContact(contact) {
   return {
     name: contact.name || "Team Member",
@@ -118,6 +130,20 @@ function normalizeContact(contact) {
   };
 }
 
+function SocialImage({ src, alt }) {
+  return (
+    <span className="relative inline-flex h-5 w-5 items-center justify-center">
+      <Image
+        src={src}
+        alt={alt}
+        width={20}
+        height={20}
+        className="object-contain"
+      />
+    </span>
+  );
+}
+
 export default async function ContactPage() {
   const cmsData = await getMetroCmsData("all");
 
@@ -125,6 +151,24 @@ export default async function ContactPage() {
   const cmsContacts = Array.isArray(cmsData?.contacts) ? cmsData.contacts : [];
 
   const officeDetails = buildOfficeDetails(settings);
+
+  const instagramUrl = getSetting(
+    settings,
+    "instagramurl",
+    fallbackSocialLinks.instagramurl
+  );
+
+  const facebookUrl = getSetting(
+    settings,
+    "facebookurl",
+    fallbackSocialLinks.facebookurl
+  );
+
+  const youtubeUrl = getSetting(
+    settings,
+    "youtubechannelurl",
+    fallbackSocialLinks.youtubechannelurl
+  );
 
   const keyContacts =
     cmsContacts.length > 0
@@ -158,6 +202,26 @@ export default async function ContactPage() {
                   <Link href="/videos" className="btn-secondary">
                     View video showcase
                   </Link>
+
+                  <a
+                    href={instagramUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="btn-secondary"
+                  >
+                    <SocialImage src="/instagram.png" alt="Instagram" />
+                    Instagram
+                  </a>
+
+                  <a
+                    href={facebookUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="btn-secondary"
+                  >
+                    <SocialImage src="/facebook.png" alt="Facebook" />
+                    Facebook
+                  </a>
                 </div>
               </div>
             </div>
@@ -171,13 +235,13 @@ export default async function ContactPage() {
             <SectionTitle
               eyebrow="Office & Main Contact"
               title="Official contact details"
-              desc="Address, phone and email information for viewers, partners, advertisers and organisations."
+              desc="Address, phone, email and social links for viewers, partners, advertisers and organisations."
             />
           </FadeIn>
 
-          <div className="grid gap-6 md:grid-cols-3">
+          <div className="grid gap-6 lg:grid-cols-4">
             <FadeIn>
-              <div className="glass-strong rounded-3xl p-7">
+              <div className="glass-strong h-full rounded-3xl p-7">
                 <Building2 className="h-8 w-8" style={{ color: "var(--gold)" }} />
 
                 <h3 className="mt-4 text-xl font-bold">Office Address</h3>
@@ -207,7 +271,7 @@ export default async function ContactPage() {
             </FadeIn>
 
             <FadeIn delay={0.08}>
-              <div className="glass-strong rounded-3xl p-7">
+              <div className="glass-strong h-full rounded-3xl p-7">
                 <Phone className="h-8 w-8" style={{ color: "var(--gold)" }} />
 
                 <h3 className="mt-4 text-xl font-bold">Phone / WhatsApp</h3>
@@ -221,7 +285,7 @@ export default async function ContactPage() {
             </FadeIn>
 
             <FadeIn delay={0.16}>
-              <div className="glass-strong rounded-3xl p-7">
+              <div className="glass-strong h-full rounded-3xl p-7">
                 <Mail className="h-8 w-8" style={{ color: "var(--gold)" }} />
 
                 <h3 className="mt-4 text-xl font-bold">Email</h3>
@@ -233,6 +297,53 @@ export default async function ContactPage() {
                 <p className="mt-3 font-semibold whitespace-nowrap text-sm md:text-base">
                   {officeDetails.email}
                 </p>
+              </div>
+            </FadeIn>
+
+            <FadeIn delay={0.24}>
+              <div className="glass-strong h-full rounded-3xl p-7">
+                <Video className="h-8 w-8" style={{ color: "var(--gold)" }} />
+
+                <h3 className="mt-4 text-xl font-bold">Follow Online</h3>
+
+                <p className="mt-3 text-sm leading-7" style={{ color: "var(--muted)" }}>
+                  Follow updates, videos, Shorts and social posts across digital platforms.
+                </p>
+
+                <div className="mt-5 grid gap-3">
+                  <a
+                    href={instagramUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="btn-secondary justify-start text-sm"
+                  >
+                    <SocialImage src="/instagram.png" alt="Instagram" />
+                    Instagram
+                    <ExternalLink className="ml-auto h-3.5 w-3.5" />
+                  </a>
+
+                  <a
+                    href={facebookUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="btn-secondary justify-start text-sm"
+                  >
+                    <SocialImage src="/facebook.png" alt="Facebook" />
+                    Facebook
+                    <ExternalLink className="ml-auto h-3.5 w-3.5" />
+                  </a>
+
+                  <a
+                    href={youtubeUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="btn-secondary justify-start text-sm"
+                  >
+                    <Video className="h-4 w-4" />
+                    YouTube
+                    <ExternalLink className="ml-auto h-3.5 w-3.5" />
+                  </a>
+                </div>
               </div>
             </FadeIn>
           </div>
