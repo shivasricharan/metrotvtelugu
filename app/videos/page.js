@@ -39,7 +39,7 @@ const fallbackLongVideos = [
 
 const fallbackShorts = [
   {
-    title: "Metro TV Telugu Short Update",
+    title: "Short Update",
     category: "Shorts",
     videoId: "KlyvXNZWDZk",
   },
@@ -86,7 +86,7 @@ export const metadata = {
 
 function normalizeVideo(item) {
   return {
-    title: item.title || "Metro TV Telugu Video",
+    title: item.title || "Video Update",
     category: item.category || "Video",
     videoId: item.youTubeID || item.youtubeId || item.videoId || "",
     videoType: item.videoType || item.type || "Long",
@@ -177,9 +177,9 @@ export default async function VideosPage() {
                   className="mt-6 text-lg leading-8"
                   style={{ color: "var(--muted)" }}
                 >
-                  Explore Metro TV Telugu video coverage across news bulletins,
-                  discussions, interviews, public voice segments, special reports,
-                  entertainment features and short-format updates.
+                  Explore video coverage across news bulletins, discussions, interviews,
+                  public voice segments, special reports, entertainment features and
+                  short-format updates.
                 </p>
 
                 <div className="mt-8 flex flex-wrap gap-4">
@@ -213,7 +213,7 @@ export default async function VideosPage() {
             <SectionTitle
               eyebrow="Long Videos"
               title="Bulletins, discussions and special video stories"
-              desc="Watch selected Metro TV Telugu long-format videos including bulletins, debates, interviews, public voice segments and special reports."
+              desc="Watch selected long-format videos including bulletins, debates, interviews, public voice segments and special reports."
             />
           </FadeIn>
 
@@ -249,7 +249,7 @@ export default async function VideosPage() {
             <SectionTitle
               eyebrow="YouTube Shorts"
               title="Short updates in a mobile-first format"
-              desc="Metro TV Telugu Shorts can be displayed like mobile screens, making the website feel current for viewers who consume quick video updates."
+              desc="Shorts can be displayed like mobile screens, making the website feel current for viewers who consume quick video updates."
             />
           </FadeIn>
 
@@ -281,7 +281,7 @@ export default async function VideosPage() {
             <SectionTitle
               eyebrow="Video Categories"
               title="Browse by format and interest"
-              desc="A structured video section makes the site useful for regular viewers and easier to update as Metro TV adds more content."
+              desc="A structured video section makes the site useful for regular viewers and easier to update as more content is added."
             />
           </FadeIn>
 
@@ -322,9 +322,9 @@ export default async function VideosPage() {
 
                 <div>
                   <p className="leading-8" style={{ color: "var(--muted)" }}>
-                    The videos page can become one of the strongest parts of the website.
-                    Long videos can showcase depth, while Shorts can keep the website fresh
-                    with regular quick updates from Metro TV Telugu’s YouTube channel.
+                    This can become one of the strongest parts of the website. Long videos
+                    bring depth, while Shorts keep the experience fresh with regular quick
+                    updates from the YouTube channel.
                   </p>
 
                   <div className="mt-8 flex flex-wrap gap-4">
@@ -360,9 +360,9 @@ export default async function VideosPage() {
 
                 <div>
                   <p className="leading-8" style={{ color: "var(--muted)" }}>
-                    Metro TV Telugu can manage long videos and Shorts from Google Sheets.
-                    The team can add YouTube IDs, choose whether a video is Long or Short,
-                    and publish or hide content without touching code.
+                    The team can manage long videos and Shorts from Google Sheets. They
+                    can add YouTube IDs, choose whether a video is Long or Short, and
+                    publish or hide content without touching code.
                   </p>
 
                   <div className="mt-8">
@@ -372,7 +372,7 @@ export default async function VideosPage() {
                       rel="noreferrer"
                       className="btn-secondary"
                     >
-                      Open Metro TV Telugu YouTube
+                      Open YouTube Channel
                       <ExternalLink className="h-4 w-4" />
                     </a>
                   </div>
