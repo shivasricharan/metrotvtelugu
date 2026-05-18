@@ -4,7 +4,7 @@ import {
   Mail,
   Phone,
   MapPin,
-  Youtube,
+  Video,
   Smartphone,
   Apple,
   ExternalLink,
@@ -85,17 +85,26 @@ export default async function Footer() {
 
             <div className="mt-6 grid gap-3 text-sm" style={{ color: "var(--muted)" }}>
               <div className="flex items-start gap-3">
-                <Phone className="mt-0.5 h-4 w-4 shrink-0" style={{ color: "var(--gold)" }} />
+                <Phone
+                  className="mt-0.5 h-4 w-4 shrink-0"
+                  style={{ color: "var(--gold)" }}
+                />
                 <span>{phone}</span>
               </div>
 
               <div className="flex items-start gap-3">
-                <Mail className="mt-0.5 h-4 w-4 shrink-0" style={{ color: "var(--gold)" }} />
-                <span className="wrap-break-words">{email}</span>
+                <Mail
+                  className="mt-0.5 h-4 w-4 shrink-0"
+                  style={{ color: "var(--gold)" }}
+                />
+                <span className="wrap-break-word">{email}</span>
               </div>
 
               <div className="flex items-start gap-3">
-                <MapPin className="mt-0.5 h-4 w-4 shrink-0" style={{ color: "var(--gold)" }} />
+                <MapPin
+                  className="mt-0.5 h-4 w-4 shrink-0"
+                  style={{ color: "var(--gold)" }}
+                />
                 <span className="leading-6">{address}</span>
               </div>
             </div>
@@ -122,7 +131,7 @@ export default async function Footer() {
                 rel="noreferrer"
                 className="inline-flex items-center gap-2"
               >
-                <Youtube className="h-4 w-4" style={{ color: "var(--gold)" }} />
+                <Video className="h-4 w-4" style={{ color: "var(--gold)" }} />
                 YouTube Channel
                 <ExternalLink className="h-3.5 w-3.5" />
               </a>
