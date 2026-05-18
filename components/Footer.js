@@ -15,6 +15,8 @@ const fallbackSettings = {
   youtubechannelurl: "https://youtube.com/@metrotvtelugunews?si=Ma595RbHnX0Rn_yw",
   googleplayurl: "https://play.google.com/store/apps/details?id=com.ht.metro_tv",
   appstoreurl: "https://apps.apple.com/in/app/metro-tv-telugu/id6756271666",
+  instagramurl: "https://www.instagram.com/metrotv_telugu?igsh=MXoyNXY0YmY1YXZm",
+  facebookurl: "https://www.facebook.com/share/1DipSWBgGs/?mibextid=wwXIfr",
   mainphone: "+91 40-40159550",
   mainemail: "admin@metrotvtelugu.com",
   officeaddress:
@@ -23,6 +25,38 @@ const fallbackSettings = {
 
 function getSetting(settings, key, fallback) {
   return settings?.[key] || fallback;
+}
+
+function InstagramIcon({ className = "h-4 w-4" }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+      className={className}
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <rect x="3" y="3" width="18" height="18" rx="5" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
+function FacebookIcon({ className = "h-4 w-4" }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+      className={className}
+      fill="currentColor"
+    >
+      <path d="M14.2 8.2V6.7c0-.7.4-1.1 1.2-1.1h1.7V2.8c-.8-.1-1.7-.2-2.5-.2-2.6 0-4.4 1.6-4.4 4.5v1.1H7.4v3.2h2.8v8h3.4v-8h2.8l.5-3.2h-3.7Z" />
+    </svg>
+  );
 }
 
 export default async function Footer() {
@@ -45,6 +79,18 @@ export default async function Footer() {
     settings,
     "appstoreurl",
     fallbackSettings.appstoreurl
+  );
+
+  const instagramUrl = getSetting(
+    settings,
+    "instagramurl",
+    fallbackSettings.instagramurl
+  );
+
+  const facebookUrl = getSetting(
+    settings,
+    "facebookurl",
+    fallbackSettings.facebookurl
   );
 
   const phone = getSetting(settings, "mainphone", fallbackSettings.mainphone);
@@ -81,6 +127,41 @@ export default async function Footer() {
               Regional news, public-interest stories, shows, videos, Shorts, app access
               and digital media opportunities for today’s Telugu-speaking audience.
             </p>
+
+            <div className="mt-5 flex flex-wrap gap-3">
+              <a
+                href={instagramUrl}
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Open Instagram"
+                className="theme-toggle inline-flex h-10 w-10 items-center justify-center p-0"
+                title="Instagram"
+              >
+                <InstagramIcon />
+              </a>
+
+              <a
+                href={facebookUrl}
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Open Facebook"
+                className="theme-toggle inline-flex h-10 w-10 items-center justify-center p-0"
+                title="Facebook"
+              >
+                <FacebookIcon />
+              </a>
+
+              <a
+                href={youtubeUrl}
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Open YouTube"
+                className="theme-toggle inline-flex h-10 w-10 items-center justify-center p-0"
+                title="YouTube"
+              >
+                <Video className="h-4 w-4" />
+              </a>
+            </div>
 
             <div className="mt-6 grid gap-3 text-sm" style={{ color: "var(--muted)" }}>
               <div className="flex items-start gap-3">
@@ -124,6 +205,28 @@ export default async function Footer() {
           <div>
             <h3 className="text-lg font-semibold">Digital Access</h3>
             <div className="mt-4 grid gap-3 text-sm" style={{ color: "var(--muted)" }}>
+              <a
+                href={instagramUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2"
+              >
+                <InstagramIcon />
+                Instagram
+                <ExternalLink className="h-3.5 w-3.5" />
+              </a>
+
+              <a
+                href={facebookUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2"
+              >
+                <FacebookIcon />
+                Facebook
+                <ExternalLink className="h-3.5 w-3.5" />
+              </a>
+
               <a
                 href={youtubeUrl}
                 target="_blank"
