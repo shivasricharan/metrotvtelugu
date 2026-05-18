@@ -44,10 +44,31 @@ export async function POST(request) {
 
     const text = await response.text();
 
+    let googleResponse = null;
+
+    try {
+      googleResponse = JSON.parse(text);
+    } catch {
+      googleResponse = { raw: text };
+    }
+
+    if (!response.ok || googleResponse?.success === false) {
+      return Response.json(
+        {
+          success: false,
+          message:
+            googleResponse?.message ||
+            "Unable to save enquiry to Google Sheets",
+          googleResponse,
+        },
+        { status: 500 }
+      );
+    }
+
     return Response.json({
       success: true,
       message: "Enquiry submitted successfully",
-      googleResponse: text,
+      googleResponse,
     });
   } catch (error) {
     return Response.json(
