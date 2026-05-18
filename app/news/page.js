@@ -80,12 +80,12 @@ export const metadata = {
 
 function normalizeNews(item) {
   return {
-    title: item.title || "Metro TV Telugu News Update",
+    title: item.title || "News Update",
     category: item.category || "News",
     excerpt:
       item.excerpt ||
       item.description ||
-      "Latest update from Metro TV Telugu.",
+      "Latest update from the newsroom.",
     date: item.date || "",
   };
 }
@@ -192,9 +192,9 @@ export default async function NewsPage() {
                   </h2>
 
                   <p className="mt-5 leading-8" style={{ color: "var(--muted)" }}>
-                    Metro TV Telugu can update news titles, categories, excerpts and
-                    publishing status from Google Sheets. Rows marked as Published will
-                    appear on the website automatically.
+                    The team can update news titles, categories, excerpts and publishing
+                    status from Google Sheets. Rows marked as Published will appear on the
+                    website automatically.
                   </p>
 
                   <div className="mt-8">
