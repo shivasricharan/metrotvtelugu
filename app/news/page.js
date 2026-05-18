@@ -1,27 +1,41 @@
 import Link from "next/link";
-import { ArrowRight, Newspaper, MapPin, Landmark, Film, Briefcase, Globe2 } from "lucide-react";
+import {
+  ArrowRight,
+  Newspaper,
+  MapPin,
+  Landmark,
+  Film,
+  Briefcase,
+  Globe2,
+} from "lucide-react";
 import FadeIn from "../../components/FadeIn";
 import SectionTitle from "../../components/SectionTitle";
 import NewsCard from "../../components/NewsCard";
+import { getMetroCmsData } from "../../lib/metroCms";
 
-const featuredStories = [
+export const dynamic = "force-dynamic";
+
+const fallbackStories = [
   {
     category: "Top Story",
     title: "Public issues, regional developments and stories that shape the day",
     excerpt:
       "Follow important updates, civic conversations and people-first stories from across Telugu-speaking communities.",
+    date: "2026-05-18",
   },
   {
     category: "Telangana",
     title: "State updates, civic issues and local developments from Telangana",
     excerpt:
       "Coverage focused on governance, public services, city updates, community issues and regional voices.",
+    date: "2026-05-18",
   },
   {
     category: "Andhra Pradesh",
     title: "Important stories and regional developments from Andhra Pradesh",
     excerpt:
       "Updates across politics, society, public issues, development, community stories and local conversations.",
+    date: "2026-05-18",
   },
 ];
 
@@ -58,32 +72,35 @@ const categories = [
   },
 ];
 
-const latestUpdates = [
-  {
-    tag: "Regional",
-    title: "Civic issues and public-interest stories from local communities",
-  },
-  {
-    tag: "Video",
-    title: "Featured discussions, interviews and video reports from Metro TV Telugu",
-  },
-  {
-    tag: "Business",
-    title: "Local business, economy and advertiser-led opportunities",
-  },
-  {
-    tag: "Entertainment",
-    title: "Cinema, culture and people stories for digital audiences",
-  },
-];
-
 export const metadata = {
   title: "News | Metro TV Telugu",
   description:
     "Latest news, regional updates, Telangana, Andhra Pradesh, national affairs, business and entertainment stories from Metro TV Telugu.",
 };
 
-export default function NewsPage() {
+function normalizeNews(item) {
+  return {
+    title: item.title || "Metro TV Telugu News Update",
+    category: item.category || "News",
+    excerpt:
+      item.excerpt ||
+      item.description ||
+      "Latest update from Metro TV Telugu.",
+    date: item.date || "",
+  };
+}
+
+export default async function NewsPage() {
+  const cmsNews = await getMetroCmsData("news");
+
+  const stories =
+    Array.isArray(cmsNews) && cmsNews.length > 0
+      ? cmsNews.map(normalizeNews)
+      : fallbackStories;
+
+  const featuredStories = stories.slice(0, 6);
+  const latestUpdates = stories.slice(0, 4);
+
   return (
     <>
       <section className="section-space">
@@ -114,13 +131,13 @@ export default function NewsPage() {
             <SectionTitle
               eyebrow="Featured Coverage"
               title="Stories that matter today"
-              desc="Important updates and editorial sections can be highlighted here for quick discovery."
+              desc="Important updates and editorial sections can be updated directly from the Google Sheets CMS."
             />
           </FadeIn>
 
           <div className="grid gap-6 md:grid-cols-3">
             {featuredStories.map((item, index) => (
-              <FadeIn key={item.title} delay={index * 0.08}>
+              <FadeIn key={`${item.title}-${index}`} delay={index * 0.08}>
                 <NewsCard
                   category={item.category}
                   title={item.title}
@@ -175,9 +192,9 @@ export default function NewsPage() {
                   </h2>
 
                   <p className="mt-5 leading-8" style={{ color: "var(--muted)" }}>
-                    This section can later be connected to a CMS or content workflow.
-                    For the first launch, selected stories and video links can be updated
-                    manually while the website remains clean, fast and professional.
+                    Metro TV Telugu can update news titles, categories, excerpts and
+                    publishing status from Google Sheets. Rows marked as Published will
+                    appear on the website automatically.
                   </p>
 
                   <div className="mt-8">
@@ -189,12 +206,25 @@ export default function NewsPage() {
                 </div>
 
                 <div className="grid gap-4">
-                  {latestUpdates.map((item) => (
-                    <div key={item.title} className="glass rounded-3xl p-5">
-                      <div className="text-xs font-bold uppercase tracking-[0.18em]" style={{ color: "var(--gold)" }}>
-                        {item.tag}
+                  {latestUpdates.map((item, index) => (
+                    <div key={`${item.title}-${index}`} className="glass rounded-3xl p-5">
+                      <div
+                        className="text-xs font-bold uppercase tracking-[0.18em]"
+                        style={{ color: "var(--gold)" }}
+                      >
+                        {item.category}
                       </div>
+
                       <h3 className="mt-3 text-lg font-semibold">{item.title}</h3>
+
+                      {item.date ? (
+                        <p
+                          className="mt-2 text-sm leading-7"
+                          style={{ color: "var(--muted)" }}
+                        >
+                          {item.date}
+                        </p>
+                      ) : null}
                     </div>
                   ))}
                 </div>
