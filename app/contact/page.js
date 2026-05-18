@@ -32,7 +32,7 @@ const fallbackKeyContacts = [
     role: "Managing Director",
     phone: "+91 9490235700",
     email: "rakesh@metrotvtelugu.com",
-    desc: "Leadership and overall business direction for Metro TV Telugu.",
+    desc: "Leadership and overall business direction.",
   },
   {
     name: "Mr. Kondaveeti Jayaprasad",
@@ -87,13 +87,11 @@ export const metadata = {
 };
 
 function buildOfficeDetails(settings = {}) {
-  const fullAddress =
-    settings.officeaddress || settings.officeAddress || "";
+  const fullAddress = settings.officeaddress || settings.officeAddress || "";
 
   return {
     addressLine1: "Metro TV Telugu",
-    addressLine2:
-      fullAddress || fallbackOfficeDetails.addressLine2,
+    addressLine2: fullAddress || fallbackOfficeDetails.addressLine2,
     cityState: fullAddress ? "" : fallbackOfficeDetails.cityState,
     country: fullAddress ? "" : fallbackOfficeDetails.country,
     phone:
@@ -109,14 +107,14 @@ function buildOfficeDetails(settings = {}) {
 
 function normalizeContact(contact) {
   return {
-    name: contact.name || "Metro TV Telugu",
+    name: contact.name || "Team Member",
     role: contact.role || "Team",
     phone: contact.phone || "",
     email: contact.email || "",
     desc:
       contact.description ||
       contact.desc ||
-      "Official contact for Metro TV Telugu communication.",
+      "Official contact for communication and coordination.",
   };
 }
 
@@ -147,9 +145,9 @@ export default async function ContactPage() {
                 </h1>
 
                 <p className="mt-6 text-lg leading-8" style={{ color: "var(--muted)" }}>
-                  Reach out to Metro TV Telugu for news communication, editorial
-                  coordination, advertising opportunities, sponsored content, event
-                  coverage, partnerships and business enquiries.
+                  Reach out for news communication, editorial coordination, advertising
+                  opportunities, sponsored content, event coverage, partnerships and
+                  business enquiries.
                 </p>
 
                 <div className="mt-8 flex flex-wrap gap-4">
@@ -172,8 +170,8 @@ export default async function ContactPage() {
           <FadeIn>
             <SectionTitle
               eyebrow="Office & Main Contact"
-              title="Metro TV Telugu contact details"
-              desc="Official address and general contact information for Metro TV Telugu."
+              title="Official contact details"
+              desc="Address, phone and email information for viewers, partners, advertisers and organisations."
             />
           </FadeIn>
 
@@ -185,7 +183,7 @@ export default async function ContactPage() {
                 <h3 className="mt-4 text-xl font-bold">Office Address</h3>
 
                 <p className="mt-3 text-sm leading-7" style={{ color: "var(--muted)" }}>
-                  Visit or contact Metro TV Telugu at the official office address.
+                  Visit or contact the team at the official office address.
                 </p>
 
                 <p className="mt-3 font-semibold leading-7">
@@ -229,7 +227,7 @@ export default async function ContactPage() {
                 <h3 className="mt-4 text-xl font-bold">Email</h3>
 
                 <p className="mt-3 text-sm leading-7" style={{ color: "var(--muted)" }}>
-                  Official email ID for Metro TV Telugu communication.
+                  Official email ID for communication and coordination.
                 </p>
 
                 <p className="mt-3 font-semibold whitespace-nowrap text-sm md:text-base">
@@ -246,7 +244,7 @@ export default async function ContactPage() {
           <FadeIn>
             <SectionTitle
               eyebrow="Key Contacts"
-              title="Metro TV Telugu leadership contacts"
+              title="Leadership and editorial contacts"
               desc="Connect with the official leadership and editorial team for organisational, business, editorial and partnership communication."
               center={true}
             />
@@ -327,10 +325,9 @@ export default async function ContactPage() {
                 </h2>
 
                 <p className="mt-5 leading-8" style={{ color: "var(--muted)" }}>
-                  Metro TV Telugu receives communication across multiple areas including
-                  news inputs, editorial coordination, advertising, partnerships, event
-                  coverage and business enquiries. The contact page gives viewers,
-                  advertisers, partners and organisations a clear way to connect.
+                  The contact page supports communication across news inputs, editorial
+                  coordination, advertising, partnerships, event coverage and business
+                  enquiries.
                 </p>
 
                 <div className="mt-8 grid gap-4">
@@ -369,7 +366,7 @@ export default async function ContactPage() {
           <FadeIn>
             <SectionTitle
               eyebrow="Enquiry Types"
-              title="How Metro TV Telugu can help"
+              title="How the team can help"
               desc="The contact page supports editorial, advertising, event, partnership and business conversations."
               center={true}
             />
