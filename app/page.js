@@ -16,9 +16,12 @@ import FadeIn from "../components/FadeIn";
 import SectionTitle from "../components/SectionTitle";
 import VideoCard from "../components/VideoCard";
 import NewsCard from "../components/NewsCard";
-import { tickerItems } from "../lib/tickerData";
+import { fallbackTickerItems } from "../lib/tickerData";
+import { getMetroCmsData } from "../lib/metroCms";
 
-const appLinks = {
+export const dynamic = "force-dynamic";
+
+const fallbackAppLinks = {
   playStore: "https://play.google.com/store/apps/details?id=com.ht.metro_tv",
   appStore: "https://apps.apple.com/in/app/metro-tv-telugu/id6756271666",
   youtube: "https://youtube.com/@metrotvtelugunews?si=Ma595RbHnX0Rn_yw",
@@ -105,7 +108,27 @@ const businessBlocks = [
   },
 ];
 
-export default function HomePage() {
+export default async function HomePage() {
+  const cmsData = await getMetroCmsData("all");
+
+  const settings = cmsData?.settings || {};
+
+  const cmsTickerItems = Array.isArray(cmsData?.ticker)
+    ? cmsData.ticker.map((item) => item.text).filter(Boolean)
+    : [];
+
+  const tickerItems =
+    cmsTickerItems.length > 0 ? cmsTickerItems : fallbackTickerItems;
+
+  const appLinks = {
+    playStore: settings.googleplayurl || fallbackAppLinks.playStore,
+    appStore: settings.appstoreurl || fallbackAppLinks.appStore,
+    youtube: settings.youtubechannelurl || fallbackAppLinks.youtube,
+  };
+
+  const homepageFeaturedVideoId =
+    settings.homepagefeaturedvideoid || "qw1c13nI-AM";
+
   return (
     <>
       <section className="border-b" style={{ borderColor: "var(--border)" }}>
@@ -211,7 +234,7 @@ export default function HomePage() {
 
                   <div className="embed-wrap">
                     <iframe
-                      src="https://www.youtube.com/embed/qw1c13nI-AM"
+                      src={`https://www.youtube.com/embed/${homepageFeaturedVideoId}`}
                       title="Metro TV Telugu Featured Video"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
