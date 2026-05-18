@@ -12,11 +12,14 @@ import {
 import FadeIn from "../../components/FadeIn";
 import SectionTitle from "../../components/SectionTitle";
 import VideoCard from "../../components/VideoCard";
+import { getMetroCmsData } from "../../lib/metroCms";
 
-const youtubeChannel =
+export const dynamic = "force-dynamic";
+
+const fallbackYoutubeChannel =
   "https://youtube.com/@metrotvtelugunews?si=Ma595RbHnX0Rn_yw";
 
-const longVideos = [
+const fallbackLongVideos = [
   {
     title: "Breaking Bulletin: Top updates of the day",
     category: "News",
@@ -32,24 +35,9 @@ const longVideos = [
     category: "Entertainment",
     videoId: "92DsruOUAD0",
   },
-  {
-    title: "On Ground Reactions: What people are saying",
-    category: "Public Voice",
-    videoId: "ma0ZPMJg5B4",
-  },
-  {
-    title: "Issue Focus: A deeper look at the story behind the headlines",
-    category: "Special Report",
-    videoId: "fXBpB0-NFk4",
-  },
-  {
-    title: "Top moments, big stories and standout segments of the week",
-    category: "Weekend Highlights",
-    videoId: "XdwVUXcL_Fs",
-  },
 ];
 
-const shorts = [
+const fallbackShorts = [
   {
     title: "Metro TV Telugu Short Update",
     category: "Shorts",
@@ -64,21 +52,6 @@ const shorts = [
     title: "Breaking News Short",
     category: "News",
     videoId: "92DsruOUAD0",
-  },
-  {
-    title: "Cinema Short Update",
-    category: "Entertainment",
-    videoId: "ma0ZPMJg5B4",
-  },
-  {
-    title: "Political Short Clip",
-    category: "Politics",
-    videoId: "fXBpB0-NFk4",
-  },
-  {
-    title: "Weekend Highlight Short",
-    category: "Highlights",
-    videoId: "XdwVUXcL_Fs",
   },
 ];
 
@@ -111,6 +84,18 @@ export const metadata = {
     "Watch Metro TV Telugu long videos, bulletins, discussions, interviews, public voice segments, entertainment coverage and YouTube Shorts.",
 };
 
+function normalizeVideo(item) {
+  return {
+    title: item.title || "Metro TV Telugu Video",
+    category: item.category || "Video",
+    videoId: item.youTubeID || item.youtubeId || item.videoId || "",
+    videoType: item.videoType || item.type || "Long",
+    description: item.description || "",
+    publishedDate: item.publishedDate || "",
+    featured: item.featured || "",
+  };
+}
+
 function ShortCard({ short }) {
   return (
     <div className="glass-strong card-hover rounded-4xl p-4">
@@ -141,12 +126,40 @@ function ShortCard({ short }) {
         </p>
 
         <h3 className="mt-3 text-lg font-semibold leading-snug">{short.title}</h3>
+
+        {short.description ? (
+          <p className="mt-2 text-sm leading-7" style={{ color: "var(--muted)" }}>
+            {short.description}
+          </p>
+        ) : null}
       </div>
     </div>
   );
 }
 
-export default function VideosPage() {
+export default async function VideosPage() {
+  const cmsData = await getMetroCmsData("all");
+
+  const settings = cmsData?.settings || {};
+  const cmsVideos = Array.isArray(cmsData?.videos) ? cmsData.videos : [];
+
+  const youtubeChannel = settings.youtubechannelurl || fallbackYoutubeChannel;
+
+  const normalizedVideos = cmsVideos
+    .map(normalizeVideo)
+    .filter((video) => video.videoId);
+
+  const cmsLongVideos = normalizedVideos.filter(
+    (video) => String(video.videoType).toLowerCase() === "long"
+  );
+
+  const cmsShorts = normalizedVideos.filter(
+    (video) => String(video.videoType).toLowerCase() === "short"
+  );
+
+  const longVideos = cmsLongVideos.length > 0 ? cmsLongVideos : fallbackLongVideos;
+  const shorts = cmsShorts.length > 0 ? cmsShorts : fallbackShorts;
+
   return (
     <>
       <section className="section-space">
@@ -206,7 +219,7 @@ export default function VideosPage() {
 
           <div className="grid gap-6 md:grid-cols-3">
             {longVideos.map((video, index) => (
-              <FadeIn key={video.title} delay={index * 0.08}>
+              <FadeIn key={`${video.videoId}-${index}`} delay={index * 0.08}>
                 <VideoCard
                   title={video.title}
                   category={video.category}
@@ -242,7 +255,7 @@ export default function VideosPage() {
 
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {shorts.map((short, index) => (
-              <FadeIn key={short.title} delay={index * 0.08}>
+              <FadeIn key={`${short.videoId}-${index}`} delay={index * 0.08}>
                 <ShortCard short={short} />
               </FadeIn>
             ))}
@@ -341,16 +354,15 @@ export default function VideosPage() {
                     style={{ color: "var(--gold)" }}
                   />
                   <h2 className="mt-5 text-3xl font-black leading-tight md:text-5xl">
-                    Long videos and Shorts can be managed from the CMS
+                    Long videos and Shorts can be managed from Google Sheets
                   </h2>
                 </div>
 
                 <div>
                   <p className="leading-8" style={{ color: "var(--muted)" }}>
-                    In the full CMS setup, Metro TV Telugu can manage long videos and
-                    Shorts from Google Sheets. The team can add YouTube IDs, choose
-                    whether a video is Long or Short, and publish or hide content without
-                    touching code.
+                    Metro TV Telugu can manage long videos and Shorts from Google Sheets.
+                    The team can add YouTube IDs, choose whether a video is Long or Short,
+                    and publish or hide content without touching code.
                   </p>
 
                   <div className="mt-8">
