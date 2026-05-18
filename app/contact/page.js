@@ -208,9 +208,10 @@ export default async function ContactPage() {
                     target="_blank"
                     rel="noreferrer"
                     className="btn-secondary"
+                    aria-label="Open Instagram"
+                    title="Instagram"
                   >
                     <SocialImage src="/instagram.png" alt="Instagram" />
-                    Instagram
                   </a>
 
                   <a
@@ -218,9 +219,10 @@ export default async function ContactPage() {
                     target="_blank"
                     rel="noreferrer"
                     className="btn-secondary"
+                    aria-label="Open Facebook"
+                    title="Facebook"
                   >
                     <SocialImage src="/facebook.png" alt="Facebook" />
-                    Facebook
                   </a>
                 </div>
               </div>
@@ -310,38 +312,38 @@ export default async function ContactPage() {
                   Follow updates, videos, Shorts and social posts across digital platforms.
                 </p>
 
-                <div className="mt-5 grid gap-3">
+                <div className="mt-5 flex flex-wrap gap-3">
                   <a
                     href={instagramUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="btn-secondary justify-start text-sm"
+                    className="theme-toggle inline-flex h-11 w-11 items-center justify-center p-0"
+                    aria-label="Open Instagram"
+                    title="Instagram"
                   >
                     <SocialImage src="/instagram.png" alt="Instagram" />
-                    Instagram
-                    <ExternalLink className="ml-auto h-3.5 w-3.5" />
                   </a>
 
                   <a
                     href={facebookUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="btn-secondary justify-start text-sm"
+                    className="theme-toggle inline-flex h-11 w-11 items-center justify-center p-0"
+                    aria-label="Open Facebook"
+                    title="Facebook"
                   >
                     <SocialImage src="/facebook.png" alt="Facebook" />
-                    Facebook
-                    <ExternalLink className="ml-auto h-3.5 w-3.5" />
                   </a>
 
                   <a
                     href={youtubeUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="btn-secondary justify-start text-sm"
+                    className="theme-toggle inline-flex h-11 w-11 items-center justify-center p-0"
+                    aria-label="Open YouTube"
+                    title="YouTube"
                   >
-                    <Video className="h-4 w-4" />
-                    YouTube
-                    <ExternalLink className="ml-auto h-3.5 w-3.5" />
+                    <Video className="h-4 w-4" style={{ color: "var(--gold)" }} />
                   </a>
                 </div>
               </div>
