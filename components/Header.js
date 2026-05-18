@@ -29,13 +29,16 @@ const links = [
   { href: "/contact", label: "Contact" },
 ];
 
-function SocialBadge({ label }) {
+function SocialIcon({ src, alt }) {
   return (
-    <span
-      className="text-xs font-black tracking-[0.12em]"
-      style={{ color: "var(--gold)" }}
-    >
-      {label}
+    <span className="relative inline-flex h-5 w-5 items-center justify-center">
+      <Image
+        src={src}
+        alt={alt}
+        width={20}
+        height={20}
+        className="object-contain"
+      />
     </span>
   );
 }
@@ -121,7 +124,7 @@ export default function Header() {
               className="theme-toggle inline-flex h-10 w-10 items-center justify-center p-0"
               title="Instagram"
             >
-              <SocialBadge label="IG" />
+              <SocialIcon src="/instagram.png" alt="Instagram" />
             </a>
 
             <a
@@ -132,7 +135,7 @@ export default function Header() {
               className="theme-toggle inline-flex h-10 w-10 items-center justify-center p-0"
               title="Facebook"
             >
-              <SocialBadge label="FB" />
+              <SocialIcon src="/facebook.png" alt="Facebook" />
             </a>
           </div>
 
@@ -241,7 +244,7 @@ export default function Header() {
                   onClick={() => setOpen(false)}
                   className="btn-secondary text-sm"
                 >
-                  <SocialBadge label="IG" />
+                  <SocialIcon src="/instagram.png" alt="Instagram" />
                   Instagram
                 </a>
 
@@ -252,7 +255,7 @@ export default function Header() {
                   onClick={() => setOpen(false)}
                   className="btn-secondary text-sm"
                 >
-                  <SocialBadge label="FB" />
+                  <SocialIcon src="/facebook.png" alt="Facebook" />
                   Facebook
                 </a>
               </div>
