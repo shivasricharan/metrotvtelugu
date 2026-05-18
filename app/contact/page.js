@@ -13,8 +13,11 @@ import {
 import FadeIn from "../../components/FadeIn";
 import SectionTitle from "../../components/SectionTitle";
 import ContactForm from "../../components/ContactForm";
+import { getMetroCmsData } from "../../lib/metroCms";
 
-const officeDetails = {
+export const dynamic = "force-dynamic";
+
+const fallbackOfficeDetails = {
   addressLine1: "Metro TV Telugu",
   addressLine2: "603, Above Axis Bank, Maruthi Plaza, Khairathabad",
   cityState: "Hyderabad - 500004, Telangana",
@@ -23,7 +26,7 @@ const officeDetails = {
   email: "admin@metrotvtelugu.com",
 };
 
-const keyContacts = [
+const fallbackKeyContacts = [
   {
     name: "Mr. Rakesh Dasari",
     role: "Managing Director",
@@ -83,7 +86,53 @@ export const metadata = {
     "Contact Metro TV Telugu for advertising, partnerships, news coverage, video promotions, events and business enquiries.",
 };
 
-export default function ContactPage() {
+function buildOfficeDetails(settings = {}) {
+  const fullAddress =
+    settings.officeaddress || settings.officeAddress || "";
+
+  return {
+    addressLine1: "Metro TV Telugu",
+    addressLine2:
+      fullAddress || fallbackOfficeDetails.addressLine2,
+    cityState: fullAddress ? "" : fallbackOfficeDetails.cityState,
+    country: fullAddress ? "" : fallbackOfficeDetails.country,
+    phone:
+      settings.mainphone ||
+      settings.mainPhone ||
+      fallbackOfficeDetails.phone,
+    email:
+      settings.mainemail ||
+      settings.mainEmail ||
+      fallbackOfficeDetails.email,
+  };
+}
+
+function normalizeContact(contact) {
+  return {
+    name: contact.name || "Metro TV Telugu",
+    role: contact.role || "Team",
+    phone: contact.phone || "",
+    email: contact.email || "",
+    desc:
+      contact.description ||
+      contact.desc ||
+      "Official contact for Metro TV Telugu communication.",
+  };
+}
+
+export default async function ContactPage() {
+  const cmsData = await getMetroCmsData("all");
+
+  const settings = cmsData?.settings || {};
+  const cmsContacts = Array.isArray(cmsData?.contacts) ? cmsData.contacts : [];
+
+  const officeDetails = buildOfficeDetails(settings);
+
+  const keyContacts =
+    cmsContacts.length > 0
+      ? cmsContacts.map(normalizeContact)
+      : fallbackKeyContacts;
+
   return (
     <>
       <section className="section-space">
@@ -143,10 +192,18 @@ export default function ContactPage() {
                   {officeDetails.addressLine1}
                   <br />
                   {officeDetails.addressLine2}
-                  <br />
-                  {officeDetails.cityState}
-                  <br />
-                  {officeDetails.country}
+                  {officeDetails.cityState ? (
+                    <>
+                      <br />
+                      {officeDetails.cityState}
+                    </>
+                  ) : null}
+                  {officeDetails.country ? (
+                    <>
+                      <br />
+                      {officeDetails.country}
+                    </>
+                  ) : null}
                 </p>
               </div>
             </FadeIn>
@@ -197,7 +254,7 @@ export default function ContactPage() {
 
           <div className="grid gap-6 md:grid-cols-2">
             {keyContacts.map((contact, index) => (
-              <FadeIn key={contact.role} delay={index * 0.08}>
+              <FadeIn key={`${contact.role}-${contact.email}-${index}`} delay={index * 0.08}>
                 <div className="glass-strong card-hover rounded-3xl p-7">
                   <UserRound className="h-8 w-8" style={{ color: "var(--gold)" }} />
 
@@ -217,23 +274,27 @@ export default function ContactPage() {
                   </p>
 
                   <div className="mt-5 grid gap-3 text-sm">
-                    <div className="flex items-start gap-2">
-                      <Phone
-                        className="mt-0.5 h-4 w-4 shrink-0"
-                        style={{ color: "var(--gold)" }}
-                      />
-                      <span className="leading-6">{contact.phone}</span>
-                    </div>
+                    {contact.phone ? (
+                      <div className="flex items-start gap-2">
+                        <Phone
+                          className="mt-0.5 h-4 w-4 shrink-0"
+                          style={{ color: "var(--gold)" }}
+                        />
+                        <span className="leading-6">{contact.phone}</span>
+                      </div>
+                    ) : null}
 
-                    <div className="flex min-w-0 items-start gap-2">
-                      <Mail
-                        className="mt-0.5 h-4 w-4 shrink-0"
-                        style={{ color: "var(--gold)" }}
-                      />
-                      <span className="min-w-0 whitespace-nowrap text-[13px] leading-6 md:text-sm">
-                        {contact.email}
-                      </span>
-                    </div>
+                    {contact.email ? (
+                      <div className="flex min-w-0 items-start gap-2">
+                        <Mail
+                          className="mt-0.5 h-4 w-4 shrink-0"
+                          style={{ color: "var(--gold)" }}
+                        />
+                        <span className="min-w-0 whitespace-nowrap text-[13px] leading-6 md:text-sm">
+                          {contact.email}
+                        </span>
+                      </div>
+                    ) : null}
                   </div>
                 </div>
               </FadeIn>
