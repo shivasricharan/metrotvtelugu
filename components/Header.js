@@ -13,6 +13,12 @@ const playStoreLink =
 const appStoreLink =
   "https://apps.apple.com/in/app/metro-tv-telugu/id6756271666";
 
+const instagramLink =
+  "https://www.instagram.com/metrotv_telugu?igsh=MXoyNXY0YmY1YXZm";
+
+const facebookLink =
+  "https://www.facebook.com/share/1DipSWBgGs/?mibextid=wwXIfr";
+
 const links = [
   { href: "/", label: "Home" },
   { href: "/news", label: "News" },
@@ -22,6 +28,38 @@ const links = [
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];
+
+function InstagramIcon({ className = "h-4 w-4" }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+      className={className}
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <rect x="3" y="3" width="18" height="18" rx="5" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
+function FacebookIcon({ className = "h-4 w-4" }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+      className={className}
+      fill="currentColor"
+    >
+      <path d="M14.2 8.2V6.7c0-.7.4-1.1 1.2-1.1h1.7V2.8c-.8-.1-1.7-.2-2.5-.2-2.6 0-4.4 1.6-4.4 4.5v1.1H7.4v3.2h2.8v8h3.4v-8h2.8l.5-3.2h-3.7Z" />
+    </svg>
+  );
+}
 
 export default function Header() {
   const pathname = usePathname();
@@ -95,6 +133,30 @@ export default function Header() {
         </nav>
 
         <div className="hidden xl:flex items-center gap-3">
+          <div className="flex items-center gap-2">
+            <a
+              href={instagramLink}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Open Instagram"
+              className="theme-toggle inline-flex h-10 w-10 items-center justify-center p-0"
+              title="Instagram"
+            >
+              <InstagramIcon />
+            </a>
+
+            <a
+              href={facebookLink}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Open Facebook"
+              className="theme-toggle inline-flex h-10 w-10 items-center justify-center p-0"
+              title="Facebook"
+            >
+              <FacebookIcon />
+            </a>
+          </div>
+
           <ThemeToggle />
 
           <div className="relative">
@@ -183,6 +245,36 @@ export default function Header() {
                 </Link>
               );
             })}
+
+            <div className="mt-3 rounded-3xl border p-4" style={{ borderColor: "var(--border)" }}>
+              <div className="mb-3 text-sm font-semibold">
+                Follow Metro TV Telugu
+              </div>
+
+              <div className="grid gap-3 sm:grid-cols-2">
+                <a
+                  href={instagramLink}
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={() => setOpen(false)}
+                  className="btn-secondary text-sm"
+                >
+                  <InstagramIcon />
+                  Instagram
+                </a>
+
+                <a
+                  href={facebookLink}
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={() => setOpen(false)}
+                  className="btn-secondary text-sm"
+                >
+                  <FacebookIcon />
+                  Facebook
+                </a>
+              </div>
+            </div>
 
             <div className="mt-3 rounded-3xl border p-4" style={{ borderColor: "var(--border)" }}>
               <div className="mb-3 flex items-center gap-2 text-sm font-semibold">
