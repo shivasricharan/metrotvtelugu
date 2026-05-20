@@ -12,15 +12,22 @@ const appStoreLink  = "https://apps.apple.com/in/app/metro-tv-telugu/id675627166
 const instagramLink = "https://www.instagram.com/metrotv_telugu?igsh=MXoyNXY0YmY1YXZm";
 const facebookLink  = "https://www.facebook.com/share/1DipSWBgGs/?mibextid=wwXIfr";
 
-/* News removed per client decision — channel is live on Jio TV & YouTube */
+/* News removed — channel is live on Jio TV & YouTube */
 const links = [
-  { href: "/",         label: "Home"      },
-  { href: "/videos",   label: "Videos"    },
-  { href: "/shows",    label: "Shows"     },
-  { href: "/advertise",label: "Advertise" },
-  { href: "/about",    label: "About"     },
-  { href: "/contact",  label: "Contact"   },
+  { href: "/",          label: "Home"      },
+  { href: "/videos",    label: "Videos"    },
+  { href: "/shows",     label: "Shows"     },
+  { href: "/advertise", label: "Advertise" },
+  { href: "/about",     label: "About"     },
+  { href: "/contact",   label: "Contact"   },
 ];
+
+/* NAV IS ALWAYS DARK — all colours hardcoded white, never var(--text) */
+const NAV_TEXT         = "#ffffff";
+const NAV_TEXT_MUTED   = "rgba(255,255,255,0.55)";
+const NAV_BORDER       = "rgba(255,255,255,0.12)";
+const NAV_CARD         = "rgba(255,255,255,0.07)";
+const NAV_CARD_HOVER   = "rgba(255,255,255,0.13)";
 
 function SocialIcon({ src, alt }) {
   return (
@@ -31,14 +38,14 @@ function SocialIcon({ src, alt }) {
 }
 
 export default function Header() {
-  const pathname     = usePathname();
-  const [open, setOpen]           = useState(false);
+  const pathname = usePathname();
+  const [open, setOpen]               = useState(false);
   const [downloadOpen, setDownloadOpen] = useState(false);
 
   return (
     <header
       className="sticky top-0 z-50 border-b backdrop-blur-xl"
-      style={{ background: "var(--nav-bg)", borderColor: "var(--border)" }}
+      style={{ background: "var(--nav-bg)", borderColor: NAV_BORDER }}
     >
       <div className="container flex items-center justify-between gap-4 py-3">
 
@@ -50,7 +57,7 @@ export default function Header() {
         >
           <div
             className="overflow-hidden rounded-xl border p-1"
-            style={{ borderColor: "var(--border-red)", background: "var(--card)" }}
+            style={{ borderColor: "rgba(232,0,29,0.40)", background: NAV_CARD }}
           >
             <Image
               src="/metrotvlogo.png"
@@ -61,16 +68,16 @@ export default function Header() {
             />
           </div>
           <div className="hidden 2xl:block">
-            <div className="text-sm font-black tracking-[0.22em]" style={{ color: "var(--text)" }}>
+            <div className="text-sm font-black tracking-[0.22em]" style={{ color: NAV_TEXT }}>
               METRO TV TELUGU
             </div>
-            <div className="text-xs" style={{ color: "var(--muted)" }}>
+            <div className="text-xs" style={{ color: NAV_TEXT_MUTED }}>
               News • Shows • Digital
             </div>
           </div>
         </Link>
 
-        {/* ── LIVE PILL (desktop) ── */}
+        {/* ── LIVE PILL ── */}
         <div className="hidden xl:flex items-center gap-2">
           <span
             className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-black text-white"
@@ -82,10 +89,10 @@ export default function Header() {
             />
             LIVE
           </span>
-          <span className="text-xs" style={{ color: "var(--muted)" }}>Jio TV Box</span>
+          <span className="text-xs" style={{ color: NAV_TEXT_MUTED }}>Jio TV Box</span>
         </div>
 
-        {/* ── NAV LINKS (desktop) ── */}
+        {/* ── NAV LINKS ── */}
         <nav className="hidden xl:flex items-center gap-5 text-sm">
           {links.map((link) => {
             const active = pathname === link.href;
@@ -94,7 +101,7 @@ export default function Header() {
                 key={link.href}
                 href={link.href}
                 className={active ? "font-bold" : "transition hover:opacity-75"}
-                style={{ color: active ? "var(--red)" : "var(--text)" }}
+                style={{ color: active ? "var(--red)" : NAV_TEXT }}
               >
                 {link.label}
               </Link>
@@ -102,25 +109,34 @@ export default function Header() {
           })}
         </nav>
 
-        {/* ── RIGHT ACTIONS (desktop) ── */}
+        {/* ── RIGHT ACTIONS ── */}
         <div className="hidden xl:flex items-center gap-3">
           <a
             href={instagramLink} target="_blank" rel="noreferrer"
             aria-label="Instagram"
-            className="theme-toggle inline-flex h-9 w-9 items-center justify-center p-0"
+            style={{
+              display: "inline-flex", alignItems: "center", justifyContent: "center",
+              width: "36px", height: "36px", borderRadius: "999px",
+              border: `1px solid ${NAV_BORDER}`, background: NAV_CARD,
+            }}
           >
             <SocialIcon src="/instagram.png" alt="Instagram" />
           </a>
           <a
             href={facebookLink} target="_blank" rel="noreferrer"
             aria-label="Facebook"
-            className="theme-toggle inline-flex h-9 w-9 items-center justify-center p-0"
+            style={{
+              display: "inline-flex", alignItems: "center", justifyContent: "center",
+              width: "36px", height: "36px", borderRadius: "999px",
+              border: `1px solid ${NAV_BORDER}`, background: NAV_CARD,
+            }}
           >
             <SocialIcon src="/facebook.png" alt="Facebook" />
           </a>
 
           <ThemeToggle />
 
+          {/* Download App button + dropdown */}
           <div className="relative">
             <button
               type="button"
@@ -134,13 +150,13 @@ export default function Header() {
             {downloadOpen && (
               <div
                 className="absolute right-0 mt-3 w-52 rounded-2xl border p-2 shadow-2xl"
-                style={{ background: "var(--bg-soft)", borderColor: "var(--border)" }}
+                style={{ background: "#0d1225", borderColor: NAV_BORDER }}
               >
                 <a
                   href={playStoreLink} target="_blank" rel="noreferrer"
                   className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm hover:opacity-80"
                   onClick={() => setDownloadOpen(false)}
-                  style={{ background: "var(--card)" }}
+                  style={{ background: NAV_CARD, color: NAV_TEXT }}
                 >
                   <Smartphone className="h-4 w-4" style={{ color: "var(--red)" }} />
                   Google Play
@@ -149,7 +165,7 @@ export default function Header() {
                   href={appStoreLink} target="_blank" rel="noreferrer"
                   className="mt-1 flex items-center gap-3 rounded-xl px-4 py-3 text-sm hover:opacity-80"
                   onClick={() => setDownloadOpen(false)}
-                  style={{ background: "var(--card)" }}
+                  style={{ background: NAV_CARD, color: NAV_TEXT }}
                 >
                   <Apple className="h-4 w-4" style={{ color: "var(--red)" }} />
                   App Store
@@ -164,9 +180,13 @@ export default function Header() {
           <ThemeToggle />
           <button
             type="button"
-            className="theme-toggle"
             onClick={() => setOpen((v) => !v)}
             aria-label="Toggle menu"
+            style={{
+              display: "inline-flex", alignItems: "center", justifyContent: "center",
+              border: `1px solid ${NAV_BORDER}`, background: NAV_CARD,
+              color: NAV_TEXT, borderRadius: "999px", padding: "8px 12px", cursor: "pointer",
+            }}
           >
             {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
@@ -177,7 +197,7 @@ export default function Header() {
       {open && (
         <div
           className="xl:hidden border-t"
-          style={{ borderColor: "var(--border)", background: "var(--nav-bg)" }}
+          style={{ borderColor: NAV_BORDER, background: "var(--nav-bg)" }}
         >
           <nav className="container grid gap-1 py-4 text-sm">
             {links.map((link) => {
@@ -189,9 +209,9 @@ export default function Header() {
                   onClick={() => setOpen(false)}
                   className="rounded-xl px-4 py-3 font-medium"
                   style={{
-                    background: active ? "var(--card-strong)" : "transparent",
-                    color:      active ? "var(--red)"          : "var(--text)",
-                    borderLeft: active ? "3px solid var(--red)" : "3px solid transparent",
+                    background:  active ? NAV_CARD_HOVER    : "transparent",
+                    color:       active ? "var(--red)"      : NAV_TEXT,
+                    borderLeft:  active ? "3px solid var(--red)" : "3px solid transparent",
                   }}
                 >
                   {link.label}
@@ -202,16 +222,29 @@ export default function Header() {
             {/* Social */}
             <div
               className="mt-3 rounded-2xl border p-4"
-              style={{ borderColor: "var(--border)" }}
+              style={{ borderColor: NAV_BORDER }}
             >
-              <div className="mb-3 text-xs font-bold uppercase tracking-widest" style={{ color: "var(--muted)" }}>
+              <div
+                className="mb-3 text-xs font-bold uppercase tracking-widest"
+                style={{ color: NAV_TEXT_MUTED }}
+              >
                 Follow Metro TV Telugu
               </div>
               <div className="flex gap-3">
-                <a href={instagramLink} target="_blank" rel="noreferrer" onClick={() => setOpen(false)} className="btn-secondary text-sm">
+                <a
+                  href={instagramLink} target="_blank" rel="noreferrer"
+                  onClick={() => setOpen(false)}
+                  className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold"
+                  style={{ background: NAV_CARD, border: `1px solid ${NAV_BORDER}`, color: NAV_TEXT }}
+                >
                   <SocialIcon src="/instagram.png" alt="Instagram" /> Instagram
                 </a>
-                <a href={facebookLink} target="_blank" rel="noreferrer" onClick={() => setOpen(false)} className="btn-secondary text-sm">
+                <a
+                  href={facebookLink} target="_blank" rel="noreferrer"
+                  onClick={() => setOpen(false)}
+                  className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold"
+                  style={{ background: NAV_CARD, border: `1px solid ${NAV_BORDER}`, color: NAV_TEXT }}
+                >
                   <SocialIcon src="/facebook.png" alt="Facebook" /> Facebook
                 </a>
               </div>
@@ -220,17 +253,30 @@ export default function Header() {
             {/* App download */}
             <div
               className="mt-2 rounded-2xl border p-4"
-              style={{ borderColor: "var(--border)" }}
+              style={{ borderColor: NAV_BORDER }}
             >
-              <div className="mb-3 flex items-center gap-2 text-xs font-bold uppercase tracking-widest" style={{ color: "var(--muted)" }}>
+              <div
+                className="mb-3 flex items-center gap-2 text-xs font-bold uppercase tracking-widest"
+                style={{ color: NAV_TEXT_MUTED }}
+              >
                 <Download className="h-4 w-4" style={{ color: "var(--red)" }} />
                 Download App
               </div>
               <div className="flex gap-3">
-                <a href={playStoreLink} target="_blank" rel="noreferrer" onClick={() => setOpen(false)} className="btn-secondary text-sm">
+                <a
+                  href={playStoreLink} target="_blank" rel="noreferrer"
+                  onClick={() => setOpen(false)}
+                  className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold"
+                  style={{ background: NAV_CARD, border: `1px solid ${NAV_BORDER}`, color: NAV_TEXT }}
+                >
                   <Smartphone className="h-4 w-4" /> Google Play
                 </a>
-                <a href={appStoreLink} target="_blank" rel="noreferrer" onClick={() => setOpen(false)} className="btn-secondary text-sm">
+                <a
+                  href={appStoreLink} target="_blank" rel="noreferrer"
+                  onClick={() => setOpen(false)}
+                  className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold"
+                  style={{ background: NAV_CARD, border: `1px solid ${NAV_BORDER}`, color: NAV_TEXT }}
+                >
                   <Apple className="h-4 w-4" /> App Store
                 </a>
               </div>
