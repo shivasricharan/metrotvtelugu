@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Mail, Phone, MapPin, Video, Smartphone, Apple, ExternalLink } from "lucide-react";
 import { getMetroCmsData } from "../lib/metroCms";
+import SocialBtn from "./SocialBtn";
 
 const fallbackSettings = {
   youtubechannelurl: "https://youtube.com/@metrotvtelugunews?si=Ma595RbHnX0Rn_yw",
@@ -16,40 +17,6 @@ const fallbackSettings = {
 
 function get(settings, key) {
   return settings?.[key] || fallbackSettings[key];
-}
-
-/* Larger, clearly visible social button — always dark footer style */
-function SocialBtn({ href, label, children }) {
-  return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noreferrer"
-      aria-label={label}
-      style={{
-        display:        "inline-flex",
-        alignItems:     "center",
-        justifyContent: "center",
-        width:          "44px",
-        height:         "44px",
-        borderRadius:   "10px",
-        background:     "rgba(255,255,255,0.08)",
-        border:         "1px solid rgba(255,255,255,0.15)",
-        transition:     "background 0.2s, border-color 0.2s",
-        flexShrink:     0,
-      }}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.background    = "rgba(232,0,29,0.20)";
-        e.currentTarget.style.borderColor   = "rgba(232,0,29,0.50)";
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.background    = "rgba(255,255,255,0.08)";
-        e.currentTarget.style.borderColor   = "rgba(255,255,255,0.15)";
-      }}
-    >
-      {children}
-    </a>
-  );
 }
 
 export default async function Footer() {
@@ -95,7 +62,7 @@ export default async function Footer() {
               and digital media opportunities for today&apos;s Telugu-speaking audience.
             </p>
 
-            {/* Social icons — larger and clearly visible */}
+            {/* Social icons — SocialBtn is a Client Component so hover works */}
             <div className="mt-6 flex items-center gap-3">
               <SocialBtn href={instagramUrl} label="Instagram">
                 <Image src="/instagram.png" alt="Instagram" width={24} height={24} className="object-contain" />
@@ -135,7 +102,7 @@ export default async function Footer() {
             >
               Explore
             </h3>
-            <div className="grid gap-3 text-sm" style={{ color: "rgba(255,255,255,0.50)" }}>
+            <div className="grid gap-3 text-sm">
               {[
                 { href: "/",          label: "Home"      },
                 { href: "/videos",    label: "Videos"    },
@@ -164,7 +131,7 @@ export default async function Footer() {
             >
               Watch &amp; Follow
             </h3>
-            <div className="grid gap-3 text-sm" style={{ color: "rgba(255,255,255,0.50)" }}>
+            <div className="grid gap-3 text-sm">
               <a
                 href={youtubeUrl} target="_blank" rel="noreferrer"
                 className="inline-flex items-center gap-2 hover:opacity-80 transition"
@@ -192,18 +159,10 @@ export default async function Footer() {
                 App Store
                 <ExternalLink className="h-3 w-3" />
               </a>
-              <Link
-                href="/advertise"
-                className="hover:opacity-80 transition"
-                style={{ color: "rgba(255,255,255,0.50)" }}
-              >
+              <Link href="/advertise" className="hover:opacity-80 transition" style={{ color: "rgba(255,255,255,0.50)" }}>
                 Advertise with us
               </Link>
-              <Link
-                href="/contact"
-                className="hover:opacity-80 transition"
-                style={{ color: "rgba(255,255,255,0.50)" }}
-              >
+              <Link href="/contact" className="hover:opacity-80 transition" style={{ color: "rgba(255,255,255,0.50)" }}>
                 Contact team
               </Link>
             </div>

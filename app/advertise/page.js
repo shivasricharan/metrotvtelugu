@@ -3,6 +3,8 @@ import { Megaphone, Video, Newspaper, Building2, CalendarDays, PhoneCall } from 
 import FadeIn from "../../components/FadeIn";
 import SectionTitle from "../../components/SectionTitle";
 
+export const dynamic = 'force-dynamic';
+
 const opportunities = [
   { icon: Video,        title: "Video Promotions",        desc: "Promote campaigns through featured video slots, interviews, sponsored segments and YouTube-led visibility." },
   { icon: Newspaper,    title: "Sponsored Stories",        desc: "Create brand stories, public announcements, launch coverage and editorial-style sponsored features." },
