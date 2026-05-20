@@ -6,7 +6,6 @@ import {
   MessageCircle,
   Newspaper,
   Film,
-  MonitorSmartphone,
   ExternalLink,
 } from "lucide-react";
 import FadeIn from "../../components/FadeIn";
@@ -216,45 +215,6 @@ export default async function VideosPage() {
         </div>
       </section>
 
-      <div className="section-divider" />
-
-      {/* ── CMS INFO STRIP ── */}
-      <section className="section-space">
-        <div className="container">
-          <FadeIn>
-            <div
-              className="rounded-3xl p-8 md:p-12"
-              style={{ background: "var(--bg-card)", border: "1px solid var(--border)" }}
-            >
-              <div className="grid gap-8 md:grid-cols-2 md:items-center">
-                <div>
-                  <div
-                    className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl"
-                    style={{ background: "rgba(232,0,29,0.10)" }}
-                  >
-                    <MonitorSmartphone className="h-6 w-6" style={{ color: "var(--red)" }} />
-                  </div>
-                  <h2 className="text-3xl font-black leading-tight md:text-4xl">
-                    Managed from Google Sheets
-                  </h2>
-                </div>
-                <div>
-                  <p className="leading-7" style={{ color: "var(--muted)" }}>
-                    The team can add YouTube IDs, choose whether a video is Long or Short,
-                    and publish or hide content directly from Google Sheets — no code needed.
-                  </p>
-                  <div className="mt-8 flex flex-wrap gap-3">
-                    <a href={youtubeChannel} target="_blank" rel="noreferrer" className="btn-primary">
-                      Open YouTube Channel <ExternalLink className="h-4 w-4" />
-                    </a>
-                    <Link href="/advertise" className="btn-secondary">Sponsor video content</Link>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </FadeIn>
-        </div>
-      </section>
     </>
   );
 }
