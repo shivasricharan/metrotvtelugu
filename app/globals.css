@@ -16,7 +16,7 @@
   --red-dark:    #b30016;
   --red-glow:    rgba(232, 0, 29, 0.18);
   --blue:        #1d6fa4;
-  --gold:        #e8001d;   /* repurposed — uses brand red as accent */
+  --gold:        #e8001d;
   --nav-bg:      #070b16;
   --ticker-bg:   #e8001d;
   --footer-bg:   #07090f;
@@ -53,30 +53,18 @@ img { max-width: 100%; height: auto; }
 /* ─── BODY / BACKGROUND ───────────────────────────────────────────────── */
 body {
   margin: 0;
+  /* FIX 3: solid dark background — no gradients that show through as
+     pink/lavender patches between sections */
   background: var(--bg);
   color: var(--text);
   font-family: Arial, Helvetica, sans-serif;
 }
 
-/* Subtle vignette — single red hint top-left only, rest stays dark */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  background:
-    radial-gradient(ellipse 600px 400px at 0% 0%, rgba(232, 0, 29, 0.12), transparent),
-    radial-gradient(ellipse 500px 300px at 100% 100%, rgba(29, 111, 164, 0.07), transparent);
-}
+/* FIX 3: removed the body::before radial gradients entirely —
+   they were leaking a light pink/lavender patch between the
+   advertise banner and the footer in dark mode */
 
-html[data-theme="light"] body::before {
-  background:
-    radial-gradient(ellipse 500px 300px at 0% 0%, rgba(220, 38, 38, 0.07), transparent),
-    radial-gradient(ellipse 400px 250px at 100% 100%, rgba(3, 105, 161, 0.05), transparent);
-}
-
-/* Everything sits above the body::before */
+/* Everything sits above any stacking context */
 #__next, main, header, footer, section { position: relative; z-index: 1; }
 
 /* ─── LAYOUT ──────────────────────────────────────────────────────────── */
@@ -122,30 +110,37 @@ html[data-theme="light"] .hero-panel {
 }
 
 /* ─── TICKER ──────────────────────────────────────────────────────────── */
+/* FIX 1: removed border-radius (was rounded-full in JSX) so the ticker
+   sits flush edge-to-edge like a real broadcast ticker bar.
+   Also removed the rounded-full class from the JSX — this CSS takes over. */
 .ticker {
   overflow: hidden;
   white-space: nowrap;
   position: relative;
   background: var(--ticker-bg);
+  border-radius: 0 !important;      /* force flat — overrides Tailwind rounded-full */
   border: none !important;
-  border-top: 2px solid rgba(255,255,255,0.15) !important;
-  border-bottom: 2px solid rgba(0,0,0,0.25) !important;
+  border-top: 2px solid rgba(255, 255, 255, 0.15) !important;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.25) !important;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  height: 34px;
 }
 
 .ticker::before {
   content: "BREAKING";
   display: inline-flex;
   align-items: center;
+  flex-shrink: 0;
   margin-right: 20px;
-  padding: 4px 12px;
+  padding: 3px 10px;
   border-radius: 3px;
   background: rgba(0, 0, 0, 0.30);
   color: white;
   font-size: 10px;
   font-weight: 900;
   letter-spacing: 0.20em;
-  flex-shrink: 0;
-  vertical-align: middle;
 }
 
 .ticker-track {
@@ -153,9 +148,10 @@ html[data-theme="light"] .hero-panel {
   padding-left: 100%;
   animation: tickerMove 32s linear infinite;
   color: #fff;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 500;
   letter-spacing: 0.01em;
+  white-space: nowrap;
 }
 
 .ticker-track span { vertical-align: middle; }
@@ -222,7 +218,7 @@ html[data-theme="light"] .hero-panel {
 
 .btn-secondary:hover {
   background: var(--card-strong);
-  border-color: rgba(255,255,255,0.20);
+  border-color: rgba(255, 255, 255, 0.20);
   transform: translateY(-2px);
 }
 
@@ -262,7 +258,7 @@ html[data-theme="light"] .hero-panel {
   width: 100%;
   padding-bottom: 56.25%;
   overflow: hidden;
-  border-radius: 16px;
+  border-radius: 12px;
   border: 1px solid var(--border);
   background: #000;
 }
@@ -282,7 +278,7 @@ html[data-theme="light"] .hero-panel {
   margin: 0;
 }
 
-/* ─── STAT PILL (hero bottom stats) ──────────────────────────────────── */
+/* ─── STAT PILL ───────────────────────────────────────────────────────── */
 .stat-pill {
   background: var(--bg-card);
   border: 1px solid var(--border);
@@ -320,7 +316,7 @@ html[data-theme="light"] .hero-panel {
   background:
     linear-gradient(120deg, rgba(232, 0, 29, 0.10) 0%, rgba(29, 111, 164, 0.06) 100%),
     var(--card-strong);
-  border-radius: 24px;
+  border-radius: 16px;
 }
 
 /* ─── SECTION EYEBROW ─────────────────────────────────────────────────── */
@@ -342,6 +338,39 @@ html[data-theme="light"] .hero-panel {
   height: 2px;
   background: var(--red);
   border-radius: 2px;
+}
+
+/* ─── NEWS GRID — FIX 2 ───────────────────────────────────────────────── */
+/* Forces the side story cards to fill the same height as the main card
+   so there's no empty space below them in the news grid */
+.news-grid-main {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+  align-items: stretch;
+}
+
+.news-grid-main .news-lead {
+  grid-column: 1;
+  grid-row: 1 / 3;
+  display: flex;
+  flex-direction: column;
+}
+
+.news-grid-main .news-side {
+  grid-column: span 1;
+  display: flex;
+  flex-direction: row;
+  min-height: 0;
+}
+
+@media (max-width: 768px) {
+  .news-grid-main {
+    grid-template-columns: 1fr;
+  }
+  .news-grid-main .news-lead {
+    grid-row: auto;
+  }
 }
 
 /* ─── FORMS ───────────────────────────────────────────────────────────── */
