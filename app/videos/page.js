@@ -2,10 +2,6 @@ import Link from "next/link";
 import {
   PlayCircle,
   Video,
-  Radio,
-  MessageCircle,
-  Newspaper,
-  Film,
   ExternalLink,
 } from "lucide-react";
 import FadeIn from "../../components/FadeIn";
@@ -27,13 +23,6 @@ const fallbackShorts = [
   { title: "Short Update",           category: "Shorts",       videoId: "KlyvXNZWDZk" },
   { title: "Public Voice Short Clip",category: "Public Voice", videoId: "hdEp1t_PRbI" },
   { title: "Breaking News Short",    category: "News",         videoId: "92DsruOUAD0" },
-];
-
-const videoCategories = [
-  { icon: Newspaper,    title: "News Bulletins",      desc: "Daily updates, breaking developments and important regional stories." },
-  { icon: Radio,        title: "Discussions & Debates",desc: "Prime-time conversations, public issues, political analysis and expert views." },
-  { icon: MessageCircle,title: "Public Voice",         desc: "People-led opinions, ground reactions and community conversations." },
-  { icon: Film,         title: "Entertainment",        desc: "Cinema, culture, personalities, events and Telugu entertainment coverage." },
 ];
 
 export const metadata = {
@@ -178,42 +167,6 @@ export default async function VideosPage() {
         </div>
       </section>
 
-      <div className="section-divider" />
-
-      {/* ── CATEGORIES ── */}
-      <section className="section-space">
-        <div className="container">
-          <FadeIn>
-            <SectionTitle
-              eyebrow="Video Categories"
-              title="Browse by format and interest"
-              desc="A structured video section useful for regular viewers and easy to update as more content is added."
-            />
-          </FadeIn>
-          <div className="grid gap-5 md:grid-cols-4">
-            {videoCategories.map((item, i) => {
-              const Icon = item.icon;
-              return (
-                <FadeIn key={item.title} delay={i * 0.08}>
-                  <div
-                    className="card-hover rounded-2xl p-6"
-                    style={{ background: "var(--bg-card)", border: "1px solid var(--border)" }}
-                  >
-                    <div
-                      className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl"
-                      style={{ background: "rgba(232,0,29,0.10)" }}
-                    >
-                      <Icon className="h-5 w-5" style={{ color: "var(--red)" }} />
-                    </div>
-                    <h3 className="text-base font-bold">{item.title}</h3>
-                    <p className="mt-2 text-sm leading-6" style={{ color: "var(--muted)" }}>{item.desc}</p>
-                  </div>
-                </FadeIn>
-              );
-            })}
-          </div>
-        </div>
-      </section>
 
     </>
   );
