@@ -200,24 +200,6 @@ export default async function HomePage() {
                   </div>
                 </div>
 
-                <div
-                  className="grid grid-cols-2 px-4 pb-4"
-                  style={{ borderTop: "1px solid var(--border)" }}
-                >
-                  {[
-                    { h: "Video-led discovery", s: "News, debates & Shorts" },
-                    { h: "App + YouTube reach",  s: "Watch on mobile, TV or web" },
-                  ].map((item, i) => (
-                    <div
-                      key={item.h}
-                      className="px-3 pt-3"
-                      style={{ borderLeft: i > 0 ? "1px solid var(--border)" : "none" }}
-                    >
-                      <div className="text-xs font-bold" style={{ color: "var(--text)" }}>{item.h}</div>
-                      <div className="mt-0.5 text-xs" style={{ color: "var(--muted)" }}>{item.s}</div>
-                    </div>
-                  ))}
-                </div>
               </div>
             </FadeIn>
           </div>
