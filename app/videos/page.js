@@ -32,12 +32,12 @@ export const metadata = {
 
 function normalizeVideo(item) {
   return {
-    title:       item.title                || item.Title                || "Video Update",
-    category:    item.category             || item.Category             || "Video",
-    videoId:     item["YouTube ID"]        || item.youTubeID            || item.youtubeId || item.videoId || "",
-    videoType:   item["Video Type"]        || item.videoType            || item.type      || "Long",
-    description: item.description          || item.Description          || "",
-    status:      item.status               || item.Status               || "Published",
+    title:       item.title        || "Video Update",
+    category:    item.category     || "Video",
+    videoId:     item.youTubeID    || item.youtubeId || item.videoId || "",
+    videoType:   item.videoType    || item.type      || "Long",
+    description: item.description  || "",
+    status:      item.status       || "Published",
   };
 }
 
