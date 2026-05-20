@@ -32,11 +32,12 @@ export const metadata = {
 
 function normalizeVideo(item) {
   return {
-    title:       item.title       || "Video Update",
-    category:    item.category    || "Video",
-    videoId:     item.youTubeID   || item.youtubeId || item.videoId || "",
-    videoType:   item.videoType   || item.type      || "Long",
-    description: item.description || "",
+    title:       item.title                || item.Title                || "Video Update",
+    category:    item.category             || item.Category             || "Video",
+    videoId:     item["YouTube ID"]        || item.youTubeID            || item.youtubeId || item.videoId || "",
+    videoType:   item["Video Type"]        || item.videoType            || item.type      || "Long",
+    description: item.description          || item.Description          || "",
+    status:      item.status               || item.Status               || "Published",
   };
 }
 
@@ -75,7 +76,7 @@ export default async function VideosPage() {
 
   const youtubeChannel = settings.youtubechannelurl || fallbackYoutubeChannel;
 
-  const normalizedVideos = cmsVideos.map(normalizeVideo).filter((v) => v.videoId);
+  const normalizedVideos = cmsVideos.map(normalizeVideo).filter((v) => v.videoId && String(v.status).toLowerCase() === "published");
   const cmsLong   = normalizedVideos.filter((v) => String(v.videoType).toLowerCase() === "long");
   const cmsShorts = normalizedVideos.filter((v) => String(v.videoType).toLowerCase() === "short");
 
