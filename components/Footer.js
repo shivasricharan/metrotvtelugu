@@ -18,11 +18,37 @@ function get(settings, key) {
   return settings?.[key] || fallbackSettings[key];
 }
 
-function SocialImage({ src, alt }) {
+/* Larger, clearly visible social button — always dark footer style */
+function SocialBtn({ href, label, children }) {
   return (
-    <span className="relative inline-flex h-5 w-5 items-center justify-center">
-      <Image src={src} alt={alt} width={20} height={20} className="object-contain" />
-    </span>
+    <a
+      href={href}
+      target="_blank"
+      rel="noreferrer"
+      aria-label={label}
+      style={{
+        display:        "inline-flex",
+        alignItems:     "center",
+        justifyContent: "center",
+        width:          "44px",
+        height:         "44px",
+        borderRadius:   "10px",
+        background:     "rgba(255,255,255,0.08)",
+        border:         "1px solid rgba(255,255,255,0.15)",
+        transition:     "background 0.2s, border-color 0.2s",
+        flexShrink:     0,
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.background    = "rgba(232,0,29,0.20)";
+        e.currentTarget.style.borderColor   = "rgba(232,0,29,0.50)";
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.background    = "rgba(255,255,255,0.08)";
+        e.currentTarget.style.borderColor   = "rgba(255,255,255,0.15)";
+      }}
+    >
+      {children}
+    </a>
   );
 }
 
@@ -42,51 +68,50 @@ export default async function Footer() {
   return (
     <footer
       style={{
-        background:   "var(--footer-bg)",
-        borderTop:    "1px solid var(--border)",
-        marginTop:    "80px",
+        background: "var(--footer-bg)",
+        borderTop:  "1px solid rgba(255,255,255,0.07)",
+        marginTop:  "80px",
       }}
     >
       {/* Red top accent line */}
-      <div style={{ height: "3px", background: "var(--red)", opacity: 0.9 }} />
+      <div style={{ height: "3px", background: "var(--red)" }} />
 
       <div className="container py-12">
         <div className="grid gap-10 lg:grid-cols-4">
 
           {/* ── BRAND COL ── */}
           <div className="lg:col-span-2">
-            <div className="flex items-center gap-3 mb-4">
+            <div className="mb-5">
               <div
-                className="overflow-hidden rounded-xl border p-1"
-                style={{ borderColor: "var(--border-red)", background: "var(--card)" }}
+                className="overflow-hidden rounded-xl border p-1 inline-block"
+                style={{ borderColor: "rgba(232,0,29,0.35)", background: "rgba(255,255,255,0.06)" }}
               >
                 <Image src="/metrotvlogo.png" alt="Metro TV Telugu" width={110} height={62} />
               </div>
             </div>
 
-            <p className="max-w-sm text-sm leading-7" style={{ color: "var(--muted)" }}>
+            <p className="max-w-sm text-sm leading-7" style={{ color: "rgba(255,255,255,0.45)" }}>
               Regional news, public-interest stories, shows, videos, Shorts, app access
               and digital media opportunities for today&apos;s Telugu-speaking audience.
             </p>
 
-            {/* Social icons */}
-            <div className="mt-5 flex gap-3">
-              <a href={instagramUrl} target="_blank" rel="noreferrer" aria-label="Instagram"
-                className="theme-toggle inline-flex h-9 w-9 items-center justify-center p-0">
-                <SocialImage src="/instagram.png" alt="Instagram" />
-              </a>
-              <a href={facebookUrl} target="_blank" rel="noreferrer" aria-label="Facebook"
-                className="theme-toggle inline-flex h-9 w-9 items-center justify-center p-0">
-                <SocialImage src="/facebook.png" alt="Facebook" />
-              </a>
-              <a href={youtubeUrl} target="_blank" rel="noreferrer" aria-label="YouTube"
-                className="theme-toggle inline-flex h-9 w-9 items-center justify-center p-0">
-                <Video className="h-4 w-4" style={{ color: "var(--red)" }} />
-              </a>
+            {/* Social icons — larger and clearly visible */}
+            <div className="mt-6 flex items-center gap-3">
+              <SocialBtn href={instagramUrl} label="Instagram">
+                <Image src="/instagram.png" alt="Instagram" width={24} height={24} className="object-contain" />
+              </SocialBtn>
+
+              <SocialBtn href={facebookUrl} label="Facebook">
+                <Image src="/facebook.png" alt="Facebook" width={24} height={24} className="object-contain" />
+              </SocialBtn>
+
+              <SocialBtn href={youtubeUrl} label="YouTube">
+                <Video className="h-5 w-5" style={{ color: "#ff4444" }} />
+              </SocialBtn>
             </div>
 
             {/* Contact details */}
-            <div className="mt-6 grid gap-3 text-sm" style={{ color: "var(--muted)" }}>
+            <div className="mt-7 grid gap-3 text-sm" style={{ color: "rgba(255,255,255,0.50)" }}>
               <div className="flex items-start gap-3">
                 <Phone className="mt-0.5 h-4 w-4 shrink-0" style={{ color: "var(--red)" }} />
                 <span>{phone}</span>
@@ -105,12 +130,12 @@ export default async function Footer() {
           {/* ── EXPLORE ── */}
           <div>
             <h3
-              className="mb-4 text-xs font-black uppercase tracking-widest"
+              className="mb-5 text-xs font-black uppercase tracking-widest"
               style={{ color: "var(--red)" }}
             >
               Explore
             </h3>
-            <div className="grid gap-3 text-sm" style={{ color: "var(--muted)" }}>
+            <div className="grid gap-3 text-sm" style={{ color: "rgba(255,255,255,0.50)" }}>
               {[
                 { href: "/",          label: "Home"      },
                 { href: "/videos",    label: "Videos"    },
@@ -119,42 +144,68 @@ export default async function Footer() {
                 { href: "/about",     label: "About"     },
                 { href: "/contact",   label: "Contact"   },
               ].map((l) => (
-                <Link key={l.href} href={l.href} className="hover:opacity-80 transition">
+                <Link
+                  key={l.href}
+                  href={l.href}
+                  className="hover:opacity-80 transition"
+                  style={{ color: "rgba(255,255,255,0.50)" }}
+                >
                   {l.label}
                 </Link>
               ))}
             </div>
           </div>
 
-          {/* ── DIGITAL ACCESS ── */}
+          {/* ── WATCH & FOLLOW ── */}
           <div>
             <h3
-              className="mb-4 text-xs font-black uppercase tracking-widest"
+              className="mb-5 text-xs font-black uppercase tracking-widest"
               style={{ color: "var(--red)" }}
             >
               Watch &amp; Follow
             </h3>
-            <div className="grid gap-3 text-sm" style={{ color: "var(--muted)" }}>
-              <a href={youtubeUrl} target="_blank" rel="noreferrer"
-                className="inline-flex items-center gap-2 hover:opacity-80 transition">
-                <Video className="h-4 w-4" style={{ color: "var(--red)" }} />
+            <div className="grid gap-3 text-sm" style={{ color: "rgba(255,255,255,0.50)" }}>
+              <a
+                href={youtubeUrl} target="_blank" rel="noreferrer"
+                className="inline-flex items-center gap-2 hover:opacity-80 transition"
+                style={{ color: "rgba(255,255,255,0.50)" }}
+              >
+                <Video className="h-4 w-4 shrink-0" style={{ color: "#ff4444" }} />
                 YouTube Channel
                 <ExternalLink className="h-3 w-3" />
               </a>
-              <a href={playStoreUrl} target="_blank" rel="noreferrer"
-                className="inline-flex items-center gap-2 hover:opacity-80 transition">
-                <Smartphone className="h-4 w-4" style={{ color: "var(--red)" }} />
+              <a
+                href={playStoreUrl} target="_blank" rel="noreferrer"
+                className="inline-flex items-center gap-2 hover:opacity-80 transition"
+                style={{ color: "rgba(255,255,255,0.50)" }}
+              >
+                <Smartphone className="h-4 w-4 shrink-0" style={{ color: "var(--red)" }} />
                 Google Play
                 <ExternalLink className="h-3 w-3" />
               </a>
-              <a href={appStoreUrl} target="_blank" rel="noreferrer"
-                className="inline-flex items-center gap-2 hover:opacity-80 transition">
-                <Apple className="h-4 w-4" style={{ color: "var(--red)" }} />
+              <a
+                href={appStoreUrl} target="_blank" rel="noreferrer"
+                className="inline-flex items-center gap-2 hover:opacity-80 transition"
+                style={{ color: "rgba(255,255,255,0.50)" }}
+              >
+                <Apple className="h-4 w-4 shrink-0" style={{ color: "var(--red)" }} />
                 App Store
                 <ExternalLink className="h-3 w-3" />
               </a>
-              <Link href="/advertise" className="hover:opacity-80 transition">Advertise with us</Link>
-              <Link href="/contact"   className="hover:opacity-80 transition">Contact team</Link>
+              <Link
+                href="/advertise"
+                className="hover:opacity-80 transition"
+                style={{ color: "rgba(255,255,255,0.50)" }}
+              >
+                Advertise with us
+              </Link>
+              <Link
+                href="/contact"
+                className="hover:opacity-80 transition"
+                style={{ color: "rgba(255,255,255,0.50)" }}
+              >
+                Contact team
+              </Link>
             </div>
           </div>
         </div>
@@ -162,10 +213,10 @@ export default async function Footer() {
         {/* ── BOTTOM BAR ── */}
         <div
           className="mt-10 flex flex-col gap-3 border-t pt-6 text-xs md:flex-row md:items-center md:justify-between"
-          style={{ borderColor: "var(--border)", color: "var(--muted)" }}
+          style={{ borderColor: "rgba(255,255,255,0.07)", color: "rgba(255,255,255,0.30)" }}
         >
           <div>© {new Date().getFullYear()} Metro TV Telugu. All rights reserved.</div>
-          <div style={{ color: "var(--red)", fontWeight: 600, letterSpacing: "0.1em" }}>
+          <div style={{ color: "var(--red)", fontWeight: 700, letterSpacing: "0.10em" }}>
             NEWS • VIDEOS • SHOWS • APP • ADVERTISING
           </div>
         </div>
