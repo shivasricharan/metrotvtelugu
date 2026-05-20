@@ -24,13 +24,13 @@
 
 /* ─── LIGHT MODE ──────────────────────────────────────────────────────── */
 html[data-theme="light"] {
-  --bg:          #f0f4fb;
-  --bg-soft:     #ffffff;
-  --bg-card:     #ffffff;
-  --card:        rgba(255, 255, 255, 0.85);
-  --card-strong: rgba(255, 255, 255, 0.97);
-  --border:      rgba(15, 23, 42, 0.10);
-  --border-red:  rgba(220, 38, 38, 0.22);
+  --bg:          #eef2f9;         /* soft blue-grey page bg — not pure white */
+  --bg-soft:     #f8fafc;
+  --bg-card:     #ffffff;         /* cards are white so they lift off the bg */
+  --card:        rgba(255, 255, 255, 0.95);
+  --card-strong: #ffffff;
+  --border:      rgba(15, 23, 42, 0.12);   /* slightly stronger — cards visible */
+  --border-red:  rgba(220, 38, 38, 0.25);
   --text:        #07111f;
   --muted:       #4a5568;
   --muted-light: #64748b;
@@ -39,9 +39,9 @@ html[data-theme="light"] {
   --red-glow:    rgba(220, 38, 38, 0.10);
   --blue:        #0369a1;
   --gold:        #dc2626;
-  --nav-bg:      #07111f;
+  --nav-bg:      #07111f;         /* nav stays dark — intentional brand choice */
   --ticker-bg:   #dc2626;
-  --footer-bg:   #05080f;
+  --footer-bg:   #07090f;         /* footer stays dark — intentional */
 }
 
 /* ─── RESET ───────────────────────────────────────────────────────────── */
@@ -50,21 +50,14 @@ html { scroll-behavior: smooth; }
 a { text-decoration: none; color: inherit; }
 img { max-width: 100%; height: auto; }
 
-/* ─── BODY / BACKGROUND ───────────────────────────────────────────────── */
+/* ─── BODY ────────────────────────────────────────────────────────────── */
 body {
   margin: 0;
-  /* FIX 3: solid dark background — no gradients that show through as
-     pink/lavender patches between sections */
   background: var(--bg);
   color: var(--text);
   font-family: Arial, Helvetica, sans-serif;
 }
 
-/* FIX 3: removed the body::before radial gradients entirely —
-   they were leaking a light pink/lavender patch between the
-   advertise banner and the footer in dark mode */
-
-/* Everything sits above any stacking context */
 #__next, main, header, footer, section { position: relative; z-index: 1; }
 
 /* ─── LAYOUT ──────────────────────────────────────────────────────────── */
@@ -91,6 +84,14 @@ body {
   -webkit-backdrop-filter: blur(16px);
 }
 
+/* light mode — no blur needed, solid whites */
+html[data-theme="light"] .glass,
+html[data-theme="light"] .glass-strong {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: 0 1px 4px rgba(15, 23, 42, 0.06);
+}
+
 /* ─── HERO PANEL ──────────────────────────────────────────────────────── */
 .hero-panel {
   background:
@@ -104,21 +105,18 @@ body {
 }
 
 html[data-theme="light"] .hero-panel {
-  background: rgba(255, 255, 255, 0.96);
+  background: #ffffff;
   border: 1px solid var(--border-red);
-  box-shadow: 0 8px 48px rgba(220, 38, 38, 0.08), 0 2px 0 rgba(220, 38, 38, 0.12);
+  box-shadow: 0 4px 24px rgba(220, 38, 38, 0.07), 0 1px 0 rgba(220, 38, 38, 0.10);
 }
 
 /* ─── TICKER ──────────────────────────────────────────────────────────── */
-/* FIX 1: removed border-radius (was rounded-full in JSX) so the ticker
-   sits flush edge-to-edge like a real broadcast ticker bar.
-   Also removed the rounded-full class from the JSX — this CSS takes over. */
 .ticker {
   overflow: hidden;
   white-space: nowrap;
   position: relative;
   background: var(--ticker-bg);
-  border-radius: 0 !important;      /* force flat — overrides Tailwind rounded-full */
+  border-radius: 0 !important;
   border: none !important;
   border-top: 2px solid rgba(255, 255, 255, 0.15) !important;
   border-bottom: 2px solid rgba(0, 0, 0, 0.25) !important;
@@ -169,7 +167,7 @@ html[data-theme="light"] .hero-panel {
   padding: 6px 14px;
   border-radius: 999px;
   border: 1px solid var(--border-red);
-  background: rgba(232, 0, 29, 0.10);
+  background: rgba(220, 38, 38, 0.08);
   font-size: 10px;
   font-weight: 900;
   text-transform: uppercase;
@@ -190,16 +188,19 @@ html[data-theme="light"] .hero-panel {
   font-size: 14px;
   color: #fff;
   background: var(--red);
-  box-shadow: 0 6px 24px rgba(232, 0, 29, 0.30);
+  box-shadow: 0 4px 16px rgba(220, 38, 38, 0.30);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   cursor: pointer;
 }
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 32px rgba(232, 0, 29, 0.40);
+  box-shadow: 0 8px 24px rgba(220, 38, 38, 0.40);
 }
 
+/* btn-secondary — key fix:
+   dark mode: white text on near-transparent dark card
+   light mode: dark text on white card with a proper visible border        */
 .btn-secondary {
   display: inline-flex;
   align-items: center;
@@ -218,8 +219,19 @@ html[data-theme="light"] .hero-panel {
 
 .btn-secondary:hover {
   background: var(--card-strong);
-  border-color: rgba(255, 255, 255, 0.20);
   transform: translateY(-2px);
+}
+
+/* light mode — stronger border so button is clearly visible */
+html[data-theme="light"] .btn-secondary {
+  border-color: rgba(15, 23, 42, 0.20);
+  background: #ffffff;
+  box-shadow: 0 1px 4px rgba(15, 23, 42, 0.08);
+}
+
+html[data-theme="light"] .btn-secondary:hover {
+  border-color: rgba(15, 23, 42, 0.35);
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.12);
 }
 
 /* ─── CARD HOVER ──────────────────────────────────────────────────────── */
@@ -230,7 +242,16 @@ html[data-theme="light"] .hero-panel {
 .card-hover:hover {
   transform: translateY(-4px);
   border-color: var(--border-red);
-  box-shadow: 0 12px 40px rgba(232, 0, 29, 0.10);
+  box-shadow: 0 12px 40px rgba(220, 38, 38, 0.10);
+}
+
+/* light mode cards — visible shadow lifts them off the page bg */
+html[data-theme="light"] .card-hover {
+  box-shadow: 0 1px 4px rgba(15, 23, 42, 0.07);
+}
+
+html[data-theme="light"] .card-hover:hover {
+  box-shadow: 0 8px 24px rgba(220, 38, 38, 0.10);
 }
 
 /* ─── NEWS CARD ───────────────────────────────────────────────────────── */
@@ -314,9 +335,14 @@ html[data-theme="light"] .hero-panel {
 .adv-banner {
   border: 1px solid var(--border-red);
   background:
-    linear-gradient(120deg, rgba(232, 0, 29, 0.10) 0%, rgba(29, 111, 164, 0.06) 100%),
+    linear-gradient(120deg, rgba(220, 38, 38, 0.08) 0%, rgba(29, 111, 164, 0.04) 100%),
     var(--card-strong);
   border-radius: 16px;
+}
+
+html[data-theme="light"] .adv-banner {
+  background: linear-gradient(120deg, rgba(220, 38, 38, 0.05) 0%, #ffffff 60%);
+  box-shadow: 0 2px 12px rgba(220, 38, 38, 0.07);
 }
 
 /* ─── SECTION EYEBROW ─────────────────────────────────────────────────── */
@@ -340,9 +366,7 @@ html[data-theme="light"] .hero-panel {
   border-radius: 2px;
 }
 
-/* ─── NEWS GRID — FIX 2 ───────────────────────────────────────────────── */
-/* Forces the side story cards to fill the same height as the main card
-   so there's no empty space below them in the news grid */
+/* ─── NEWS GRID ───────────────────────────────────────────────────────── */
 .news-grid-main {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -365,12 +389,8 @@ html[data-theme="light"] .hero-panel {
 }
 
 @media (max-width: 768px) {
-  .news-grid-main {
-    grid-template-columns: 1fr;
-  }
-  .news-grid-main .news-lead {
-    grid-row: auto;
-  }
+  .news-grid-main { grid-template-columns: 1fr; }
+  .news-grid-main .news-lead { grid-row: auto; }
 }
 
 /* ─── FORMS ───────────────────────────────────────────────────────────── */
@@ -385,25 +405,51 @@ html[data-theme="light"] .hero-panel {
   font-size: 14px;
 }
 
+html[data-theme="light"] .input,
+html[data-theme="light"] .textarea {
+  background: #ffffff;
+  border-color: rgba(15, 23, 42, 0.18);
+}
+
 .input:focus, .textarea:focus {
   border-color: var(--red);
-  box-shadow: 0 0 0 3px rgba(232, 0, 29, 0.12);
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.12);
 }
 
 .textarea { min-height: 140px; resize: vertical; }
 
 /* ─── THEME TOGGLE ────────────────────────────────────────────────────── */
+/* The toggle lives inside the dark nav always, so it always
+   needs white text/border regardless of page theme             */
 .theme-toggle {
-  border: 1px solid var(--border);
-  background: var(--card);
-  color: var(--text);
+  border: 1px solid rgba(255, 255, 255, 0.20);
+  background: rgba(255, 255, 255, 0.07);
+  color: #ffffff;
   border-radius: 999px;
-  padding: 10px 14px;
+  padding: 8px 14px;
   cursor: pointer;
   transition: background 0.2s;
+  font-size: 13px;
 }
 
-.theme-toggle:hover { background: var(--card-strong); }
+.theme-toggle:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+/* social icon buttons inside the dark nav — always white border */
+header .theme-toggle {
+  border-color: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.06);
+  color: #ffffff;
+}
+
+/* theme-toggle used OUTSIDE the nav (footer social icons etc)
+   should follow page theme                                      */
+footer .theme-toggle {
+  border-color: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.7);
+}
 
 /* ─── MOBILE ──────────────────────────────────────────────────────────── */
 @media (max-width: 1024px) {
