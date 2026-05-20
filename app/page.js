@@ -112,7 +112,7 @@ export default async function HomePage() {
             {/* LEFT */}
             <FadeIn>
               <div
-                className="flex flex-col justify-center py-12 pr-0 lg:pr-12"
+                className="flex flex-col justify-center py-12 px-6 lg:pl-0 lg:pr-12"
                 style={{
                   background: "linear-gradient(135deg, rgba(232,0,29,0.10) 0%, transparent 55%)",
                   borderRight: "1px solid var(--border)",
