@@ -11,7 +11,7 @@ const opportunities = [
 ];
 
 const reasons = [
-  { stat: "Jio TV Box",    label: "Live broadcast platform" },
+  { stat: "Jio TV Box Ch.5033", label: "Live broadcast platform" },
   { stat: "YouTube",       label: "Digital video reach"     },
   { stat: "Android + iOS", label: "Official mobile app"     },
   { stat: "Hyderabad",     label: "Headquartered in TS"     },

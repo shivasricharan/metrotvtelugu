@@ -37,7 +37,7 @@ const shows = [
 ];
 
 const platforms = [
-  { label: "Jio TV Box",    dot: "#60a5fa" },
+  { label: "Jio TV Box Ch.5033", dot: "#60a5fa" },
   { label: "YouTube Live",  dot: "#ff4444" },
   { label: "Android & iOS", dot: "#4ade80" },
 ];
@@ -140,7 +140,7 @@ export default async function HomePage() {
                     LIVE
                   </span>
                   <span className="text-xs font-semibold" style={{ color: "var(--muted)" }}>
-                    On Air — Jio TV Box &amp; YouTube
+                    On Air — Jio TV Box Ch.5033 &amp; YouTube
                   </span>
                 </div>
 

@@ -89,7 +89,7 @@ export default function Header() {
             />
             LIVE
           </span>
-          <span className="text-xs" style={{ color: NAV_TEXT_MUTED }}>Jio TV Box</span>
+          <span className="text-xs" style={{ color: NAV_TEXT_MUTED }}>Jio TV Box Ch.5033</span>
         </div>
 
         {/* ── NAV LINKS ── */}
