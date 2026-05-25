@@ -18,6 +18,9 @@ const navLinks = [
 const LIVE_URL =
   "https://www.zengatv.com/embed?v=d6361881-b3e4-4006-a8f8-73e1a78b8bc1.html&t=live";
 
+// Zengatv does not work on mobile browsers — use YouTube for mobile Live links
+const MOBILE_LIVE_URL = "https://youtube.com/@metrotvtelugunews";
+
 export default function Header() {
   const [open, setOpen] = useState(false);
 
@@ -69,10 +72,10 @@ export default function Header() {
             </div>
           </nav>
 
-          {/* Mobile: live badge + hamburger */}
+          {/* Mobile: live badge (YouTube) + hamburger */}
           <div className="flex md:hidden items-center gap-2">
             <a
-              href={LIVE_URL}
+              href={MOBILE_LIVE_URL}
               target="_blank"
               rel="noreferrer"
               className="inline-flex items-center gap-1 text-xs font-black text-white px-2.5 py-1.5 rounded-md"
