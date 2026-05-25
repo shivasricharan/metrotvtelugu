@@ -137,9 +137,6 @@ export default async function HomePage() {
                     />
                     LIVE
                   </span>
-                  <span className="text-xs font-semibold" style={{ color: "var(--muted)" }}>
-                    On Air — Jio TV Box Ch.5033 &amp; YouTube
-                  </span>
                 </div>
 
                 <h1
