@@ -149,7 +149,7 @@ export default async function HomePage() {
 
                 <div className="mt-8 flex flex-wrap gap-3">
                   {/* Mobile only — YouTube works; Zengatv does not on mobile browsers */}
-                  <a href="https://www.zengatv.com/live/d6361881-b3e4-4006-a8f8-73e1a78b8bc1.html" target="_blank" rel="noreferrer" className="btn-primary">
+                  <a href="https://www.zengatv.com/embed?v=d6361881-b3e4-4006-a8f8-73e1a78b8bc1.html&t=live" target="_blank" rel="noreferrer" className="btn-primary">
                     <Play className="h-4 w-4" /> Watch Live
                   </a>
                   <a href={appLinks.playStore} target="_blank" rel="noreferrer" className="btn-secondary">
@@ -192,7 +192,7 @@ export default async function HomePage() {
                 <div className="flex-1 p-4">
                   <div className="embed-wrap">
                     <iframe
-                      src="https://www.zengatv.com/live/d6361881-b3e4-4006-a8f8-73e1a78b8bc1.html"
+                      src="https://www.zengatv.com/embed?v=d6361881-b3e4-4006-a8f8-73e1a78b8bc1.html&t=live"
                       title="Metro TV Telugu Live"
                       frameBorder="0"
                       scrolling="no"

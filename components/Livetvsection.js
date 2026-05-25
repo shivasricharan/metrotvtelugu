@@ -46,7 +46,7 @@ export default function LiveTVSection() {
           }}
         >
           <iframe
-            src="https://www.zengatv.com/live/d6361881-b3e4-4006-a8f8-73e1a78b8bc1.html"
+            src="https://www.zengatv.com/embed?v=d6361881-b3e4-4006-a8f8-73e1a78b8bc1.html&t=live"
             style={{ width: "100%", height: "100%", display: "block" }}
             frameBorder="0"
             scrolling="no"
