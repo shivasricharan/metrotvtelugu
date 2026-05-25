@@ -1,296 +1,377 @@
-"use client";
-
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
-import { Menu, X, Smartphone, Apple, Download } from "lucide-react";
-import { useState } from "react";
-import ThemeToggle from "./ThemeToggle";
+import {
+  Play, Download, ExternalLink,
+  CircleDot, Wifi, Newspaper,
+  Briefcase, Film, Leaf, Megaphone,
+} from "lucide-react";
+import FadeIn from "../components/FadeIn";
+import VideoCard from "../components/VideoCard";
+import { fallbackTickerItems } from "../lib/tickerData";
+import { getMetroCmsData } from "../lib/metroCms";
+import LiveTVSection from "@/components/LiveTVSection";
 
-const playStoreLink = "https://play.google.com/store/apps/details?id=com.ht.metro_tv";
-const appStoreLink  = "https://apps.apple.com/in/app/metro-tv-telugu/id6756271666";
-const instagramLink = "https://www.instagram.com/metrotv_telugu?igsh=MXoyNXY0YmY1YXZm";
-const facebookLink  = "https://www.facebook.com/share/1DipSWBgGs/?mibextid=wwXIfr";
+export const dynamic = "force-dynamic";
 
-/* News removed — channel is live on Jio TV & YouTube */
-const links = [
-  { href: "/",          label: "Home"      },
-  { href: "/videos",    label: "Videos"    },
-  { href: "/shows",     label: "Shows"     },
-  { href: "/advertise", label: "Advertise" },
-  { href: "/about",     label: "About"     },
-  { href: "/contact",   label: "Contact"   },
+const fallbackAppLinks = {
+  playStore: "https://play.google.com/store/apps/details?id=com.ht.metro_tv",
+  appStore:  "https://apps.apple.com/in/app/metro-tv-telugu/id6756271666",
+  youtube:   "https://youtube.com/@metrotvtelugunews?si=Ma595RbHnX0Rn_yw",
+};
+
+const featuredVideos = [
+  { title: "Prime Time Bulletin: Top stories of the day",             category: "News",          videoId: "KlyvXNZWDZk" },
+  { title: "Weekend Special Discussion: Key political talking points", category: "Debate",        videoId: "92DsruOUAD0" },
+  { title: "Cinema and Culture Focus: Telugu film world updates",      category: "Entertainment", videoId: "1Ch2vJ1qmzM" },
 ];
 
-/* NAV IS ALWAYS DARK — all colours hardcoded white, never var(--text) */
-const NAV_TEXT         = "#ffffff";
-const NAV_TEXT_MUTED   = "rgba(255,255,255,0.55)";
-const NAV_BORDER       = "rgba(255,255,255,0.12)";
-const NAV_CARD         = "rgba(255,255,255,0.07)";
-const NAV_CARD_HOVER   = "rgba(255,255,255,0.13)";
+const shows = [
+  { icon: Newspaper, name: "News & Views",  time: "8:00 PM Daily", color: "#e8001d", bg: "rgba(232,0,29,0.10)"   },
+  { icon: Briefcase, name: "Business Hour", time: "7:00 PM Daily", color: "#60a5fa", bg: "rgba(96,165,250,0.10)" },
+  { icon: Film,      name: "Cinema Focus",  time: "9:00 PM Daily", color: "#f59e0b", bg: "rgba(245,158,11,0.10)" },
+  { icon: Leaf,      name: "Krishi Vaarta", time: "6:00 AM Daily", color: "#4ade80", bg: "rgba(74,222,128,0.10)" },
+];
 
-function SocialIcon({ src, alt }) {
+const platforms = [
+  { label: "Jio TV Box Ch.5033", dot: "#60a5fa" },
+  { label: "YouTube Live",       dot: "#ff4444" },
+  { label: "Android & iOS",      dot: "#4ade80" },
+];
+
+function SectionHeader({ label, linkHref, linkLabel }) {
   return (
-    <span className="relative inline-flex h-5 w-5 items-center justify-center">
-      <Image src={src} alt={alt} width={20} height={20} className="object-contain" />
-    </span>
+    <div className="flex items-center justify-between mb-5">
+      <div
+        className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.22em]"
+        style={{ color: "var(--red)" }}
+      >
+        <span style={{ display:"block", width:"3px", height:"14px", background:"var(--red)", borderRadius:"2px", flexShrink:0 }} />
+        {label}
+      </div>
+      {linkHref && (
+        <Link href={linkHref} className="text-xs transition hover:opacity-80" style={{ color: "var(--muted)" }}>
+          {linkLabel} →
+        </Link>
+      )}
+    </div>
   );
 }
 
-export default function Header() {
-  const pathname = usePathname();
-  const [open, setOpen]               = useState(false);
-  const [downloadOpen, setDownloadOpen] = useState(false);
+export default async function HomePage() {
+  const cmsData  = await getMetroCmsData("all");
+  const settings = cmsData?.settings || {};
+
+  const cmsTickerItems = Array.isArray(cmsData?.ticker)
+    ? cmsData.ticker.map((i) => i.text).filter(Boolean)
+    : [];
+  const tickerItems = cmsTickerItems.length > 0 ? cmsTickerItems : fallbackTickerItems;
+
+  const appLinks = {
+    playStore: settings.googleplayurl     || fallbackAppLinks.playStore,
+    appStore:  settings.appstoreurl       || fallbackAppLinks.appStore,
+    youtube:   settings.youtubechannelurl || fallbackAppLinks.youtube,
+  };
+
+  const cmsVideos = Array.isArray(cmsData?.videos)
+    ? cmsData.videos
+        .map((v) => ({
+          title:    v.title    || "Video Update",
+          category: v.category || "Video",
+          videoId:  v.youTubeID || v.youtubeId || v.videoId || "",
+        }))
+        .filter((v) => v.videoId)
+        .slice(0, 3)
+    : [];
+
+  const videos = cmsVideos.length > 0 ? cmsVideos : featuredVideos;
+  const homepageFeaturedVideoId = settings.homepagefeaturedvideoid || "qw1c13nI-AM";
 
   return (
-    <header
-      className="sticky top-0 z-50 border-b backdrop-blur-xl"
-      style={{ background: "var(--nav-bg)", borderColor: NAV_BORDER }}
-    >
-      <div className="container flex items-center justify-between gap-4 py-3">
+    <>
+      {/* ── TICKER ─────────────────────────────────────────────── */}
+      <section style={{ borderBottom: "1px solid rgba(232,0,29,0.15)" }}>
+        <div className="ticker">
+          <div className="ticker-track">
+            {tickerItems.map((item, i) => (
+              <span key={i} className="mr-10 inline-flex items-center gap-2">
+                {i === 0
+                  ? <><CircleDot className="h-3 w-3" style={{ color:"#fff", verticalAlign:"middle" }} /> {item}</>
+                  : item}
+              </span>
+            ))}
+          </div>
+        </div>
+      </section>
 
-        {/* ── LOGO ── */}
-        <Link
-          href="/"
-          className="flex items-center gap-3"
-          onClick={() => { setOpen(false); setDownloadOpen(false); }}
-        >
+      {/* ── HERO ───────────────────────────────────────────────── */}
+      <section>
+        <div className="container">
           <div
-            className="overflow-hidden rounded-xl border p-1"
-            style={{ borderColor: "rgba(232,0,29,0.40)", background: NAV_CARD }}
+            className="grid lg:grid-cols-2 overflow-hidden"
+            style={{ borderBottom: "1px solid var(--border)", minHeight: "420px" }}
           >
-            <Image
-              src="/metrotvlogo.png"
-              alt="Metro TV Telugu"
-              width={110}
-              height={62}
-              priority
-            />
-          </div>
-          <div className="hidden 2xl:block">
-            <div className="text-sm font-black tracking-[0.22em]" style={{ color: NAV_TEXT }}>
-              METRO TV TELUGU
-            </div>
-            <div className="text-xs" style={{ color: NAV_TEXT_MUTED }}>
-              News • Shows • Digital
-            </div>
-          </div>
-        </Link>
-
-        {/* ── LIVE PILL ── */}
-        <div className="hidden xl:flex items-center gap-2">
-          <span
-            className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-black text-white"
-            style={{ background: "var(--red)", letterSpacing: "0.16em" }}
-          >
-            <span
-              className="inline-block h-2 w-2 rounded-full bg-white"
-              style={{ animation: "navpulse 1.4s infinite" }}
-            />
-            LIVE
-          </span>
-          <span className="text-xs" style={{ color: NAV_TEXT_MUTED }}>Jio TV Box Ch.5033</span>
-        </div>
-
-        {/* ── NAV LINKS ── */}
-        <nav className="hidden xl:flex items-center gap-5 text-sm">
-          {links.map((link) => {
-            const active = pathname === link.href;
-            return (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={active ? "font-bold" : "transition hover:opacity-75"}
-                style={{ color: active ? "var(--red)" : NAV_TEXT }}
-              >
-                {link.label}
-              </Link>
-            );
-          })}
-        </nav>
-
-        {/* ── RIGHT ACTIONS ── */}
-        <div className="hidden xl:flex items-center gap-3">
-          <a
-            href={instagramLink} target="_blank" rel="noreferrer"
-            aria-label="Instagram"
-            style={{
-              display: "inline-flex", alignItems: "center", justifyContent: "center",
-              width: "36px", height: "36px", borderRadius: "999px",
-              border: `1px solid ${NAV_BORDER}`, background: NAV_CARD,
-            }}
-          >
-            <SocialIcon src="/instagram.png" alt="Instagram" />
-          </a>
-          <a
-            href={facebookLink} target="_blank" rel="noreferrer"
-            aria-label="Facebook"
-            style={{
-              display: "inline-flex", alignItems: "center", justifyContent: "center",
-              width: "36px", height: "36px", borderRadius: "999px",
-              border: `1px solid ${NAV_BORDER}`, background: NAV_CARD,
-            }}
-          >
-            <SocialIcon src="/facebook.png" alt="Facebook" />
-          </a>
-
-          <ThemeToggle />
-
-          {/* Download App button + dropdown */}
-          <div className="relative">
-            <button
-              type="button"
-              className="btn-primary text-sm"
-              onClick={() => setDownloadOpen((v) => !v)}
-            >
-              <Download className="h-4 w-4" />
-              Download App
-            </button>
-
-            {downloadOpen && (
+            {/* LEFT */}
+            <FadeIn>
               <div
-                className="absolute right-0 mt-3 w-52 rounded-2xl border p-2 shadow-2xl"
-                style={{ background: "#0d1225", borderColor: NAV_BORDER }}
+                className="flex flex-col justify-center py-12 px-6 lg:pl-0 lg:pr-12"
+                style={{
+                  background: "linear-gradient(135deg, rgba(232,0,29,0.10) 0%, transparent 55%)",
+                  borderRight: "1px solid var(--border)",
+                }}
               >
-                <a
-                  href={playStoreLink} target="_blank" rel="noreferrer"
-                  className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm hover:opacity-80"
-                  onClick={() => setDownloadOpen(false)}
-                  style={{ background: NAV_CARD, color: NAV_TEXT }}
+                <div className="mb-6 flex items-center gap-3">
+                  <span
+                    className="inline-flex items-center gap-2 rounded px-3 py-1 text-xs font-black text-white"
+                    style={{ background: "var(--red)", letterSpacing: "0.18em" }}
+                  >
+                    <span
+                      className="inline-block h-2 w-2 rounded-full bg-white"
+                      style={{ animation: "livepulse 1.4s infinite" }}
+                    />
+                    LIVE
+                  </span>
+                  <span className="text-xs font-semibold" style={{ color: "var(--muted)" }}>
+                    On Air — Jio TV Box Ch.5033 &amp; YouTube
+                  </span>
+                </div>
+
+                <h1
+                  className="font-black"
+                  style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", lineHeight: 1.08 }}
                 >
-                  <Smartphone className="h-4 w-4" style={{ color: "var(--red)" }} />
-                  Google Play
-                </a>
-                <a
-                  href={appStoreLink} target="_blank" rel="noreferrer"
-                  className="mt-1 flex items-center gap-3 rounded-xl px-4 py-3 text-sm hover:opacity-80"
-                  onClick={() => setDownloadOpen(false)}
-                  style={{ background: NAV_CARD, color: NAV_TEXT }}
-                >
-                  <Apple className="h-4 w-4" style={{ color: "var(--red)" }} />
-                  App Store
-                </a>
+                  Telugu News,{" "}
+                  <span style={{ color: "var(--red)" }}>Stories</span>
+                  <br />&amp; Live Coverage
+                </h1>
+
+                <p className="mt-5 max-w-md text-sm leading-7" style={{ color: "var(--muted)" }}>
+                  Regional news, public-interest reporting, programs and live coverage
+                  for Telugu-speaking audiences across Telangana and Andhra Pradesh.
+                </p>
+
+                <div className="mt-8 flex flex-wrap gap-3">
+                  <a href={appLinks.youtube} target="_blank" rel="noreferrer" className="btn-primary">
+                    <Play className="h-4 w-4" /> Watch Live
+                  </a>
+                  <a href={appLinks.playStore} target="_blank" rel="noreferrer" className="btn-secondary">
+                    <Download className="h-4 w-4" /> Download App
+                  </a>
+                  <Link href="/videos" className="btn-secondary">All Videos</Link>
+                </div>
+
+                <div className="mt-7 flex flex-wrap gap-2">
+                  {platforms.map((p) => (
+                    <span
+                      key={p.label}
+                      className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs"
+                      style={{ background: "var(--card)", border: "1px solid var(--border)", color: "var(--muted-light)" }}
+                    >
+                      <span className="inline-block h-2 w-2 rounded-full" style={{ background: p.dot, flexShrink: 0 }} />
+                      {p.label}
+                    </span>
+                  ))}
+                </div>
               </div>
-            )}
+            </FadeIn>
+
+            {/* RIGHT — featured video */}
+            <FadeIn delay={0.1}>
+              <div className="flex flex-col" style={{ background: "var(--bg-card)" }}>
+                <div
+                  className="flex items-center justify-between px-5 py-3"
+                  style={{ borderBottom: "1px solid var(--border)" }}
+                >
+                  <Image src="/metrotvlogo.png" alt="Metro TV Telugu" width={90} height={50} priority className="rounded-lg" />
+                  <span
+                    className="inline-flex items-center gap-2 rounded px-3 py-1 text-xs font-black text-white"
+                    style={{ background: "var(--red)", letterSpacing: "0.14em" }}
+                  >
+                    <Wifi className="h-3 w-3" /> FEATURED
+                  </span>
+                </div>
+
+                <div className="flex-1 p-4">
+                  <div className="embed-wrap">
+                    <iframe
+                      src={`https://www.youtube.com/embed/${homepageFeaturedVideoId}`}
+                      title="Featured Video"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    />
+                  </div>
+                </div>
+
+              </div>
+            </FadeIn>
           </div>
         </div>
+      </section>
 
-        {/* ── MOBILE HAMBURGER ── */}
-        <div className="flex items-center gap-3 xl:hidden">
-          <ThemeToggle />
-          <button
-            type="button"
-            onClick={() => setOpen((v) => !v)}
-            aria-label="Toggle menu"
-            style={{
-              display: "inline-flex", alignItems: "center", justifyContent: "center",
-              border: `1px solid ${NAV_BORDER}`, background: NAV_CARD,
-              color: NAV_TEXT, borderRadius: "999px", padding: "8px 12px", cursor: "pointer",
-            }}
-          >
-            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </button>
+      <div className="section-divider" />
+
+      {/* ── LIVE TV ────────────────────────────────────────────── */}
+      <LiveTVSection />
+
+      <div className="section-divider" />
+
+      {/* ── VIDEOS ─────────────────────────────────────────────── */}
+      <section className="section-space" style={{ paddingTop:"48px", paddingBottom:"48px" }}>
+        <div className="container">
+          <FadeIn>
+            <SectionHeader label="Latest Videos" linkHref="/videos" linkLabel="YouTube Channel" />
+          </FadeIn>
+          <div className="grid gap-4 md:grid-cols-3">
+            {videos.map((video, i) => (
+              <FadeIn key={`${video.videoId}-${i}`} delay={i * 0.08}>
+                <VideoCard title={video.title} category={video.category} videoId={video.videoId} />
+              </FadeIn>
+            ))}
+          </div>
+          <div className="mt-6 flex gap-3">
+            <Link href="/videos" className="btn-secondary">View all videos</Link>
+            <a href={appLinks.youtube} target="_blank" rel="noreferrer" className="btn-secondary">
+              YouTube Channel <ExternalLink className="h-4 w-4" />
+            </a>
+          </div>
         </div>
-      </div>
+      </section>
 
-      {/* ── MOBILE MENU ── */}
-      {open && (
-        <div
-          className="xl:hidden border-t"
-          style={{ borderColor: NAV_BORDER, background: "var(--nav-bg)" }}
-        >
-          <nav className="container grid gap-1 py-4 text-sm">
-            {links.map((link) => {
-              const active = pathname === link.href;
-              return (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setOpen(false)}
-                  className="rounded-xl px-4 py-3 font-medium"
-                  style={{
-                    background:  active ? NAV_CARD_HOVER    : "transparent",
-                    color:       active ? "var(--red)"      : NAV_TEXT,
-                    borderLeft:  active ? "3px solid var(--red)" : "3px solid transparent",
-                  }}
-                >
-                  {link.label}
-                </Link>
-              );
-            })}
+      <div className="section-divider" />
 
-            {/* Social */}
+      {/* ── SHOWS ──────────────────────────────────────────────── */}
+      <section className="section-space" style={{ paddingTop:"48px", paddingBottom:"48px" }}>
+        <div className="container">
+          <FadeIn>
+            <SectionHeader label="Programs & Shows" linkHref="/shows" linkLabel="All shows" />
+          </FadeIn>
+          <FadeIn delay={0.06}>
+            <div className="grid gap-3 grid-cols-2 md:grid-cols-4">
+              {shows.map((show) => {
+                const Icon = show.icon;
+                return (
+                  <Link
+                    key={show.name}
+                    href="/shows"
+                    className="card-hover rounded-xl p-4 flex flex-col gap-3"
+                    style={{ background: "var(--bg-card)", border: "1px solid var(--border)", textDecoration: "none" }}
+                  >
+                    <div
+                      className="inline-flex h-10 w-10 items-center justify-center rounded-xl"
+                      style={{ background: show.bg }}
+                    >
+                      <Icon className="h-5 w-5" style={{ color: show.color }} />
+                    </div>
+                    <div>
+                      <div className="text-sm font-bold" style={{ color: "var(--text)" }}>{show.name}</div>
+                      <div className="mt-1 text-xs" style={{ color: "var(--muted)" }}>{show.time}</div>
+                    </div>
+                  </Link>
+                );
+              })}
+            </div>
+          </FadeIn>
+        </div>
+      </section>
+
+      <div className="section-divider" />
+
+      {/* ── APP ────────────────────────────────────────────────── */}
+      <section className="section-space" style={{ paddingTop:"48px", paddingBottom:"48px" }}>
+        <div className="container">
+          <FadeIn>
             <div
-              className="mt-3 rounded-2xl border p-4"
-              style={{ borderColor: NAV_BORDER }}
+              className="rounded-2xl p-8 md:p-10"
+              style={{ background: "var(--bg-card)", border: "1px solid var(--border)" }}
             >
-              <div
-                className="mb-3 text-xs font-bold uppercase tracking-widest"
-                style={{ color: NAV_TEXT_MUTED }}
-              >
-                Follow Metro TV Telugu
-              </div>
-              <div className="flex gap-3">
-                <a
-                  href={instagramLink} target="_blank" rel="noreferrer"
-                  onClick={() => setOpen(false)}
-                  className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold"
-                  style={{ background: NAV_CARD, border: `1px solid ${NAV_BORDER}`, color: NAV_TEXT }}
-                >
-                  <SocialIcon src="/instagram.png" alt="Instagram" /> Instagram
-                </a>
-                <a
-                  href={facebookLink} target="_blank" rel="noreferrer"
-                  onClick={() => setOpen(false)}
-                  className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold"
-                  style={{ background: NAV_CARD, border: `1px solid ${NAV_BORDER}`, color: NAV_TEXT }}
-                >
-                  <SocialIcon src="/facebook.png" alt="Facebook" /> Facebook
-                </a>
+              <div className="grid gap-8 md:grid-cols-2 md:items-center">
+                <div>
+                  <div
+                    className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.22em] mb-4"
+                    style={{ color: "var(--red)" }}
+                  >
+                    <span style={{ display:"block", width:"3px", height:"14px", background:"var(--red)", borderRadius:"2px" }} />
+                    Official Mobile App
+                  </div>
+                  <h2 className="text-3xl font-black leading-tight md:text-4xl">
+                    Watch anytime<br />on mobile
+                  </h2>
+                  <p className="mt-4 text-sm leading-7" style={{ color: "var(--muted)" }}>
+                    Live streaming, latest news videos, shows, Shorts and updates
+                    through the official mobile app and YouTube channel.
+                  </p>
+                  <div className="mt-6 flex flex-wrap gap-3">
+                    <a href={appLinks.playStore} target="_blank" rel="noreferrer" className="btn-primary">
+                      <Download className="h-4 w-4" /> Google Play
+                    </a>
+                    <a href={appLinks.appStore} target="_blank" rel="noreferrer" className="btn-secondary">
+                      App Store <ExternalLink className="h-4 w-4" />
+                    </a>
+                    <a href={appLinks.youtube} target="_blank" rel="noreferrer" className="btn-secondary">
+                      YouTube <ExternalLink className="h-4 w-4" />
+                    </a>
+                  </div>
+                </div>
+                <div className="grid grid-cols-3 gap-3">
+                  {platforms.map((p) => (
+                    <div
+                      key={p.label}
+                      className="rounded-xl p-4 text-center"
+                      style={{ background: "var(--card)", border: "1px solid var(--border)" }}
+                    >
+                      <div className="mx-auto mb-2 h-3 w-3 rounded-full" style={{ background: p.dot }} />
+                      <div className="text-xs font-semibold leading-5" style={{ color: "var(--text)" }}>{p.label}</div>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
-
-            {/* App download */}
-            <div
-              className="mt-2 rounded-2xl border p-4"
-              style={{ borderColor: NAV_BORDER }}
-            >
-              <div
-                className="mb-3 flex items-center gap-2 text-xs font-bold uppercase tracking-widest"
-                style={{ color: NAV_TEXT_MUTED }}
-              >
-                <Download className="h-4 w-4" style={{ color: "var(--red)" }} />
-                Download App
-              </div>
-              <div className="flex gap-3">
-                <a
-                  href={playStoreLink} target="_blank" rel="noreferrer"
-                  onClick={() => setOpen(false)}
-                  className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold"
-                  style={{ background: NAV_CARD, border: `1px solid ${NAV_BORDER}`, color: NAV_TEXT }}
-                >
-                  <Smartphone className="h-4 w-4" /> Google Play
-                </a>
-                <a
-                  href={appStoreLink} target="_blank" rel="noreferrer"
-                  onClick={() => setOpen(false)}
-                  className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold"
-                  style={{ background: NAV_CARD, border: `1px solid ${NAV_BORDER}`, color: NAV_TEXT }}
-                >
-                  <Apple className="h-4 w-4" /> App Store
-                </a>
-              </div>
-            </div>
-          </nav>
+          </FadeIn>
         </div>
-      )}
+      </section>
+
+      <div className="section-divider" />
+
+      {/* ── ADVERTISE ──────────────────────────────────────────── */}
+      <section className="section-space" style={{ paddingTop:"48px", paddingBottom:"48px" }}>
+        <div className="container">
+          <FadeIn>
+            <div className="adv-banner p-6 md:p-10">
+              <div className="grid gap-8 md:grid-cols-2 md:items-center">
+                <div>
+                  <div
+                    className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-xl"
+                    style={{ background: "rgba(232,0,29,0.12)" }}
+                  >
+                    <Megaphone className="h-6 w-6" style={{ color: "var(--red)" }} />
+                  </div>
+                  <h2 className="text-3xl font-black leading-tight md:text-4xl">
+                    Reach Telugu audiences through{" "}
+                    <span style={{ color: "var(--red)" }}>trusted regional media</span>
+                  </h2>
+                </div>
+                <div>
+                  <p className="text-sm leading-7" style={{ color: "var(--muted)" }}>
+                    Sponsored stories, video promotions, event coverage and local business
+                    campaigns — Metro TV Telugu is a powerful platform for brands that
+                    want regional attention.
+                  </p>
+                  <div className="mt-6 flex flex-wrap gap-3">
+                    <Link href="/advertise" className="btn-primary">Explore advertising</Link>
+                    <Link href="/contact"   className="btn-secondary">Contact team</Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </FadeIn>
+        </div>
+      </section>
 
       <style>{`
-        @keyframes navpulse {
+        @keyframes livepulse {
           0%, 100% { opacity: 1; }
           50%       { opacity: 0.3; }
         }
       `}</style>
-    </header>
+    </>
   );
 }

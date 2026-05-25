@@ -9,6 +9,7 @@ import FadeIn from "../components/FadeIn";
 import VideoCard from "../components/VideoCard";
 import { fallbackTickerItems } from "../lib/tickerData";
 import { getMetroCmsData } from "../lib/metroCms";
+import LiveTVSection from "@/components/LiveTVSection";
 
 export const dynamic = "force-dynamic";
 
@@ -205,6 +206,11 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
+
+      <div className="section-divider" />
+
+      {/* ── LIVE TV ────────────────────────────────────────────── */}
+      <LiveTVSection />
 
       <div className="section-divider" />
 
