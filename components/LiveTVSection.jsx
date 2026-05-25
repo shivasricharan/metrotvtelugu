@@ -18,7 +18,7 @@ export default function LiveTVSection() {
 
         <div className="aspect-video overflow-hidden rounded-2xl bg-black shadow-2xl ring-1 ring-white/10">
           <iframe
-            src="https://www.zengatv.com/embed?v=d6361881-b3e4-4006-a8f8-73e1a78b8bc1.html&t=live"
+            src="https://www.zengatv.com/live/d6361881-b3e4-4006-a8f8-73e1a78b8bc1.html"
             className="h-full w-full"
             frameBorder="0"
             scrolling="no"
