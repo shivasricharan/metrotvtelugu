@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, Film, HeartPulse } from "lucide-react";
 
 const STREAM_EMBED = "https://mercury.streambridge.link:8042/telugu/metrotv/embed.html";
 
@@ -13,6 +13,7 @@ const youtubeChannels = [
     color: "#f59e0b",
     bg:    "rgba(245,158,11,0.10)",
     border:"rgba(245,158,11,0.25)",
+    Icon:  Film,
   },
   {
     label: "Health",
@@ -21,6 +22,7 @@ const youtubeChannels = [
     color: "#4ade80",
     bg:    "rgba(74,222,128,0.10)",
     border:"rgba(74,222,128,0.25)",
+    Icon:  HeartPulse,
   },
 ];
 
@@ -92,11 +94,21 @@ export default function LiveStreamBox() {
               className="flex items-center gap-2 rounded-xl px-3 py-2.5 transition-opacity hover:opacity-80"
               style={{ background: ch.bg, border: `1px solid ${ch.border}`, textDecoration: "none" }}
             >
-              <ExternalLink className="h-4 w-4 flex-shrink-0" style={{ color: ch.color }} />
-              <div>
+              {/* Channel-specific icon */}
+              <ch.Icon className="h-4 w-4 flex-shrink-0" style={{ color: ch.color }} />
+              <div className="flex-1 min-w-0">
                 <div className="text-xs font-black" style={{ color: ch.color }}>{ch.label}</div>
-                <div className="text-xs leading-4" style={{ color: "var(--muted)" }}>{ch.name}</div>
+                <div className="text-xs leading-4 truncate" style={{ color: "var(--muted)" }}>{ch.name}</div>
               </div>
+              {/* YouTube badge */}
+              <span
+                className="inline-flex items-center justify-center rounded flex-shrink-0"
+                style={{ background: "#ff0000", width: "20px", height: "14px" }}
+              >
+                <svg viewBox="0 0 24 24" width="10" height="10" fill="white">
+                  <polygon points="9,7 19,12 9,17" />
+                </svg>
+              </span>
             </a>
           ))}
         </div>

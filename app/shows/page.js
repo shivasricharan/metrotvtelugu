@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Radio, ExternalLink } from "lucide-react";
+import { Radio, ExternalLink, Film, HeartPulse } from "lucide-react";
 import FadeIn from "../../components/FadeIn";
 import SectionTitle from "../../components/SectionTitle";
 
@@ -10,24 +10,26 @@ export const metadata = {
 
 const youtubeChannels = [
   {
-    label: "Entertainment",
-    name:  "Metro Entertainment TV",
-    desc:  "Movies, celebrity interviews, film reviews, music, cultural programs and entertainment content in Telugu.",
-    url:   "https://www.youtube.com/@MetroEntertainmentTv",
-    color: "#f59e0b",
-    bg:    "rgba(245,158,11,0.10)",
-    border:"rgba(245,158,11,0.25)",
+    label:    "Entertainment",
+    name:     "Metro Entertainment TV",
+    desc:     "Movies, celebrity interviews, film reviews, music, cultural programs and entertainment content in Telugu.",
+    url:      "https://www.youtube.com/@MetroEntertainmentTv",
+    color:    "#f59e0b",
+    bg:       "rgba(245,158,11,0.10)",
+    border:   "rgba(245,158,11,0.25)",
     gradient: "linear-gradient(135deg, rgba(245,158,11,0.15) 0%, transparent 60%)",
+    Icon:     Film,
   },
   {
-    label: "Health",
-    name:  "Metro Health Updates",
-    desc:  "Health tips, medical advice, wellness programs, doctor interviews and health awareness content in Telugu.",
-    url:   "https://www.youtube.com/@metrohealthupdates",
-    color: "#4ade80",
-    bg:    "rgba(74,222,128,0.10)",
-    border:"rgba(74,222,128,0.25)",
+    label:    "Health",
+    name:     "Metro Health Updates",
+    desc:     "Health tips, medical advice, wellness programs, doctor interviews and health awareness content in Telugu.",
+    url:      "https://www.youtube.com/@metrohealthupdates",
+    color:    "#4ade80",
+    bg:       "rgba(74,222,128,0.10)",
+    border:   "rgba(74,222,128,0.25)",
     gradient: "linear-gradient(135deg, rgba(74,222,128,0.15) 0%, transparent 60%)",
+    Icon:     HeartPulse,
   },
 ];
 
@@ -84,14 +86,24 @@ export default function ShowsPage() {
                 >
                   {/* Coloured banner */}
                   <div
-                    className="flex h-32 items-center justify-center"
+                    className="flex h-32 items-center justify-center gap-4"
                     style={{ background: ch.gradient }}
                   >
+                    {/* Channel icon */}
                     <div
                       className="inline-flex h-16 w-16 items-center justify-center rounded-2xl"
                       style={{ background: ch.bg, border: `1px solid ${ch.border}` }}
                     >
-                      <ExternalLink className="h-8 w-8" style={{ color: ch.color }} />
+                      <ch.Icon className="h-8 w-8" style={{ color: ch.color }} />
+                    </div>
+                    {/* YouTube badge */}
+                    <div
+                      className="inline-flex items-center justify-center rounded-xl"
+                      style={{ background: "#ff0000", width: "48px", height: "34px" }}
+                    >
+                      <svg viewBox="0 0 24 24" width="20" height="20" fill="white">
+                        <polygon points="9,7 19,12 9,17" />
+                      </svg>
                     </div>
                   </div>
 
@@ -109,7 +121,15 @@ export default function ShowsPage() {
                       className="mt-auto inline-flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-bold"
                       style={{ background: ch.bg, color: ch.color }}
                     >
-                      Follow on YouTube <ExternalLink className="h-4 w-4" />
+                      <span
+                        className="inline-flex items-center justify-center rounded"
+                        style={{ background: "#ff0000", width: "24px", height: "17px", flexShrink: 0 }}
+                      >
+                        <svg viewBox="0 0 24 24" width="10" height="10" fill="white">
+                          <polygon points="9,7 19,12 9,17" />
+                        </svg>
+                      </span>
+                      Follow on YouTube
                     </div>
                   </div>
                 </a>

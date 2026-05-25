@@ -174,6 +174,18 @@ export default async function HomePage() {
                     </span>
                   ))}
                 </div>
+
+                {/* Advertising contact */}
+                <div
+                  className="mt-6 rounded-xl px-4 py-3 text-xs leading-6"
+                  style={{ background: "rgba(232,0,29,0.07)", border: "1px solid rgba(232,0,29,0.18)" }}
+                >
+                  <div className="font-black uppercase tracking-[0.12em] mb-1" style={{ color: "var(--red)" }}>
+                    Advertising Enquiries
+                  </div>
+                  <div style={{ color: "var(--text)" }}>Mr. Rakesh &nbsp;·&nbsp; <span style={{ color: "var(--muted)" }}>+91 9490235700</span></div>
+                  <div style={{ color: "var(--muted)" }}>rakesh@metrotvtelugu.com</div>
+                </div>
               </div>
             </FadeIn>
           </div>
