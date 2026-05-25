@@ -49,8 +49,10 @@ export default function Header() {
               </Link>
             ))}
 
-            <Link
-              href="/#live-tv"
+            <a
+              href="https://www.zengatv.com/embed?v=d6361881-b3e4-4006-a8f8-73e1a78b8bc1.html&t=live"
+              target="_blank"
+              rel="noreferrer"
               className="inline-flex items-center gap-1.5 text-xs font-black text-white px-3 py-1.5 rounded-md ml-1 hover:opacity-90 transition-opacity"
               style={{ background: "var(--red)", letterSpacing: "0.06em" }}
             >
@@ -59,7 +61,7 @@ export default function Header() {
                 style={{ animation: "livepulse 1.4s infinite", flexShrink: 0 }}
               />
               Live TV
-            </Link>
+            </a>
 
             <div className="ml-2">
               <ThemeToggle />

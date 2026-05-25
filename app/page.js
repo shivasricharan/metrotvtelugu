@@ -2,14 +2,13 @@ import Link from "next/link";
 import Image from "next/image";
 import {
   Play, Download, ExternalLink,
-  CircleDot, Wifi, Newspaper,
+  CircleDot, Newspaper,
   Briefcase, Film, Leaf, Megaphone,
 } from "lucide-react";
 import FadeIn from "../components/FadeIn";
 import VideoCard from "../components/VideoCard";
 import { fallbackTickerItems } from "../lib/tickerData";
 import { getMetroCmsData } from "../lib/metroCms";
-import LiveTVSection from "@/components/LiveTVSection";
 
 export const dynamic = "force-dynamic";
 
@@ -84,7 +83,6 @@ export default async function HomePage() {
     : [];
 
   const videos = cmsVideos.length > 0 ? cmsVideos : featuredVideos;
-  const homepageFeaturedVideoId = settings.homepagefeaturedvideoid || "qw1c13nI-AM";
 
   return (
     <>
@@ -150,7 +148,7 @@ export default async function HomePage() {
                 </p>
 
                 <div className="mt-8 flex flex-wrap gap-3">
-                  <a href={appLinks.youtube} target="_blank" rel="noreferrer" className="btn-primary">
+                  <a href="https://www.zengatv.com/embed?v=d6361881-b3e4-4006-a8f8-73e1a78b8bc1.html&t=live" target="_blank" rel="noreferrer" className="btn-primary">
                     <Play className="h-4 w-4" /> Watch Live
                   </a>
                   <a href={appLinks.playStore} target="_blank" rel="noreferrer" className="btn-secondary">
@@ -174,7 +172,7 @@ export default async function HomePage() {
               </div>
             </FadeIn>
 
-            {/* RIGHT — featured video */}
+            {/* RIGHT — live stream */}
             <FadeIn delay={0.1}>
               <div className="flex flex-col" style={{ background: "var(--bg-card)" }}>
                 <div
@@ -186,16 +184,21 @@ export default async function HomePage() {
                     className="inline-flex items-center gap-2 rounded px-3 py-1 text-xs font-black text-white"
                     style={{ background: "var(--red)", letterSpacing: "0.14em" }}
                   >
-                    <Wifi className="h-3 w-3" /> FEATURED
+                    <span
+                      className="inline-block h-2 w-2 rounded-full bg-white"
+                      style={{ animation: "livepulse 1.4s infinite" }}
+                    />
+                    LIVE
                   </span>
                 </div>
 
                 <div className="flex-1 p-4">
                   <div className="embed-wrap">
                     <iframe
-                      src={`https://www.youtube.com/embed/${homepageFeaturedVideoId}`}
-                      title="Featured Video"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      src="https://www.zengatv.com/embed?v=d6361881-b3e4-4006-a8f8-73e1a78b8bc1.html&t=live"
+                      title="Metro TV Telugu Live"
+                      frameBorder="0"
+                      scrolling="no"
                       allowFullScreen
                     />
                   </div>
@@ -206,11 +209,6 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
-
-      <div className="section-divider" />
-
-      {/* ── LIVE TV ────────────────────────────────────────────── */}
-      <LiveTVSection />
 
       <div className="section-divider" />
 
