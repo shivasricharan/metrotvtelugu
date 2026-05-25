@@ -146,6 +146,7 @@ export default function ContactForm() {
         <option>Event Coverage</option>
         <option>Video Promotion</option>
         <option>Partnership</option>
+        <option>Careers</option>
         <option>General Enquiry</option>
       </select>
 
