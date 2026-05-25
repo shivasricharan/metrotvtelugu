@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import {
-  Download, ExternalLink,
+  Play, Download, ExternalLink,
   CircleDot, Newspaper,
   Briefcase, Film, Leaf, Megaphone,
 } from "lucide-react";
@@ -148,6 +148,9 @@ export default async function HomePage() {
                 </p>
 
                 <div className="mt-8 flex flex-wrap gap-3">
+                  <a href={appLinks.youtube} target="_blank" rel="noreferrer" className="btn-primary lg:hidden">
+                    <Play className="h-4 w-4" /> Watch Live
+                  </a>
                   <a href={appLinks.playStore} target="_blank" rel="noreferrer" className="btn-secondary">
                     <Download className="h-4 w-4" /> Download App
                   </a>
@@ -169,8 +172,8 @@ export default async function HomePage() {
               </div>
             </FadeIn>
 
-            {/* RIGHT — live stream */}
-            <FadeIn delay={0.1}>
+            {/* RIGHT — live stream (desktop only; Zengatv does not support mobile embeds) */}
+            <FadeIn delay={0.1} className="hidden lg:block">
               <div className="flex flex-col" style={{ background: "var(--bg-card)" }}>
                 <div
                   className="flex items-center justify-between px-5 py-3"
