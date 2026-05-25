@@ -148,7 +148,7 @@ export default async function HomePage() {
                 </p>
 
                 <div className="mt-8 flex flex-wrap gap-3">
-                  <a href={appLinks.youtube} target="_blank" rel="noreferrer" className="btn-primary md:hidden">
+                  <a href="https://www.zengatv.com/embed?v=d6361881-b3e4-4006-a8f8-73e1a78b8bc1.html&t=live" target="_blank" rel="noreferrer" className="btn-primary">
                     <Play className="h-4 w-4" /> Watch Live
                   </a>
                   <a href={appLinks.playStore} target="_blank" rel="noreferrer" className="btn-secondary">
@@ -172,8 +172,8 @@ export default async function HomePage() {
               </div>
             </FadeIn>
 
-            {/* RIGHT — live stream (tablet + desktop; Zengatv does not support phone embeds) */}
-            <FadeIn delay={0.1} className="hidden md:block">
+            {/* RIGHT — live stream */}
+            <FadeIn delay={0.1}>
               <div className="flex flex-col" style={{ background: "var(--bg-card)" }}>
                 <div
                   className="flex items-center justify-between px-5 py-3"
