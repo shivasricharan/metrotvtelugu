@@ -109,13 +109,18 @@ export default async function HomePage() {
             className="grid lg:grid-cols-2 overflow-hidden"
             style={{ borderBottom: "1px solid var(--border)", minHeight: "420px" }}
           >
-            {/* LEFT */}
+            {/* LEFT — live stream */}
             <FadeIn>
+              <LiveStreamBox />
+            </FadeIn>
+
+            {/* RIGHT — text, buttons, platform chips */}
+            <FadeIn delay={0.1}>
               <div
-                className="flex flex-col justify-center py-12 px-6 lg:pl-0 lg:pr-12"
+                className="flex flex-col justify-center py-12 px-6 lg:pl-12 lg:pr-0"
                 style={{
-                  background: "linear-gradient(135deg, rgba(232,0,29,0.10) 0%, transparent 55%)",
-                  borderRight: "1px solid var(--border)",
+                  background: "linear-gradient(225deg, rgba(232,0,29,0.10) 0%, transparent 55%)",
+                  borderLeft: "1px solid var(--border)",
                 }}
               >
                 <div className="mb-6 flex items-center gap-3">
@@ -174,11 +179,6 @@ export default async function HomePage() {
                   ))}
                 </div>
               </div>
-            </FadeIn>
-
-            {/* RIGHT — responsive live stream (Zengatv on desktop, YouTube tap-card on mobile) */}
-            <FadeIn delay={0.1}>
-              <LiveStreamBox />
             </FadeIn>
           </div>
         </div>
