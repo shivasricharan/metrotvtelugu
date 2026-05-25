@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import {
-  Play, Download, ExternalLink,
+  Download, ExternalLink,
   CircleDot, Newspaper,
   Briefcase, Film, Leaf, Megaphone,
 } from "lucide-react";
@@ -148,9 +148,6 @@ export default async function HomePage() {
                 </p>
 
                 <div className="mt-8 flex flex-wrap gap-3">
-                  <a href="https://www.zengatv.com/embed?v=d6361881-b3e4-4006-a8f8-73e1a78b8bc1.html&t=live" target="_blank" rel="noreferrer" className="btn-primary">
-                    <Play className="h-4 w-4" /> Watch Live
-                  </a>
                   <a href={appLinks.playStore} target="_blank" rel="noreferrer" className="btn-secondary">
                     <Download className="h-4 w-4" /> Download App
                   </a>
@@ -195,12 +192,24 @@ export default async function HomePage() {
                 <div className="flex-1 p-4">
                   <div className="embed-wrap">
                     <iframe
-                      src="https://www.zengatv.com/embed?v=d6361881-b3e4-4006-a8f8-73e1a78b8bc1.html&t=live"
+                      src="https://www.zengatv.com/embed?v=d6361881-b3e4-4006-a8f8-73e1a78b8bc1.html&t=live&autoplay=1&ap=1"
                       title="Metro TV Telugu Live"
                       frameBorder="0"
                       scrolling="no"
                       allowFullScreen
+                      allow="autoplay; encrypted-media; fullscreen"
                     />
+                    {/* Cover third-party player logo in top-left */}
+                    <div style={{
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      width: "28%",
+                      height: "12%",
+                      background: "#000",
+                      zIndex: 2,
+                      pointerEvents: "none",
+                    }} />
                   </div>
                 </div>
 
