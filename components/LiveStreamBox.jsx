@@ -28,17 +28,9 @@ export default function LiveStreamBox() {
     <div className="flex flex-col" style={{ background: "var(--bg-card)", height: "100%" }}>
       {/* Header bar */}
       <div
-        className="flex items-center justify-between px-5 py-3"
+        className="flex items-center justify-end px-5 py-3"
         style={{ borderBottom: "1px solid var(--border)" }}
       >
-        <Image
-          src="/metrotvlogo.png"
-          alt="Metro TV Telugu"
-          width={130}
-          height={72}
-          priority
-          className="rounded-lg"
-        />
         <span
           className="inline-flex items-center gap-2 rounded px-3 py-1 text-xs font-black text-white"
           style={{ background: "var(--red)", letterSpacing: "0.14em" }}
