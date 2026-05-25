@@ -90,14 +90,17 @@ export default async function HomePage() {
       {/* ── TICKER ─────────────────────────────────────────────── */}
       <section style={{ borderBottom: "1px solid rgba(232,0,29,0.15)" }}>
         <div className="ticker">
-          <div className="ticker-track">
-            {tickerItems.map((item, i) => (
-              <span key={i} className="mr-10 inline-flex items-center gap-2">
-                {i === 0
-                  ? <><CircleDot className="h-3 w-3" style={{ color:"#fff", verticalAlign:"middle" }} /> {item}</>
-                  : item}
-              </span>
-            ))}
+          <span className="ticker-label">BREAKING</span>
+          <div className="ticker-clip">
+            <div className="ticker-track">
+              {tickerItems.map((item, i) => (
+                <span key={i} className="mr-10 inline-flex items-center gap-2">
+                  {i === 0
+                    ? <><CircleDot className="h-3 w-3" style={{ color:"#fff", verticalAlign:"middle" }} /> {item}</>
+                    : item}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
       </section>

@@ -37,7 +37,7 @@ export default function LiveStreamBox() {
           width={130}
           height={72}
           priority
-          className="rounded-lg"
+          className=""
         />
         <span
           className="inline-flex items-center gap-2 rounded px-3 py-1 text-xs font-black text-white"
