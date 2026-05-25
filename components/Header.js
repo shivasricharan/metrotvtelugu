@@ -15,8 +15,7 @@ const navLinks = [
   { href: "/contact",   label: "Contact"   },
 ];
 
-const LIVE_URL =
-  "https://www.zengatv.com/embed?v=d6361881-b3e4-4006-a8f8-73e1a78b8bc1.html&t=live";
+const LIVE_URL = "https://www.youtube.com/@metrotvtelugunews/live";
 
 
 export default function Header() {
