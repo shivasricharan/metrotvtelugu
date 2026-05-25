@@ -183,7 +183,7 @@ export default async function HomePage() {
                   <div className="font-black uppercase tracking-[0.12em] mb-1" style={{ color: "var(--red)" }}>
                     For Advertising Enquiries
                   </div>
-                  <div style={{ color: "var(--text)" }}>Mr. Rakesh Dasari &nbsp;·&nbsp; <span style={{ color: "var(--muted)" }}>+91 9490235700</span></div>
+                  <div style={{ color: "var(--text)" }}>Mr. Rakesh Dasari &nbsp;<span style={{ color: "var(--muted)" }}>+91 9490235700</span></div>
                   <div style={{ color: "var(--muted)" }}>email — rakesh@metrotvtelugu.com</div>
                 </div>
               </div>
