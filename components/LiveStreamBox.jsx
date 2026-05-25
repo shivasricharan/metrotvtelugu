@@ -2,8 +2,7 @@
 
 import Image from "next/image";
 
-const YOUTUBE_CHANNEL_ID = "UCVfnIT7ZU5dKG319O0ZPG2g";
-const YOUTUBE_EMBED = `https://www.youtube.com/embed/live_stream?channel=${YOUTUBE_CHANNEL_ID}&autoplay=1`;
+const STREAM_EMBED = "https://mercury.streambridge.link:8042/telugu/metrotv/embed.html";
 
 export default function LiveStreamBox() {
   return (
@@ -33,13 +32,14 @@ export default function LiveStreamBox() {
         </span>
       </div>
 
-      {/* YouTube live embed — works on desktop, tablet, mobile, smart TV */}
+      {/* Streambridge embed — same player the old HTML site used, works on all devices */}
       <div className="flex-1 p-4">
         <div className="embed-wrap">
           <iframe
-            src={YOUTUBE_EMBED}
+            src={STREAM_EMBED}
             title="Metro TV Telugu Live"
             frameBorder="0"
+            scrolling="no"
             allowFullScreen
             allow="autoplay; encrypted-media; fullscreen"
           />

@@ -15,7 +15,7 @@ const navLinks = [
   { href: "/contact",   label: "Contact"   },
 ];
 
-const LIVE_URL = "https://www.youtube.com/@metrotvtelugunews/live";
+const LIVE_URL = "https://mercury.streambridge.link:8042/telugu/metrotv/embed.html";
 
 
 export default function Header() {

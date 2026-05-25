@@ -149,7 +149,7 @@ export default async function HomePage() {
                 </p>
 
                 <div className="mt-8 flex flex-wrap gap-3">
-                  <a href="https://www.youtube.com/@metrotvtelugunews/live" target="_blank" rel="noreferrer" className="btn-primary">
+                  <a href="https://mercury.streambridge.link:8042/telugu/metrotv/embed.html" target="_blank" rel="noreferrer" className="btn-primary">
                     <Play className="h-4 w-4" /> Watch Live
                   </a>
                   <a href={appLinks.playStore} target="_blank" rel="noreferrer" className="btn-secondary">
