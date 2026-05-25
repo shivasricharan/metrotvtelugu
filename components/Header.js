@@ -36,7 +36,7 @@ export default function Header() {
 
           {/* Logo */}
           <Link href="/" className="flex-shrink-0" onClick={() => setOpen(false)}>
-            <Image src="/metrotvlogo.png" alt="Metro TV Telugu" width={80} height={45} priority />
+            <Image src="/metrotvlogo.png" alt="Metro TV Telugu" width={120} height={68} priority />
           </Link>
 
           {/* Desktop nav */}
