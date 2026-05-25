@@ -27,10 +27,10 @@ const fallbackSocial = {
 };
 
 const fallbackContacts = [
-  { name: "Mr. Rakesh Dasari",           role: "Managing Director", phone: "+91 9490235700",                    email: "rakesh@metrotvtelugu.com",        desc: "Leadership and overall business direction." },
-  { name: "Mr. Kondaveeti Jayaprasad",   role: "Chief Editor",      phone: "+91 9848038375 / 9248734566",       email: "admin@metrotvtelugu.com",          desc: "Editorial leadership, news direction and content oversight." },
-  { name: "Mr. B. Chandrasekhar",        role: "Editor",            phone: "+91 9963996704",                    email: "chandrasekhar@metrotvtelugu.com",  desc: "Editorial coordination, news inputs and content-related communication." },
-  { name: "Mr. Sagar Pragnapuram",       role: "CEO",               phone: "+91 8790739192",                    email: "sagar@metrotvtelugu.com",          desc: "Business operations, partnerships, growth and strategic enquiries." },
+  { name: "Mr. Rakesh Dasari",           role: "Managing Director", phone: "+91 40-40159550", mobile: "+91 9490235700",  email: "rakesh@metrotvtelugu.com",        desc: "Leadership and overall business direction." },
+  { name: "Mr. Kondaveeti Jayaprasad",   role: "Chief Editor",      phone: "+91 40-40159550", mobile: "+91 9848038375",  email: "admin@metrotvtelugu.com",          desc: "Editorial leadership, news direction and content oversight." },
+  { name: "Mr. B. Chandrasekhar",        role: "Editor",            phone: "+91 40-40159550", mobile: "+91 9963996704",  email: "chandrasekhar@metrotvtelugu.com",  desc: "Editorial coordination, news inputs and content-related communication." },
+  { name: "Mr. Sagar Pragnapuram",       role: "CEO",               phone: "+91 40-40159550", mobile: "+91 8790739192",  email: "sagar@metrotvtelugu.com",          desc: "Business operations, partnerships, growth and strategic enquiries." },
 ];
 
 const enquiryTypes = [
@@ -56,11 +56,12 @@ function get(settings, key, fallback) { return settings?.[key] || fallback; }
 
 function normalizeContact(c) {
   return {
-    name:  c.name  || "Team Member",
-    role:  c.role  || "Team",
-    phone: c.phone || "",
-    email: c.email || "",
-    desc:  c.description || c.desc || "Official contact for communication and coordination.",
+    name:   c.name   || "Team Member",
+    role:   c.role   || "Team",
+    phone:  c.phone  || "",
+    mobile: c.mobile || c.mobileNumber || c.mobileNo || "",
+    email:  c.email  || "",
+    desc:   c.description || c.desc || "Official contact for communication and coordination.",
   };
 }
 
@@ -265,7 +266,15 @@ export default async function ContactPage() {
                     {contact.phone && (
                       <div className="flex items-center gap-2">
                         <Phone className="h-4 w-4 shrink-0" style={{ color: "var(--red)" }} />
+                        <span className="text-xs" style={{ color: "var(--muted)" }}>Landline:</span>
                         <span>{contact.phone}</span>
+                      </div>
+                    )}
+                    {contact.mobile && (
+                      <div className="flex items-center gap-2">
+                        <Phone className="h-4 w-4 shrink-0" style={{ color: "var(--red)" }} />
+                        <span className="text-xs" style={{ color: "var(--muted)" }}>Mobile:</span>
+                        <span>{contact.mobile}</span>
                       </div>
                     )}
                     {contact.email && (
