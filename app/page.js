@@ -9,7 +9,7 @@ import FadeIn from "../components/FadeIn";
 import VideoCard from "../components/VideoCard";
 import { fallbackTickerItems } from "../lib/tickerData";
 import { getMetroCmsData } from "../lib/metroCms";
-import LiveTVSection from "../components/LiveTVSection";
+import LiveTVSection from "@/components/LiveTVSection";
 
 export const dynamic = "force-dynamic";
 
