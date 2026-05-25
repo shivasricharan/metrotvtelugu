@@ -192,24 +192,13 @@ export default async function HomePage() {
                 <div className="flex-1 p-4">
                   <div className="embed-wrap">
                     <iframe
-                      src="https://www.zengatv.com/embed?v=d6361881-b3e4-4006-a8f8-73e1a78b8bc1.html&t=live&autoplay=1&ap=1"
+                      src="https://www.zengatv.com/embed?v=d6361881-b3e4-4006-a8f8-73e1a78b8bc1.html&t=live&autoplay=1&ap=1&logo=0&branding=0&showinfo=0"
                       title="Metro TV Telugu Live"
                       frameBorder="0"
                       scrolling="no"
                       allowFullScreen
                       allow="autoplay; encrypted-media; fullscreen"
                     />
-                    {/* Cover third-party player logo in top-left */}
-                    <div style={{
-                      position: "absolute",
-                      top: 0,
-                      left: 0,
-                      width: "28%",
-                      height: "12%",
-                      background: "#000",
-                      zIndex: 2,
-                      pointerEvents: "none",
-                    }} />
                   </div>
                 </div>
 
