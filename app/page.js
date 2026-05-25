@@ -153,7 +153,10 @@ export default async function HomePage() {
                     <Play className="h-4 w-4" /> Watch Live
                   </a>
                   <a href={appLinks.playStore} target="_blank" rel="noreferrer" className="btn-secondary">
-                    <Download className="h-4 w-4" /> Download App
+                    <Download className="h-4 w-4" /> Google Play
+                  </a>
+                  <a href={appLinks.appStore} target="_blank" rel="noreferrer" className="btn-secondary">
+                    <Download className="h-4 w-4" /> iOS App Store
                   </a>
                   <Link href="/videos" className="btn-secondary">All Videos</Link>
                 </div>
