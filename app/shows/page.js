@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { Radio, ExternalLink, Film, HeartPulse } from "lucide-react";
+import Image from "next/image";
+import { Radio } from "lucide-react";
 import FadeIn from "../../components/FadeIn";
 import SectionTitle from "../../components/SectionTitle";
 
@@ -10,26 +11,24 @@ export const metadata = {
 
 const youtubeChannels = [
   {
-    label:    "Entertainment",
-    name:     "Metro Entertainment TV",
-    desc:     "Movies, celebrity interviews, film reviews, music, cultural programs and entertainment content in Telugu.",
-    url:      "https://www.youtube.com/@MetroEntertainmentTv",
-    color:    "#f59e0b",
-    bg:       "rgba(245,158,11,0.10)",
-    border:   "rgba(245,158,11,0.25)",
-    gradient: "linear-gradient(135deg, rgba(245,158,11,0.15) 0%, transparent 60%)",
-    Icon:     Film,
+    label:  "Entertainment",
+    name:   "Metro Entertainment TV",
+    desc:   "Movies, celebrity interviews, film reviews, music, cultural programs and entertainment content in Telugu.",
+    url:    "https://www.youtube.com/@MetroEntertainmentTv",
+    color:  "#f59e0b",
+    bg:     "rgba(245,158,11,0.10)",
+    border: "rgba(245,158,11,0.25)",
+    banner: "/metro-entertainment.jpg",
   },
   {
-    label:    "Health",
-    name:     "Metro Health Updates",
-    desc:     "Health tips, medical advice, wellness programs, doctor interviews and health awareness content in Telugu.",
-    url:      "https://www.youtube.com/@metrohealthupdates",
-    color:    "#4ade80",
-    bg:       "rgba(74,222,128,0.10)",
-    border:   "rgba(74,222,128,0.25)",
-    gradient: "linear-gradient(135deg, rgba(74,222,128,0.15) 0%, transparent 60%)",
-    Icon:     HeartPulse,
+    label:  "Health",
+    name:   "Metro Health Updates",
+    desc:   "Health tips, medical advice, wellness programs, doctor interviews and health awareness content in Telugu.",
+    url:    "https://www.youtube.com/@metrohealthupdates",
+    color:  "#4ade80",
+    bg:     "rgba(74,222,128,0.10)",
+    border: "rgba(74,222,128,0.25)",
+    banner: "/metro-health.jpg",
   },
 ];
 
@@ -84,27 +83,14 @@ export default function ShowsPage() {
                   className="card-hover rounded-2xl overflow-hidden flex flex-col"
                   style={{ background: "var(--bg-card)", border: `1px solid ${ch.border}`, textDecoration: "none" }}
                 >
-                  {/* Coloured banner */}
-                  <div
-                    className="flex h-32 items-center justify-center gap-4"
-                    style={{ background: ch.gradient }}
-                  >
-                    {/* Channel icon */}
-                    <div
-                      className="inline-flex h-16 w-16 items-center justify-center rounded-2xl"
-                      style={{ background: ch.bg, border: `1px solid ${ch.border}` }}
-                    >
-                      <ch.Icon className="h-8 w-8" style={{ color: ch.color }} />
-                    </div>
-                    {/* YouTube badge */}
-                    <div
-                      className="inline-flex items-center justify-center rounded-xl"
-                      style={{ background: "#ff0000", width: "48px", height: "34px" }}
-                    >
-                      <svg viewBox="0 0 24 24" width="20" height="20" fill="white">
-                        <polygon points="9,7 19,12 9,17" />
-                      </svg>
-                    </div>
+                  {/* Banner image */}
+                  <div className="relative w-full h-40 overflow-hidden">
+                    <Image
+                      src={ch.banner}
+                      alt={ch.name}
+                      fill
+                      className="object-cover"
+                    />
                   </div>
 
                   <div className="p-6 flex flex-col gap-3 flex-1">
@@ -125,9 +111,7 @@ export default function ShowsPage() {
                         className="inline-flex items-center justify-center rounded"
                         style={{ background: "#ff0000", width: "24px", height: "17px", flexShrink: 0 }}
                       >
-                        <svg viewBox="0 0 24 24" width="10" height="10" fill="white">
-                          <polygon points="9,7 19,12 9,17" />
-                        </svg>
+                        <svg viewBox="0 0 24 24" width="10" height="10" fill="white"><polygon points="9,7 19,12 9,17" /></svg>
                       </span>
                       Follow on YouTube
                     </div>

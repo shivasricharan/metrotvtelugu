@@ -1,28 +1,25 @@
 "use client";
 
 import Image from "next/image";
-import { ExternalLink, Film, HeartPulse } from "lucide-react";
 
 const STREAM_EMBED = "https://mercury.streambridge.link:8042/telugu/metrotv/embed.html";
 
 const youtubeChannels = [
   {
-    label: "Entertainment",
-    name:  "Metro Entertainment TV",
-    url:   "https://www.youtube.com/@MetroEntertainmentTv",
-    color: "#f59e0b",
-    bg:    "rgba(245,158,11,0.10)",
-    border:"rgba(245,158,11,0.25)",
-    Icon:  Film,
+    label:  "Entertainment",
+    name:   "Metro Entertainment TV",
+    url:    "https://www.youtube.com/@MetroEntertainmentTv",
+    banner: "/metro-entertainment.jpg",
+    color:  "#f59e0b",
+    border: "rgba(245,158,11,0.25)",
   },
   {
-    label: "Health",
-    name:  "Metro Health Updates",
-    url:   "https://www.youtube.com/@metrohealthupdates",
-    color: "#4ade80",
-    bg:    "rgba(74,222,128,0.10)",
-    border:"rgba(74,222,128,0.25)",
-    Icon:  HeartPulse,
+    label:  "Health",
+    name:   "Metro Health Updates",
+    url:    "https://www.youtube.com/@metrohealthupdates",
+    banner: "/metro-health.jpg",
+    color:  "#4ade80",
+    border: "rgba(74,222,128,0.25)",
   },
 ];
 
@@ -91,24 +88,24 @@ export default function LiveStreamBox() {
               href={ch.url}
               target="_blank"
               rel="noreferrer"
-              className="flex items-center gap-2 rounded-xl px-3 py-2.5 transition-opacity hover:opacity-80"
-              style={{ background: ch.bg, border: `1px solid ${ch.border}`, textDecoration: "none" }}
+              className="rounded-xl overflow-hidden transition-opacity hover:opacity-80"
+              style={{ border: `1px solid ${ch.border}`, textDecoration: "none", display: "block" }}
             >
-              {/* Channel-specific icon */}
-              <ch.Icon className="h-4 w-4 flex-shrink-0" style={{ color: ch.color }} />
-              <div className="flex-1 min-w-0">
-                <div className="text-xs font-black" style={{ color: ch.color }}>{ch.label}</div>
-                <div className="text-xs leading-4 truncate" style={{ color: "var(--muted)" }}>{ch.name}</div>
+              <div className="relative w-full" style={{ height: "72px" }}>
+                <Image src={ch.banner} alt={ch.name} fill className="object-cover" />
               </div>
-              {/* YouTube badge */}
-              <span
-                className="inline-flex items-center justify-center rounded flex-shrink-0"
-                style={{ background: "#ff0000", width: "20px", height: "14px" }}
+              <div
+                className="flex items-center justify-between px-3 py-1.5"
+                style={{ background: "var(--bg-card)" }}
               >
-                <svg viewBox="0 0 24 24" width="10" height="10" fill="white">
-                  <polygon points="9,7 19,12 9,17" />
-                </svg>
-              </span>
+                <div className="text-xs font-black" style={{ color: ch.color }}>{ch.label}</div>
+                <span
+                  className="inline-flex items-center justify-center rounded flex-shrink-0"
+                  style={{ background: "#ff0000", width: "18px", height: "13px" }}
+                >
+                  <svg viewBox="0 0 24 24" width="8" height="8" fill="white"><polygon points="9,7 19,12 9,17" /></svg>
+                </span>
+              </div>
             </a>
           ))}
         </div>
