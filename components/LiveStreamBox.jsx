@@ -1,8 +1,28 @@
 "use client";
 
 import Image from "next/image";
+import { ExternalLink } from "lucide-react";
 
 const STREAM_EMBED = "https://mercury.streambridge.link:8042/telugu/metrotv/embed.html";
+
+const youtubeChannels = [
+  {
+    label: "Entertainment",
+    name:  "Metro Entertainment TV",
+    url:   "https://www.youtube.com/@MetroEntertainmentTv",
+    color: "#f59e0b",
+    bg:    "rgba(245,158,11,0.10)",
+    border:"rgba(245,158,11,0.25)",
+  },
+  {
+    label: "Health",
+    name:  "Metro Health Updates",
+    url:   "https://www.youtube.com/@metrohealthupdates",
+    color: "#4ade80",
+    bg:    "rgba(74,222,128,0.10)",
+    border:"rgba(74,222,128,0.25)",
+  },
+];
 
 const socials = [
   {
@@ -43,7 +63,7 @@ export default function LiveStreamBox() {
         </span>
       </div>
 
-      {/* Streambridge embed — same player as old HTML site, works on all devices */}
+      {/* Streambridge embed */}
       <div className="p-4">
         <div className="embed-wrap">
           <iframe
@@ -57,25 +77,50 @@ export default function LiveStreamBox() {
         </div>
       </div>
 
-      {/* Social links */}
-      <div className="px-4 pb-4 flex flex-col gap-3">
+      {/* YouTube channels */}
+      <div className="px-4 pb-3 flex flex-col gap-2">
         <div className="text-xs font-black uppercase tracking-[0.18em]" style={{ color: "var(--muted)" }}>
-          Follow Us
+          Follow Us on YouTube
         </div>
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-2 gap-2">
+          {youtubeChannels.map((ch) => (
+            <a
+              key={ch.label}
+              href={ch.url}
+              target="_blank"
+              rel="noreferrer"
+              className="flex items-center gap-2 rounded-xl px-3 py-2.5 transition-opacity hover:opacity-80"
+              style={{ background: ch.bg, border: `1px solid ${ch.border}`, textDecoration: "none" }}
+            >
+              <ExternalLink className="h-4 w-4 flex-shrink-0" style={{ color: ch.color }} />
+              <div>
+                <div className="text-xs font-black" style={{ color: ch.color }}>{ch.label}</div>
+                <div className="text-xs leading-4" style={{ color: "var(--muted)" }}>{ch.name}</div>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+
+      {/* Facebook & Instagram */}
+      <div className="px-4 pb-4 flex flex-col gap-2">
+        <div className="text-xs font-black uppercase tracking-[0.18em]" style={{ color: "var(--muted)" }}>
+          Follow Us on Social
+        </div>
+        <div className="grid grid-cols-2 gap-2">
           {socials.map((s) => (
             <a
               key={s.label}
               href={s.href}
               target="_blank"
               rel="noreferrer"
-              className="flex items-center gap-3 rounded-xl px-4 py-3 transition-opacity hover:opacity-80"
+              className="flex items-center gap-2 rounded-xl px-3 py-2.5 transition-opacity hover:opacity-80"
               style={{ background: s.color, border: `1px solid ${s.border}`, textDecoration: "none" }}
             >
-              <Image src={s.src} alt={s.label} width={32} height={32} className="object-contain flex-shrink-0" />
+              <Image src={s.src} alt={s.label} width={24} height={24} className="object-contain flex-shrink-0" />
               <div>
                 <div className="text-xs font-black" style={{ color: "var(--text)" }}>{s.label}</div>
-                <div className="text-xs" style={{ color: "var(--muted)" }}>{s.name}</div>
+                <div className="text-xs leading-4" style={{ color: "var(--muted)" }}>{s.name}</div>
               </div>
             </a>
           ))}
