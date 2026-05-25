@@ -11,6 +11,7 @@ const fallbackSettings = {
   instagramurl:      "https://www.instagram.com/metrotv_telugu?igsh=MXoyNXY0YmY1YXZm",
   facebookurl:       "https://www.facebook.com/share/1DipSWBgGs/?mibextid=wwXIfr",
   mainphone:         "+91 40-40159550",
+  mainmobile:        "",
   mainemail:         "admin@metrotvtelugu.com",
   officeaddress:     "603, Above Axis Bank, Maruthi Plaza, Khairathabad, Hyderabad - 500004, Telangana, India",
 };
@@ -29,6 +30,7 @@ export default async function Footer() {
   const instagramUrl = get(settings, "instagramurl");
   const facebookUrl  = get(settings, "facebookurl");
   const phone        = get(settings, "mainphone");
+  const mobile       = get(settings, "mainmobile");
   const email        = get(settings, "mainemail");
   const address      = get(settings, "officeaddress");
 
@@ -83,6 +85,12 @@ export default async function Footer() {
                 <Phone className="mt-0.5 h-4 w-4 shrink-0" style={{ color: "var(--red)" }} />
                 <span>{phone}</span>
               </div>
+              {mobile && (
+                <div className="flex items-start gap-3">
+                  <Smartphone className="mt-0.5 h-4 w-4 shrink-0" style={{ color: "var(--red)" }} />
+                  <span>{mobile}</span>
+                </div>
+              )}
               <div className="flex items-start gap-3">
                 <Mail className="mt-0.5 h-4 w-4 shrink-0" style={{ color: "var(--red)" }} />
                 <span>{email}</span>
