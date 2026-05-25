@@ -7,6 +7,7 @@ import {
 } from "lucide-react";
 import FadeIn from "../components/FadeIn";
 import VideoCard from "../components/VideoCard";
+import LiveStreamBox from "../components/LiveStreamBox";
 import { fallbackTickerItems } from "../lib/tickerData";
 import { getMetroCmsData } from "../lib/metroCms";
 
@@ -176,35 +177,9 @@ export default async function HomePage() {
               </div>
             </FadeIn>
 
-            {/* RIGHT — Zengatv live embed (all screen sizes) */}
+            {/* RIGHT — responsive live stream (Zengatv on desktop, YouTube tap-card on mobile) */}
             <FadeIn delay={0.1}>
-              <div className="flex flex-col" style={{ background: "var(--bg-card)" }}>
-                <div
-                  className="flex items-center justify-between px-5 py-3"
-                  style={{ borderBottom: "1px solid var(--border)" }}
-                >
-                  <Image src="/metrotvlogo.png" alt="Metro TV Telugu" width={90} height={50} priority className="rounded-lg" />
-                  <span
-                    className="inline-flex items-center gap-2 rounded px-3 py-1 text-xs font-black text-white"
-                    style={{ background: "var(--red)", letterSpacing: "0.14em" }}
-                  >
-                    <span className="inline-block h-2 w-2 rounded-full bg-white" style={{ animation: "livepulse 1.4s infinite" }} />
-                    LIVE
-                  </span>
-                </div>
-                <div className="flex-1 p-4">
-                  <div className="embed-wrap">
-                    <iframe
-                      src="https://www.zengatv.com/embed?v=d6361881-b3e4-4006-a8f8-73e1a78b8bc1.html&t=live"
-                      title="Metro TV Telugu Live"
-                      frameBorder="0"
-                      scrolling="no"
-                      allowFullScreen
-                      allow="autoplay; encrypted-media; fullscreen"
-                    />
-                  </div>
-                </div>
-              </div>
+              <LiveStreamBox />
             </FadeIn>
           </div>
         </div>
