@@ -1,8 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import {
-  Mail, Phone, MapPin, Megaphone, Newspaper,
-  Video, Handshake, Building2, UserRound, ExternalLink,
+  Mail, Phone, MapPin,
+  Video, Building2, UserRound, ExternalLink,
 } from "lucide-react";
 import FadeIn from "../../components/FadeIn";
 import SectionTitle from "../../components/SectionTitle";
@@ -33,12 +33,6 @@ const fallbackContacts = [
   { name: "Mr. Sagar Pragnapuram",       role: "CEO",               phone: "+91 40-40159550", mobile: "+91 8790739192",  email: "sagar@metrotvtelugu.com",          desc: "Business operations, partnerships, growth and strategic enquiries." },
 ];
 
-const enquiryTypes = [
-  { icon: Megaphone,  title: "Advertising Enquiries", desc: "Brand campaigns, sponsored stories, video promotions, local business visibility and media packages." },
-  { icon: Newspaper,  title: "News & Editorial",      desc: "Story leads, public-interest updates, local issues, press information and community coverage." },
-  { icon: Video,      title: "Video & Event Coverage",desc: "Event coverage, interviews, launches, special programs, public events and digital video features." },
-  { icon: Handshake,  title: "Partnerships",          desc: "Strategic collaborations, institutional partnerships, community programs and long-term media associations." },
-];
 
 function buildOffice(settings = {}) {
   const fullAddress = settings.officeaddress || settings.officeAddress || "";
@@ -349,43 +343,6 @@ export default async function ContactPage() {
         </div>
       </section>
 
-      <div className="section-divider" />
-
-      {/* ── ENQUIRY TYPES ── */}
-      <section className="section-space">
-        <div className="container">
-          <FadeIn>
-            <SectionTitle
-              eyebrow="Enquiry Types"
-              title="How the team can help"
-              desc="The contact page supports editorial, advertising, event, partnership and business conversations."
-              center={true}
-            />
-          </FadeIn>
-          <div className="grid gap-5 md:grid-cols-4">
-            {enquiryTypes.map((item, i) => {
-              const Icon = item.icon;
-              return (
-                <FadeIn key={item.title} delay={i * 0.08}>
-                  <div
-                    className="card-hover rounded-2xl p-6"
-                    style={{ background: "var(--bg-card)", border: "1px solid var(--border)" }}
-                  >
-                    <div
-                      className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl"
-                      style={{ background: "rgba(232,0,29,0.10)" }}
-                    >
-                      <Icon className="h-5 w-5" style={{ color: "var(--red)" }} />
-                    </div>
-                    <h3 className="text-base font-bold">{item.title}</h3>
-                    <p className="mt-2 text-sm leading-6" style={{ color: "var(--muted)" }}>{item.desc}</p>
-                  </div>
-                </FadeIn>
-              );
-            })}
-          </div>
-        </div>
-      </section>
     </>
   );
 }
