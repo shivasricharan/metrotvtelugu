@@ -7,3 +7,31 @@
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
+
+# Force HTTP → HTTPS so browsers never see the insecure version
+[[redirects]]
+  from   = "http://metrotvtelugu.com/*"
+  to     = "https://metrotvtelugu.com/:splat"
+  status = 301
+  force  = true
+
+[[redirects]]
+  from   = "http://www.metrotvtelugu.com/*"
+  to     = "https://metrotvtelugu.com/:splat"
+  status = 301
+  force  = true
+
+[[redirects]]
+  from   = "https://www.metrotvtelugu.com/*"
+  to     = "https://metrotvtelugu.com/:splat"
+  status = 301
+  force  = true
+
+# Security headers for every response
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Strict-Transport-Security = "max-age=63072000; includeSubDomains; preload"
+    X-Content-Type-Options    = "nosniff"
+    Referrer-Policy           = "strict-origin-when-cross-origin"
+    X-XSS-Protection          = "1; mode=block"
