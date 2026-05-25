@@ -2,8 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import {
   Download, ExternalLink,
-  CircleDot, Newspaper,
-  Briefcase, Film, Leaf, Megaphone,
+  CircleDot, Megaphone,
 } from "lucide-react";
 import FadeIn from "../components/FadeIn";
 import VideoCard from "../components/VideoCard";
@@ -25,11 +24,25 @@ const featuredVideos = [
   { title: "Cinema and Culture Focus: Telugu film world updates",      category: "Entertainment", videoId: "1Ch2vJ1qmzM" },
 ];
 
-const shows = [
-  { icon: Newspaper, name: "News & Views",  time: "8:00 PM Daily", color: "#e8001d", bg: "rgba(232,0,29,0.10)"   },
-  { icon: Briefcase, name: "Business Hour", time: "7:00 PM Daily", color: "#60a5fa", bg: "rgba(96,165,250,0.10)" },
-  { icon: Film,      name: "Cinema Focus",  time: "9:00 PM Daily", color: "#f59e0b", bg: "rgba(245,158,11,0.10)" },
-  { icon: Leaf,      name: "Krishi Vaarta", time: "6:00 AM Daily", color: "#4ade80", bg: "rgba(74,222,128,0.10)" },
+const youtubeChannels = [
+  {
+    label: "Entertainment",
+    name:  "Metro Entertainment TV",
+    desc:  "Movies, celebrity interviews, film reviews, music, cultural programs and entertainment content in Telugu.",
+    url:   "https://www.youtube.com/@MetroEntertainmentTv",
+    color: "#f59e0b",
+    bg:    "rgba(245,158,11,0.10)",
+    border:"rgba(245,158,11,0.25)",
+  },
+  {
+    label: "Health",
+    name:  "Metro Health Updates",
+    desc:  "Health tips, medical advice, wellness programs, doctor interviews and health awareness content in Telugu.",
+    url:   "https://www.youtube.com/@metrohealthupdates",
+    color: "#4ade80",
+    bg:    "rgba(74,222,128,0.10)",
+    border:"rgba(74,222,128,0.25)",
+  },
 ];
 
 const platforms = [
@@ -193,36 +206,44 @@ export default async function HomePage() {
 
       <div className="section-divider" />
 
-      {/* ── SHOWS ──────────────────────────────────────────────── */}
+      {/* ── CHANNELS ───────────────────────────────────────────── */}
       <section className="section-space" style={{ paddingTop:"48px", paddingBottom:"48px" }}>
         <div className="container">
           <FadeIn>
-            <SectionHeader label="Programs & Shows" linkHref="/shows" linkLabel="All shows" />
+            <SectionHeader label="Our YouTube Channels" />
           </FadeIn>
           <FadeIn delay={0.06}>
-            <div className="grid gap-3 grid-cols-2 md:grid-cols-4">
-              {shows.map((show) => {
-                const Icon = show.icon;
-                return (
-                  <Link
-                    key={show.name}
-                    href="/shows"
-                    className="card-hover rounded-xl p-4 flex flex-col gap-3"
-                    style={{ background: "var(--bg-card)", border: "1px solid var(--border)", textDecoration: "none" }}
-                  >
+            <div className="grid gap-4 md:grid-cols-2">
+              {youtubeChannels.map((ch) => (
+                <a
+                  key={ch.label}
+                  href={ch.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="card-hover rounded-2xl p-6 flex flex-col gap-4"
+                  style={{ background: "var(--bg-card)", border: `1px solid ${ch.border}`, textDecoration: "none" }}
+                >
+                  <div className="flex items-center gap-3">
                     <div
-                      className="inline-flex h-10 w-10 items-center justify-center rounded-xl"
-                      style={{ background: show.bg }}
+                      className="inline-flex h-12 w-12 items-center justify-center rounded-xl flex-shrink-0"
+                      style={{ background: ch.bg }}
                     >
-                      <Icon className="h-5 w-5" style={{ color: show.color }} />
+                      <ExternalLink className="h-6 w-6" style={{ color: ch.color }} />
                     </div>
                     <div>
-                      <div className="text-sm font-bold" style={{ color: "var(--text)" }}>{show.name}</div>
-                      <div className="mt-1 text-xs" style={{ color: "var(--muted)" }}>{show.time}</div>
+                      <div className="text-xs font-black uppercase tracking-[0.18em]" style={{ color: ch.color }}>{ch.label}</div>
+                      <div className="text-base font-black" style={{ color: "var(--text)" }}>{ch.name}</div>
                     </div>
-                  </Link>
-                );
-              })}
+                  </div>
+                  <p className="text-sm leading-6" style={{ color: "var(--muted)" }}>{ch.desc}</p>
+                  <div
+                    className="inline-flex items-center gap-2 text-xs font-bold"
+                    style={{ color: ch.color }}
+                  >
+                    Follow on YouTube <ExternalLink className="h-3 w-3" />
+                  </div>
+                </a>
+              ))}
             </div>
           </FadeIn>
         </div>

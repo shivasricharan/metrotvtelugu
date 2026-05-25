@@ -1,50 +1,37 @@
 import Link from "next/link";
-import {
-  Radio, SunMedium, Clock, Landmark, MessageCircle, Film,
-  CalendarDays, Briefcase, HeartPulse, GraduationCap,
-  Building2, Leaf, Sparkles,
-} from "lucide-react";
+import { Radio, ExternalLink } from "lucide-react";
 import FadeIn from "../../components/FadeIn";
 import SectionTitle from "../../components/SectionTitle";
-import { getMetroCmsData } from "../../lib/metroCms";
-
-export const dynamic = "force-dynamic";
-
-const iconPool = [
-  SunMedium, Clock, Landmark, MessageCircle, Film, CalendarDays,
-  Briefcase, HeartPulse, GraduationCap, Building2, Leaf, Sparkles,
-];
-
-const fallbackShows = [
-  { showName: "Lifestyle, Fashion, Health and Beauty", category: "Lifestyle",     description: "Programs and features covering lifestyle, fashion, wellness, health, beauty and everyday living.",                             timing: "To be updated", anchor: "Metro TV Team" },
-  { showName: "Women & Child",                          category: "Social Issues", description: "Coverage focused on women, child welfare, family issues, social awareness and community development.",                           timing: "To be updated", anchor: "Metro TV Team" },
-  { showName: "Business – Service Sector",              category: "Business",      description: "Stories and discussions around the service sector, local businesses, entrepreneurship and industry growth.",                      timing: "To be updated", anchor: "Metro TV Team" },
-  { showName: "Finance, Banking & Insurance",           category: "Finance",       description: "Features and discussions around finance, banking, insurance, investment awareness and financial services.",                       timing: "To be updated", anchor: "Metro TV Team" },
-  { showName: "Education, Training",                    category: "Education",     description: "Stories on education, institutions, training programs, skill development and career-oriented learning.",                         timing: "To be updated", anchor: "Metro TV Team" },
-  { showName: "News & Views",                           category: "News",          description: "News analysis, public opinion, discussions, interviews and issue-based commentary.",                                             timing: "To be updated", anchor: "Metro TV Team" },
-];
 
 export const metadata = {
   title: "Programs & Shows | Metro TV Telugu",
-  description: "Explore Metro TV Telugu programs, content verticals, coverage areas, shows, public-interest stories and featured segments.",
+  description: "Explore Metro TV Telugu programs, YouTube channels for Entertainment and Health content in Telugu.",
 };
 
-function normalizeShow(item) {
-  return {
-    showName:    item.showName    || item.title       || "Program",
-    category:    item.category    || "Program",
-    description: item.description || item.desc        || "Program details from the channel.",
-    timing:      item.timing      || "To be updated",
-    anchor:      item.anchor      || "Metro TV Team",
-  };
-}
+const youtubeChannels = [
+  {
+    label: "Entertainment",
+    name:  "Metro Entertainment TV",
+    desc:  "Movies, celebrity interviews, film reviews, music, cultural programs and entertainment content in Telugu.",
+    url:   "https://www.youtube.com/@MetroEntertainmentTv",
+    color: "#f59e0b",
+    bg:    "rgba(245,158,11,0.10)",
+    border:"rgba(245,158,11,0.25)",
+    gradient: "linear-gradient(135deg, rgba(245,158,11,0.15) 0%, transparent 60%)",
+  },
+  {
+    label: "Health",
+    name:  "Metro Health Updates",
+    desc:  "Health tips, medical advice, wellness programs, doctor interviews and health awareness content in Telugu.",
+    url:   "https://www.youtube.com/@metrohealthupdates",
+    color: "#4ade80",
+    bg:    "rgba(74,222,128,0.10)",
+    border:"rgba(74,222,128,0.25)",
+    gradient: "linear-gradient(135deg, rgba(74,222,128,0.15) 0%, transparent 60%)",
+  },
+];
 
-export default async function ShowsPage() {
-  const cmsShows = await getMetroCmsData("shows");
-  const shows = Array.isArray(cmsShows) && cmsShows.length > 0
-    ? cmsShows.map(normalizeShow)
-    : fallbackShows;
-
+export default function ShowsPage() {
   return (
     <>
       {/* ── HERO ── */}
@@ -56,12 +43,11 @@ export default async function ShowsPage() {
                 <div className="badge-pill mb-6">Metro TV Telugu Programs</div>
                 <h1 className="text-4xl font-black leading-tight md:text-6xl" style={{ lineHeight: 1.1 }}>
                   Shows, Programs &amp;<br />
-                  <span style={{ color: "var(--red)" }}>Coverage Areas</span>
+                  <span style={{ color: "var(--red)" }}>YouTube Channels</span>
                 </h1>
                 <p className="mt-5 text-lg leading-8" style={{ color: "var(--muted)" }}>
-                  Programming across news, business, lifestyle, education, health,
-                  entertainment, public issues, technology, agriculture, spirituality,
-                  civic stories and community-focused content.
+                  Follow Metro TV Telugu's dedicated YouTube channels for Entertainment
+                  and Health content in Telugu.
                 </p>
                 <div className="mt-8 flex flex-wrap gap-3">
                   <Link href="/videos" className="btn-primary">Watch featured videos</Link>
@@ -75,69 +61,60 @@ export default async function ShowsPage() {
 
       <div className="section-divider" />
 
-      {/* ── SHOWS GRID ── */}
+      {/* ── YOUTUBE CHANNELS ── */}
       <section className="section-space">
         <div className="container">
           <FadeIn>
             <SectionTitle
-              eyebrow="Programs & Coverage Areas"
-              title="Content verticals and recurring program themes"
-              desc="Program categories updated directly from the Google Sheets CMS by the team."
+              eyebrow="YouTube Channels"
+              title="Follow us on YouTube"
+              desc="Dedicated channels for Entertainment and Health content in Telugu."
             />
           </FadeIn>
 
-          <div className="grid gap-5 md:grid-cols-3">
-            {shows.map((show, index) => {
-              const Icon = iconPool[index % iconPool.length];
-              return (
-                <FadeIn key={`${show.showName}-${index}`} delay={index * 0.04}>
+          <div className="grid gap-6 md:grid-cols-2">
+            {youtubeChannels.map((ch, i) => (
+              <FadeIn key={ch.label} delay={i * 0.08}>
+                <a
+                  href={ch.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="card-hover rounded-2xl overflow-hidden flex flex-col"
+                  style={{ background: "var(--bg-card)", border: `1px solid ${ch.border}`, textDecoration: "none" }}
+                >
+                  {/* Coloured banner */}
                   <div
-                    className="card-hover rounded-2xl overflow-hidden"
-                    style={{ background: "var(--bg-card)", border: "1px solid var(--border)" }}
+                    className="flex h-32 items-center justify-center"
+                    style={{ background: ch.gradient }}
                   >
-                    {/* Coloured icon banner */}
                     <div
-                      className="flex h-28 items-center justify-center"
-                      style={{ background: "linear-gradient(135deg, rgba(232,0,29,0.15), rgba(29,111,164,0.12))" }}
+                      className="inline-flex h-16 w-16 items-center justify-center rounded-2xl"
+                      style={{ background: ch.bg, border: `1px solid ${ch.border}` }}
                     >
-                      <div
-                        className="inline-flex h-14 w-14 items-center justify-center rounded-2xl"
-                        style={{ background: "rgba(232,0,29,0.12)", border: "1px solid var(--border-red)" }}
-                      >
-                        <Icon className="h-7 w-7" style={{ color: "var(--red)" }} />
-                      </div>
-                    </div>
-
-                    <div className="p-6">
-                      <p className="text-xs font-black uppercase tracking-[0.18em]" style={{ color: "var(--red)" }}>
-                        {show.category}
-                      </p>
-                      <h3 className="mt-2 text-lg font-bold leading-snug">{show.showName}</h3>
-                      <p className="mt-3 text-sm leading-6" style={{ color: "var(--muted)" }}>
-                        {show.description}
-                      </p>
-
-                      <div className="mt-4 grid gap-2 text-sm">
-                        <div
-                          className="rounded-xl px-4 py-2.5"
-                          style={{ background: "var(--card)", border: "1px solid var(--border)" }}
-                        >
-                          <span className="font-semibold">Timing: </span>
-                          <span style={{ color: "var(--muted)" }}>{show.timing}</span>
-                        </div>
-                        <div
-                          className="rounded-xl px-4 py-2.5"
-                          style={{ background: "var(--card)", border: "1px solid var(--border)" }}
-                        >
-                          <span className="font-semibold">Anchor: </span>
-                          <span style={{ color: "var(--muted)" }}>{show.anchor}</span>
-                        </div>
-                      </div>
+                      <ExternalLink className="h-8 w-8" style={{ color: ch.color }} />
                     </div>
                   </div>
-                </FadeIn>
-              );
-            })}
+
+                  <div className="p-6 flex flex-col gap-3 flex-1">
+                    <div>
+                      <p className="text-xs font-black uppercase tracking-[0.18em]" style={{ color: ch.color }}>
+                        {ch.label}
+                      </p>
+                      <h3 className="mt-1 text-xl font-black leading-snug" style={{ color: "var(--text)" }}>
+                        {ch.name}
+                      </h3>
+                    </div>
+                    <p className="text-sm leading-7" style={{ color: "var(--muted)" }}>{ch.desc}</p>
+                    <div
+                      className="mt-auto inline-flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-bold"
+                      style={{ background: ch.bg, color: ch.color }}
+                    >
+                      Follow on YouTube <ExternalLink className="h-4 w-4" />
+                    </div>
+                  </div>
+                </a>
+              </FadeIn>
+            ))}
           </div>
         </div>
       </section>
@@ -158,13 +135,13 @@ export default async function ShowsPage() {
                     <Radio className="h-6 w-6" style={{ color: "var(--red)" }} />
                   </div>
                   <h2 className="text-3xl font-black leading-tight md:text-4xl">
-                    A flexible home for every program and content vertical
+                    Want to sponsor or partner with our programs?
                   </h2>
                 </div>
                 <div>
                   <p className="leading-7" style={{ color: "var(--muted)" }}>
-                    The team can manage program names, categories, descriptions, timings
-                    and anchors directly from Google Sheets — no code needed.
+                    Reach Telugu audiences across news, entertainment and health content
+                    through Metro TV Telugu's TV and YouTube presence.
                   </p>
                   <div className="mt-8 flex flex-wrap gap-3">
                     <Link href="/videos"    className="btn-primary">Watch episodes</Link>
