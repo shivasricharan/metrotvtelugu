@@ -183,15 +183,41 @@ export default async function ContactPage() {
                 </div>
                 <h3 className="font-bold">Follow Online</h3>
                 <p className="mt-2 text-xs leading-6" style={{ color: "var(--muted)" }}>Follow videos, Shorts and updates across platforms.</p>
-                <div className="mt-4 flex gap-3">
-                  <a href={instagramUrl} target="_blank" rel="noreferrer" className="theme-toggle inline-flex h-9 w-9 items-center justify-center p-0" aria-label="Instagram">
-                    <SocialImage src="/instagram.png" alt="Instagram" />
+                <div className="mt-4 flex flex-col gap-3">
+                  <a href={instagramUrl} target="_blank" rel="noreferrer"
+                    className="flex items-center gap-3 rounded-xl px-4 py-3 transition-opacity hover:opacity-80"
+                    style={{ background: "rgba(225,48,108,0.10)", border: "1px solid rgba(225,48,108,0.25)", textDecoration: "none" }}
+                  >
+                    <Image src="/instagram.png" alt="Instagram" width={40} height={40} className="object-contain flex-shrink-0" />
+                    <div>
+                      <div className="text-sm font-black" style={{ color: "var(--text)" }}>Instagram</div>
+                      <div className="text-xs" style={{ color: "var(--muted)" }}>@metrotv_telugu</div>
+                    </div>
+                    <ExternalLink className="h-4 w-4 ml-auto flex-shrink-0" style={{ color: "var(--muted)" }} />
                   </a>
-                  <a href={facebookUrl} target="_blank" rel="noreferrer" className="theme-toggle inline-flex h-9 w-9 items-center justify-center p-0" aria-label="Facebook">
-                    <SocialImage src="/facebook.png" alt="Facebook" />
+                  <a href={facebookUrl} target="_blank" rel="noreferrer"
+                    className="flex items-center gap-3 rounded-xl px-4 py-3 transition-opacity hover:opacity-80"
+                    style={{ background: "rgba(24,119,242,0.10)", border: "1px solid rgba(24,119,242,0.25)", textDecoration: "none" }}
+                  >
+                    <Image src="/facebook.png" alt="Facebook" width={40} height={40} className="object-contain flex-shrink-0" />
+                    <div>
+                      <div className="text-sm font-black" style={{ color: "var(--text)" }}>Facebook</div>
+                      <div className="text-xs" style={{ color: "var(--muted)" }}>Metro TV Telugu</div>
+                    </div>
+                    <ExternalLink className="h-4 w-4 ml-auto flex-shrink-0" style={{ color: "var(--muted)" }} />
                   </a>
-                  <a href={youtubeUrl} target="_blank" rel="noreferrer" className="theme-toggle inline-flex h-9 w-9 items-center justify-center p-0" aria-label="YouTube">
-                    <Video className="h-4 w-4" style={{ color: "var(--red)" }} />
+                  <a href={youtubeUrl} target="_blank" rel="noreferrer"
+                    className="flex items-center gap-3 rounded-xl px-4 py-3 transition-opacity hover:opacity-80"
+                    style={{ background: "rgba(255,0,0,0.08)", border: "1px solid rgba(255,0,0,0.20)", textDecoration: "none" }}
+                  >
+                    <span className="inline-flex h-10 w-10 items-center justify-center rounded-lg flex-shrink-0" style={{ background: "#ff0000" }}>
+                      <Video className="h-5 w-5 text-white" />
+                    </span>
+                    <div>
+                      <div className="text-sm font-black" style={{ color: "var(--text)" }}>YouTube</div>
+                      <div className="text-xs" style={{ color: "var(--muted)" }}>@metrotvtelugunews</div>
+                    </div>
+                    <ExternalLink className="h-4 w-4 ml-auto flex-shrink-0" style={{ color: "var(--muted)" }} />
                   </a>
                 </div>
               </div>
