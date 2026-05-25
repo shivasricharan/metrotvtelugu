@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import {
-  Play, Download, ExternalLink,
+  Download, ExternalLink,
   CircleDot, Newspaper,
   Briefcase, Film, Leaf, Megaphone,
 } from "lucide-react";
@@ -126,19 +126,6 @@ export default async function HomePage() {
                   borderLeft: "1px solid var(--border)",
                 }}
               >
-                <div className="mb-6 flex items-center gap-3">
-                  <span
-                    className="inline-flex items-center gap-2 rounded px-3 py-1 text-xs font-black text-white"
-                    style={{ background: "var(--red)", letterSpacing: "0.18em" }}
-                  >
-                    <span
-                      className="inline-block h-2 w-2 rounded-full bg-white"
-                      style={{ animation: "livepulse 1.4s infinite" }}
-                    />
-                    LIVE
-                  </span>
-                </div>
-
                 <h1
                   className="font-black"
                   style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", lineHeight: 1.08 }}
@@ -154,16 +141,12 @@ export default async function HomePage() {
                 </p>
 
                 <div className="mt-8 flex flex-wrap gap-3">
-                  <a href="https://mercury.streambridge.link:8042/telugu/metrotv/embed.html" target="_blank" rel="noreferrer" className="btn-primary">
-                    <Play className="h-4 w-4" /> Watch Live
-                  </a>
                   <a href={appLinks.playStore} target="_blank" rel="noreferrer" className="btn-secondary">
                     <Download className="h-4 w-4" /> Google Play
                   </a>
                   <a href={appLinks.appStore} target="_blank" rel="noreferrer" className="btn-secondary">
                     <Download className="h-4 w-4" /> iOS App Store
                   </a>
-                  <Link href="/videos" className="btn-secondary">All Videos</Link>
                 </div>
 
                 <div className="mt-7 flex flex-wrap gap-2">
