@@ -30,6 +30,26 @@ const youtubeChannels = [
     border: "rgba(74,222,128,0.25)",
     banner: "/metro-health.jpg",
   },
+  {
+    label:  "Metro TV Telugu",
+    name:   "Metro TV Telugu",
+    desc:   "Live news, breaking stories, political updates and regional coverage for Telugu-speaking audiences.",
+    url:    "https://www.youtube.com/@metrotvtelugunews",
+    color:  "#ff4444",
+    bg:     "rgba(232,0,29,0.10)",
+    border: "rgba(232,0,29,0.30)",
+    banner: null,
+  },
+  {
+    label:  "News",
+    name:   "Metro TV Telugu News",
+    desc:   "Latest Telugu news, current affairs, state and national news updates from Metro TV Telugu.",
+    url:    "https://www.youtube.com/@MetroTvNewsTelugu",
+    color:  "#ff4444",
+    bg:     "rgba(232,0,29,0.10)",
+    border: "rgba(232,0,29,0.30)",
+    banner: null,
+  },
 ];
 
 export default function ShowsPage() {
@@ -84,13 +104,11 @@ export default function ShowsPage() {
                   style={{ background: "var(--bg-card)", border: `1px solid ${ch.border}`, textDecoration: "none" }}
                 >
                   {/* Banner image */}
-                  <div className="relative w-full h-40 overflow-hidden">
-                    <Image
-                      src={ch.banner}
-                      alt={ch.name}
-                      fill
-                      className="object-cover"
-                    />
+                  <div className="relative w-full h-40 overflow-hidden flex items-center justify-center" style={{ background: ch.banner ? undefined : `linear-gradient(135deg, rgba(232,0,29,0.18) 0%, rgba(120,0,0,0.28) 100%)` }}>
+                    {ch.banner
+                      ? <Image src={ch.banner} alt={ch.name} fill className="object-cover" />
+                      : <svg viewBox="0 0 24 24" width="48" height="48" fill="none"><rect x="2" y="3" width="20" height="14" rx="2" fill="rgba(255,255,255,0.12)"/><polygon points="10,8 16,10 10,12" fill="rgba(255,255,255,0.55)"/><rect x="7" y="19" width="10" height="2" rx="1" fill="rgba(255,255,255,0.18)"/></svg>
+                    }
                   </div>
 
                   <div className="p-6 flex flex-col gap-3 flex-1">

@@ -21,6 +21,22 @@ const youtubeChannels = [
     color:  "#4ade80",
     border: "rgba(74,222,128,0.25)",
   },
+  {
+    label:  "Metro TV Telugu",
+    name:   "Metro TV Telugu",
+    url:    "https://www.youtube.com/@metrotvtelugunews",
+    banner: null,
+    color:  "#ff4444",
+    border: "rgba(232,0,29,0.30)",
+  },
+  {
+    label:  "News",
+    name:   "Metro TV Telugu News",
+    url:    "https://www.youtube.com/@MetroTvNewsTelugu",
+    banner: null,
+    color:  "#ff4444",
+    border: "rgba(232,0,29,0.30)",
+  },
 ];
 
 const socials = [
@@ -91,8 +107,11 @@ export default function LiveStreamBox() {
               className="rounded-xl overflow-hidden transition-opacity hover:opacity-80"
               style={{ border: `1px solid ${ch.border}`, textDecoration: "none", display: "block" }}
             >
-              <div className="relative w-full" style={{ height: "72px" }}>
-                <Image src={ch.banner} alt={ch.name} fill className="object-cover" />
+              <div className="relative w-full flex items-center justify-center" style={{ height: "72px", background: ch.banner ? undefined : `linear-gradient(135deg, rgba(232,0,29,0.18) 0%, rgba(120,0,0,0.28) 100%)` }}>
+                {ch.banner
+                  ? <Image src={ch.banner} alt={ch.name} fill className="object-cover" />
+                  : <svg viewBox="0 0 24 24" width="28" height="28" fill="none"><rect x="2" y="3" width="20" height="14" rx="2" fill="rgba(255,255,255,0.12)"/><polygon points="10,8 16,10 10,12" fill="rgba(255,255,255,0.70)"/><rect x="7" y="19" width="10" height="2" rx="1" fill="rgba(255,255,255,0.18)"/></svg>
+                }
               </div>
               <div
                 className="flex items-center justify-between px-3 py-1.5"
