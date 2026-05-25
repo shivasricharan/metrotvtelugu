@@ -173,41 +173,8 @@ export default async function HomePage() {
               </div>
             </FadeIn>
 
-            {/* RIGHT — mobile: YouTube live card (Zengatv not supported on mobile) */}
-            <FadeIn delay={0.1} className="md:hidden">
-              <div className="flex flex-col" style={{ background: "var(--bg-card)", borderTop: "1px solid var(--border)" }}>
-                <div
-                  className="flex items-center justify-between px-5 py-3"
-                  style={{ borderBottom: "1px solid var(--border)" }}
-                >
-                  <Image src="/metrotvlogo.png" alt="Metro TV Telugu" width={90} height={50} priority className="rounded-lg" />
-                  <span
-                    className="inline-flex items-center gap-2 rounded px-3 py-1 text-xs font-black text-white"
-                    style={{ background: "var(--red)", letterSpacing: "0.14em" }}
-                  >
-                    <span className="inline-block h-2 w-2 rounded-full bg-white" style={{ animation: "livepulse 1.4s infinite" }} />
-                    LIVE
-                  </span>
-                </div>
-                <div className="flex flex-col items-center justify-center gap-4 px-6 py-10 text-center">
-                  <p className="text-sm leading-6" style={{ color: "var(--muted)" }}>
-                    Watch Metro TV Telugu live on YouTube — stream, shows &amp; breaking news.
-                  </p>
-                  <a href={appLinks.youtube} target="_blank" rel="noreferrer" className="btn-primary">
-                    <Play className="h-4 w-4" /> Watch Live on YouTube
-                  </a>
-                  <a href={appLinks.appStore} target="_blank" rel="noreferrer" className="btn-secondary">
-                    Download iOS App
-                  </a>
-                  <a href={appLinks.playStore} target="_blank" rel="noreferrer" className="btn-secondary">
-                    Download Android App
-                  </a>
-                </div>
-              </div>
-            </FadeIn>
-
-            {/* RIGHT — tablet/desktop: Zengatv live embed */}
-            <FadeIn delay={0.1} className="hidden md:block">
+            {/* RIGHT — Zengatv live embed (all screen sizes) */}
+            <FadeIn delay={0.1}>
               <div className="flex flex-col" style={{ background: "var(--bg-card)" }}>
                 <div
                   className="flex items-center justify-between px-5 py-3"
