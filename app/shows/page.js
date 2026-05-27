@@ -38,7 +38,7 @@ const youtubeChannels = [
     color:  "#ff4444",
     bg:     "rgba(232,0,29,0.10)",
     border: "rgba(232,0,29,0.30)",
-    banner: null,
+    banner: "/metro-telugu.jpg",
   },
   {
     label:  "News",
@@ -48,7 +48,7 @@ const youtubeChannels = [
     color:  "#ff4444",
     bg:     "rgba(232,0,29,0.10)",
     border: "rgba(232,0,29,0.30)",
-    banner: null,
+    banner: "/metro-news.jpg",
   },
 ];
 
