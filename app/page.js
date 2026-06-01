@@ -46,9 +46,18 @@ const youtubeChannels = [
 ];
 
 const platforms = [
-  { label: "Jio TV Box Ch.5033", dot: "#60a5fa" },
-  { label: "YouTube Live",       dot: "#ff4444" },
-  { label: "Android & iOS",      dot: "#4ade80" },
+  { label: "Android & iOS", dot: "#4ade80" },
+];
+
+const cableNetworks = [
+  { name: "Jio Network",          ch: "Ch. 5033" },
+  { name: "AP Filbrenet",         ch: "Ch. 103"  },
+  { name: "Hyd Digital Services", ch: "Ch. 19"   },
+  { name: "Gagan Network",        ch: "Ch. 28"   },
+  { name: "Kurnool SSC",          ch: "Ch. 16"   },
+  { name: "Rayalaseema SSC",      ch: "Ch. 16"   },
+  { name: "Lakshmi Cable",        ch: "Ch. 16"   },
+  { name: "GTPL Network",         ch: "Ch. 41"   },
 ];
 
 function SectionHeader({ label, linkHref, linkLabel }) {
@@ -185,6 +194,24 @@ export default async function HomePage() {
                   </div>
                   <div style={{ color: "var(--text)" }}>Mr. Rakesh Dasari &nbsp;<span style={{ color: "var(--muted)" }}>+91 9490235700</span></div>
                   <div style={{ color: "var(--muted)" }}>email — rakesh@metrotvtelugu.com</div>
+                </div>
+
+                {/* Cable & network availability */}
+                <div
+                  className="mt-3 rounded-xl px-4 py-3 text-xs"
+                  style={{ background: "var(--card)", border: "1px solid var(--border)" }}
+                >
+                  <div className="font-black uppercase tracking-[0.12em] mb-2" style={{ color: "var(--muted)" }}>
+                    Available on Cable &amp; Networks
+                  </div>
+                  <div className="grid grid-cols-2 gap-x-4 gap-y-1">
+                    {cableNetworks.map((n) => (
+                      <div key={n.name} className="flex items-center justify-between gap-1">
+                        <span style={{ color: "var(--text)" }}>{n.name}</span>
+                        <span className="font-black flex-shrink-0" style={{ color: "var(--red)" }}>{n.ch}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             </FadeIn>
