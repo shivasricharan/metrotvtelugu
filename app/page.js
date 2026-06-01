@@ -51,7 +51,7 @@ const platforms = [
 
 const cableNetworks = [
   { name: "Jio Network",          ch: "Ch. 5033" },
-  { name: "AP Filbrenet",         ch: "Ch. 103"  },
+  { name: "AP Fibrenet",          ch: "Ch. 103"  },
   { name: "Hyd Digital Services", ch: "Ch. 19"   },
   { name: "Gagan Network",        ch: "Ch. 28"   },
   { name: "Kurnool SSC",          ch: "Ch. 16"   },
