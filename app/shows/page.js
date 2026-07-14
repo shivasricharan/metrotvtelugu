@@ -67,7 +67,7 @@ export default function ShowsPage() {
                   <span style={{ color: "var(--red)" }}>YouTube Channels</span>
                 </h1>
                 <p className="mt-5 text-lg leading-8" style={{ color: "var(--muted)" }}>
-                  Follow Metro TV Telugu's dedicated YouTube channels for Entertainment
+                  Follow Metro TV Telugu&apos;s dedicated YouTube channels for Entertainment
                   and Health content in Telugu.
                 </p>
                 <div className="mt-8 flex flex-wrap gap-3">
@@ -163,7 +163,7 @@ export default function ShowsPage() {
                 <div>
                   <p className="leading-7" style={{ color: "var(--muted)" }}>
                     Reach Telugu audiences across news, entertainment and health content
-                    through Metro TV Telugu's TV and YouTube presence.
+                    through Metro TV Telugu&apos;s TV and YouTube presence.
                   </p>
                   <div className="mt-8 flex flex-wrap gap-3">
                     <Link href="/videos"    className="btn-primary">Watch episodes</Link>
