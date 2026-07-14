@@ -1,87 +1,40 @@
 import Link from "next/link";
-import {
-  PlayCircle,
-  Video,
-  ExternalLink,
-} from "lucide-react";
+import { PlayCircle } from "lucide-react";
 import FadeIn from "../../components/FadeIn";
-import SectionTitle from "../../components/SectionTitle";
-import VideoCard from "../../components/VideoCard";
 import { getMetroCmsData } from "../../lib/metroCms";
+import { processVideos } from "../../lib/videoUtils";
+import VideosClient from "../../components/VideosClient";
 
-export const dynamic = "force-dynamic";
+// ISR: cache this page for 60 s; revalidate in the background.
+// Removes force-dynamic so we stop hitting Google Apps Script on every visitor request.
+export const revalidate = 60;
 
-const fallbackYoutubeChannel = "https://youtube.com/@metrotvtelugunews?si=Ma595RbHnX0Rn_yw";
-
-const fallbackLongVideos = [
-  { title: "Breaking Bulletin: Top updates of the day",                   category: "News",          videoId: "KlyvXNZWDZk" },
-  { title: "Prime Time Discussion: The big political talking points",      category: "Debate",        videoId: "hdEp1t_PRbI" },
-  { title: "Cinema Spotlight: Stories from the Telugu entertainment world",category: "Entertainment", videoId: "92DsruOUAD0" },
-];
-
-const fallbackShorts = [
-  { title: "Short Update",           category: "Shorts",       videoId: "KlyvXNZWDZk" },
-  { title: "Public Voice Short Clip",category: "Public Voice", videoId: "hdEp1t_PRbI" },
-  { title: "Breaking News Short",    category: "News",         videoId: "92DsruOUAD0" },
-];
+const INITIAL_LIMIT      = 12;
+const FALLBACK_CHANNEL   = "https://youtube.com/@metrotvtelugunews?si=Ma595RbHnX0Rn_yw";
 
 export const metadata = {
   title: "Videos | Metro TV Telugu",
-  description: "Watch Metro TV Telugu long videos, bulletins, discussions, interviews, public voice segments, entertainment coverage and YouTube Shorts.",
+  description:
+    "Watch Metro TV Telugu long videos, bulletins, discussions, interviews, public voice segments, entertainment coverage and YouTube Shorts.",
 };
 
-function normalizeVideo(item) {
-  return {
-    title:       item.title        || "Video Update",
-    category:    item.category     || "Video",
-    videoId:     item.youTubeID    || item.youtubeId || item.videoId || "",
-    videoType:   item.videoType    || item.type      || "Long",
-    description: item.description  || "",
-    status:      item.status       || "Published",
-  };
-}
-
-function ShortCard({ short }) {
-  return (
-    <div
-      className="card-hover rounded-2xl p-4"
-      style={{ background: "var(--bg-card)", border: "1px solid var(--border)" }}
-    >
-      <div
-        className="relative overflow-hidden rounded-xl border bg-black mx-auto"
-        style={{ borderColor: "var(--border)", aspectRatio: "9/16", maxWidth: "240px" }}
-      >
-        <iframe
-          src={`https://www.youtube.com/embed/${short.videoId}`}
-          title={short.title}
-          className="absolute inset-0 h-full w-full"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-        />
-      </div>
-      <div className="mt-4">
-        <p className="text-xs font-black uppercase tracking-[0.18em]" style={{ color: "var(--red)" }}>
-          {short.category}
-        </p>
-        <h3 className="mt-2 text-base font-semibold leading-6">{short.title}</h3>
-      </div>
-    </div>
-  );
-}
-
 export default async function VideosPage() {
-  const cmsData  = await getMetroCmsData("all");
-  const settings = cmsData?.settings || {};
-  const cmsVideos = Array.isArray(cmsData?.videos) ? cmsData.videos : [];
+  // Fetch and process — only fields needed for listing are passed to the client
+  const cmsData     = await getMetroCmsData("all");
+  const settings    = cmsData?.settings ?? {};
+  const rawVideos   = cmsData?.videos   ?? [];
 
-  const youtubeChannel = settings.youtubechannelurl || fallbackYoutubeChannel;
+  const youtubeChannel = settings.youtubechannelurl || FALLBACK_CHANNEL;
 
-  const normalizedVideos = cmsVideos.map(normalizeVideo).filter((v) => v.videoId && String(v.status).toLowerCase() === "published");
-  const cmsLong   = normalizedVideos.filter((v) => String(v.videoType).toLowerCase() === "long");
-  const cmsShorts = normalizedVideos.filter((v) => String(v.videoType).toLowerCase() === "short");
+  const allVideos  = processVideos(rawVideos);
+  const allLong    = allVideos.filter(v => v.videoType === "long");
+  const allShorts  = allVideos.filter(v => v.videoType === "short");
 
-  const longVideos = cmsLong.length   > 0 ? cmsLong   : fallbackLongVideos;
-  const shorts     = cmsShorts.length > 0 ? cmsShorts : fallbackShorts;
+  // Only send first 12 of each type to the browser
+  const initialLong   = allLong.slice(0, INITIAL_LIMIT);
+  const initialShorts = allShorts.slice(0, INITIAL_LIMIT);
+  const hasMoreLong   = allLong.length   > INITIAL_LIMIT;
+  const hasMoreShorts = allShorts.length > INITIAL_LIMIT;
 
   return (
     <>
@@ -92,7 +45,10 @@ export default async function VideosPage() {
             <div className="hero-panel rounded-3xl p-8 md:p-14">
               <div className="max-w-4xl">
                 <div className="badge-pill mb-6">Metro TV Telugu Videos</div>
-                <h1 className="text-4xl font-black leading-tight md:text-6xl" style={{ lineHeight: 1.1 }}>
+                <h1
+                  className="text-4xl font-black leading-tight md:text-6xl"
+                  style={{ lineHeight: 1.1 }}
+                >
                   Watch Live, Long Videos<br />
                   &amp; <span style={{ color: "var(--red)" }}>YouTube Shorts</span>
                 </h1>
@@ -101,11 +57,16 @@ export default async function VideosPage() {
                   reports, entertainment features and short-format updates — all in one place.
                 </p>
                 <div className="mt-8 flex flex-wrap gap-3">
-                  <a href={youtubeChannel} target="_blank" rel="noreferrer" className="btn-primary">
+                  <a
+                    href={youtubeChannel}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="btn-primary"
+                  >
                     <PlayCircle className="h-4 w-4" />
                     Visit YouTube Channel
                   </a>
-                  <Link href="/shows" className="btn-secondary">Explore shows</Link>
+                  <Link href="/shows"   className="btn-secondary">Explore shows</Link>
                   <Link href="/contact" className="btn-secondary">Share a story</Link>
                 </div>
               </div>
@@ -116,59 +77,13 @@ export default async function VideosPage() {
 
       <div className="section-divider" />
 
-      {/* ── LONG VIDEOS ── */}
-      <section className="section-space">
-        <div className="container">
-          <FadeIn>
-            <SectionTitle
-              eyebrow="Long Videos"
-              title="Bulletins, discussions and special video stories"
-              desc="Selected long-format videos including bulletins, debates, interviews, public voice segments and special reports."
-            />
-          </FadeIn>
-          <div className="grid gap-6 md:grid-cols-3">
-            {longVideos.map((video, i) => (
-              <FadeIn key={`${video.videoId}-${i}`} delay={i * 0.08}>
-                <VideoCard title={video.title} category={video.category} videoId={video.videoId} />
-              </FadeIn>
-            ))}
-          </div>
-          <div className="mt-8">
-            <a href={youtubeChannel} target="_blank" rel="noreferrer" className="btn-secondary">
-              View more on YouTube <ExternalLink className="h-4 w-4" />
-            </a>
-          </div>
-        </div>
-      </section>
-
-      <div className="section-divider" />
-
-      {/* ── SHORTS ── */}
-      <section className="section-space">
-        <div className="container">
-          <FadeIn>
-            <SectionTitle
-              eyebrow="YouTube Shorts"
-              title="Short updates in a mobile-first format"
-              desc="Quick video updates from the Metro TV Telugu YouTube channel."
-            />
-          </FadeIn>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {shorts.map((short, i) => (
-              <FadeIn key={`${short.videoId}-${i}`} delay={i * 0.08}>
-                <ShortCard short={short} />
-              </FadeIn>
-            ))}
-          </div>
-          <div className="mt-8">
-            <a href={youtubeChannel} target="_blank" rel="noreferrer" className="btn-secondary">
-              Watch more Shorts on YouTube <ExternalLink className="h-4 w-4" />
-            </a>
-          </div>
-        </div>
-      </section>
-
-
+      {/* ── CLIENT COMPONENT — handles grid, Load More, modal ── */}
+      <VideosClient
+        initialLong={initialLong}
+        initialShorts={initialShorts}
+        hasMoreLong={hasMoreLong}
+        hasMoreShorts={hasMoreShorts}
+      />
     </>
   );
 }
