@@ -1,16 +1,16 @@
 import Link from "next/link";
-import Image from "next/image";
 import {
   Download, ExternalLink,
   CircleDot, Megaphone,
 } from "lucide-react";
 import FadeIn from "../components/FadeIn";
-import VideoCard from "../components/VideoCard";
+import HomeVideosSection from "../components/HomeVideosSection";
 import LiveStreamBox from "../components/LiveStreamBox";
 import { fallbackTickerItems } from "../lib/tickerData";
 import { getMetroCmsData } from "../lib/metroCms";
+import { processVideos } from "../lib/videoUtils";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 const fallbackAppLinks = {
   playStore: "https://play.google.com/store/apps/details?id=com.ht.metro_tv",
@@ -18,10 +18,10 @@ const fallbackAppLinks = {
   youtube:   "https://youtube.com/@metrotvtelugunews?si=Ma595RbHnX0Rn_yw",
 };
 
-const featuredVideos = [
-  { title: "Prime Time Bulletin: Top stories of the day",             category: "News",          videoId: "KlyvXNZWDZk" },
-  { title: "Weekend Special Discussion: Key political talking points", category: "Debate",        videoId: "92DsruOUAD0" },
-  { title: "Cinema and Culture Focus: Telugu film world updates",      category: "Entertainment", videoId: "1Ch2vJ1qmzM" },
+const FALLBACK_VIDEOS = [
+  { id: "KlyvXNZWDZk", title: "Prime Time Bulletin: Top stories of the day",             category: "News",          videoType: "long", featured: false, publishedDate: null, thumbnailUrl: "https://i.ytimg.com/vi/KlyvXNZWDZk/hqdefault.jpg", slug: "" },
+  { id: "92DsruOUAD0", title: "Weekend Special Discussion: Key political talking points", category: "Debate",        videoType: "long", featured: false, publishedDate: null, thumbnailUrl: "https://i.ytimg.com/vi/92DsruOUAD0/hqdefault.jpg", slug: "" },
+  { id: "1Ch2vJ1qmzM", title: "Cinema and Culture Focus: Telugu film world updates",      category: "Entertainment", videoType: "long", featured: false, publishedDate: null, thumbnailUrl: "https://i.ytimg.com/vi/1Ch2vJ1qmzM/hqdefault.jpg", slug: "" },
 ];
 
 const youtubeChannels = [
@@ -94,18 +94,9 @@ export default async function HomePage() {
     youtube:   settings.youtubechannelurl || fallbackAppLinks.youtube,
   };
 
-  const cmsVideos = Array.isArray(cmsData?.videos)
-    ? cmsData.videos
-        .map((v) => ({
-          title:    v.title    || "Video Update",
-          category: v.category || "Video",
-          videoId:  v.youTubeID || v.youtubeId || v.videoId || "",
-        }))
-        .filter((v) => v.videoId)
-        .slice(0, 3)
-    : [];
-
-  const videos = cmsVideos.length > 0 ? cmsVideos : featuredVideos;
+  const allVideos  = processVideos(cmsData?.videos ?? []);
+  const longVideos = allVideos.filter(v => v.videoType === 'long');
+  const homeVideos = longVideos.length > 0 ? longVideos.slice(0, 3) : FALLBACK_VIDEOS;
 
   return (
     <>
@@ -227,13 +218,7 @@ export default async function HomePage() {
           <FadeIn>
             <SectionHeader label="Latest Videos" linkHref="/videos" linkLabel="YouTube Channel" />
           </FadeIn>
-          <div className="grid gap-4 md:grid-cols-3">
-            {videos.map((video, i) => (
-              <FadeIn key={`${video.videoId}-${i}`} delay={i * 0.08}>
-                <VideoCard title={video.title} category={video.category} videoId={video.videoId} />
-              </FadeIn>
-            ))}
-          </div>
+          <HomeVideosSection videos={homeVideos} />
           <div className="mt-6 flex gap-3">
             <Link href="/videos" className="btn-secondary">View all videos</Link>
             <a href={appLinks.youtube} target="_blank" rel="noreferrer" className="btn-secondary">

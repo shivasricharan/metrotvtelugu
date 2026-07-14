@@ -42,10 +42,8 @@ function VideoThumbCard({ video, priority, onPlay }) {
           alt={video.title}
           loading={priority ? "eager" : "lazy"}
           decoding="async"
-          width={isShort ? 270 : 480}
-          height={isShort ? 480 : 270}
           onError={handleError}
-          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+          className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
         />
 
         {/* Metro TV play overlay */}
@@ -270,7 +268,7 @@ export default function VideosClient({
           {shorts.length === 0 ? (
             <p className="text-sm" style={{ color: "var(--muted)" }}>No Shorts available.</p>
           ) : (
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-4 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
               {shorts.map((v, i) => (
                 <VideoThumbCard key={v.id} video={v} priority={i < 2} onPlay={setActiveVideo} />
               ))}
