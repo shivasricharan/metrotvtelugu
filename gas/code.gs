@@ -9,8 +9,7 @@
 //      Who has access: Anyone
 //   4. Copy the new deployment URL and update GOOGLE_SCRIPT_METRO_CMS_URL in
 //      Netlify (Site → Environment variables) and your local .env.local.
-//   5. Trigger the existing caches to flush: visit /api/debug/cms?k=metro-diag-2026
-//      on the live site or wait 5 minutes for script cache to expire.
+//   5. Close and re-open the Google Sheet — the "Metro TV CMS" menu will appear.
 // =============================================================================
 
 // ── Sheet names ────────────────────────────────────────────────────────────
@@ -24,6 +23,31 @@ var SHEET_ENQUIRIES = 'Enquiries';
 // Script-level cache TTL in seconds (5 minutes).
 var CACHE_KEY = 'metro_cms_all';
 var CACHE_TTL = 300;
+
+// Undated records get a far-future sort base so they surface before old
+// dated records. Mirrors the website's processVideos behaviour.
+var UNDATED_BASE = 4102444800000; // ~2099-12-31 in ms
+
+// ── Custom menu (appears in Google Sheets toolbar) ─────────────────────────
+
+function onOpen() {
+  SpreadsheetApp.getUi()
+    .createMenu('Metro TV CMS')
+    .addItem('Process YouTube URLs', 'processYouTubeUrls')
+    .addSeparator()
+    .addItem('Flush website cache', 'flushCache')
+    .addToUi();
+}
+
+// Flush the 5-minute script cache so the next website request gets fresh data.
+function flushCache() {
+  try {
+    CacheService.getScriptCache().remove(CACHE_KEY);
+    SpreadsheetApp.getUi().alert('Cache flushed. The website will show fresh data within 60 seconds.');
+  } catch (err) {
+    SpreadsheetApp.getUi().alert('Error flushing cache: ' + err.message);
+  }
+}
 
 // ── Entry points ───────────────────────────────────────────────────────────
 
@@ -89,8 +113,8 @@ function getAllData() {
   };
 
   try {
-    // CacheService max value size is 100 KB; skip silently if too large.
     var serialised = JSON.stringify(data);
+    // CacheService max value is 100 KB; skip silently if too large.
     if (serialised.length < 100000) {
       cache.put(CACHE_KEY, serialised, CACHE_TTL);
     }
@@ -100,9 +124,9 @@ function getAllData() {
 }
 
 // ── Videos ─────────────────────────────────────────────────────────────────
-// Returns published videos sorted newest-first by Published Date.
-// Records without a date are placed at the end, ordered by their original
-// row position (later rows first, since new records are appended at the bottom).
+// Returns published videos sorted newest-first.
+// Undated records (no Published Date) surface before old dated records,
+// with later rows (= more recently added) ranking first among undated ones.
 
 function getVideos() {
   var rows      = getAllRows(SHEET_VIDEOS);
@@ -116,23 +140,17 @@ function getVideos() {
     }
   }
 
-  // Sort newest-first by Published Date.
   published.sort(function(a, b) {
     var da = parseSheetDate(a['Published Date']);
     var db = parseSheetDate(b['Published Date']);
-
-    if (!da && !db) {
-      // Both undated — later row index sorts first (new rows are at the bottom).
-      return (b._rowIndex || 0) - (a._rowIndex || 0);
-    }
-    if (!da) return 1;   // a has no date → sink to end
-    if (!db) return -1;  // b has no date → sink to end
-    return db.getTime() - da.getTime(); // descending
+    var sa = da ? da.getTime() : UNDATED_BASE + (a._rowIndex || 0);
+    var sb = db ? db.getTime() : UNDATED_BASE + (b._rowIndex || 0);
+    return sb - sa; // descending — largest (newest) first
   });
 
   // Strip internal _rowIndex before returning.
   return published.map(function(r) {
-    var out = {};
+    var out  = {};
     var keys = Object.keys(r);
     for (var k = 0; k < keys.length; k++) {
       if (keys[k] !== '_rowIndex') out[keys[k]] = r[keys[k]];
@@ -142,8 +160,6 @@ function getVideos() {
 }
 
 // ── Settings ───────────────────────────────────────────────────────────────
-// Reads key/value pairs from column A (key) and column B (value).
-// Returns a flat object with lowercased, whitespace-stripped keys.
 
 function getSettings() {
   var ss    = SpreadsheetApp.getActiveSpreadsheet();
@@ -188,7 +204,7 @@ function getShows() {
     var r = rows[i];
     var s = String(r['Status'] || r['status'] || '').trim().toLowerCase();
     if (s === 'published' || s === 'active') {
-      var out = {};
+      var out  = {};
       var keys = Object.keys(r);
       for (var k = 0; k < keys.length; k++) {
         if (keys[k] !== '_rowIndex') out[keys[k]] = r[keys[k]];
@@ -200,11 +216,6 @@ function getShows() {
 }
 
 // ── Sheet row reader ───────────────────────────────────────────────────────
-// Reads every non-blank row from a sheet and returns an array of plain objects
-// keyed by the header row. Date cells are serialised to M/D/YYYY strings
-// (matching what the user sees in the sheet) to avoid UTC-drift issues.
-// The internal _rowIndex property (0-based data row index) is added for
-// stable sort tie-breaking and stripped before the data leaves this file.
 
 function getAllRows(sheetName) {
   var ss    = SpreadsheetApp.getActiveSpreadsheet();
@@ -238,8 +249,6 @@ function getAllRows(sheetName) {
     for (var ci = 0; ci < headers.length; ci++) {
       var cell = row[ci];
       if (cell instanceof Date) {
-        // Convert GAS Date object → M/D/YYYY string using script-local timezone.
-        // This is exactly what the user sees in the sheet cell.
         obj[headers[ci]] = formatDateCell(cell);
       } else {
         obj[headers[ci]] = (cell !== null && cell !== undefined) ? cell : '';
@@ -252,19 +261,13 @@ function getAllRows(sheetName) {
   return rows;
 }
 
-// Format a Date object as M/D/YYYY using the Apps Script local timezone
-// (which matches the Google Sheets display timezone).
+// Format a Date object as M/D/YYYY using Apps Script local timezone.
 function formatDateCell(d) {
   if (!(d instanceof Date) || isNaN(d.getTime())) return '';
   return (d.getMonth() + 1) + '/' + d.getDate() + '/' + d.getFullYear();
 }
 
-// Parse a Published Date value from the sheet. Handles:
-//   "7/12/2026"              → M/D/YYYY (Google Sheets text/date display)
-//   "2026-07-12"             → ISO date string
-//   "2026-07-12T18:30:00Z"   → ISO datetime
-//   Date object              → already a Date (rare after formatDateCell above)
-// Returns a Date or null.
+// Parse a Published Date that may be a M/D/YYYY string, ISO string, or Date object.
 function parseSheetDate(val) {
   if (!val) return null;
   if (val instanceof Date) return isNaN(val.getTime()) ? null : val;
@@ -279,21 +282,34 @@ function parseSheetDate(val) {
     return isNaN(d.getTime()) ? null : d;
   }
 
-  // ISO or any other format the JS Date constructor understands.
+  // ISO or any other format.
   var d2 = new Date(s);
   return isNaN(d2.getTime()) ? null : d2;
 }
 
-// ── processYouTubeUrls ─────────────────────────────────────────────────────
-// Utility: scan the Videos sheet and, for rows missing a YouTube ID, extract
-// one from the YouTubeURL column. Also copies Synced At → Published Date when
-// Published Date is blank.
-// Run this from the Apps Script editor as a one-off, or wire it to a trigger.
+// ── processYouTubeUrls (called from Metro TV CMS menu) ────────────────────
+//
+// Workflow:
+//   1. Team member adds a new row: fills in Title, Category, YouTubeURL.
+//   2. Team member opens Metro TV CMS → Process YouTube URLs.
+//   3. This function scans every row with a YouTube URL and fills in any
+//      missing fields automatically:
+//        • YouTube ID   — extracted from the URL
+//        • Video Type   — "Short" if URL contains /shorts/, else "Long"
+//        • Published Date — today's date (M/D/YYYY) if empty
+//        • Status        — "Published" if empty
+//        • Synced At     — today's date if empty
+//        • Slug          — generated from Title if empty
+//
+// Existing values are NEVER overwritten — only empty cells are filled.
 
 function processYouTubeUrls() {
   var ss    = SpreadsheetApp.getActiveSpreadsheet();
   var sheet = ss.getSheetByName(SHEET_VIDEOS);
-  if (!sheet) return;
+  if (!sheet) {
+    SpreadsheetApp.getUi().alert('Error: "' + SHEET_VIDEOS + '" sheet not found.');
+    return;
+  }
 
   var data    = sheet.getDataRange().getValues();
   var headers = [];
@@ -301,46 +317,109 @@ function processYouTubeUrls() {
     headers.push(String(data[0][h]).trim());
   }
 
-  var idxId   = headers.indexOf('YouTube ID');
-  var idxUrl  = headers.indexOf('YouTubeURL');
-  var idxDate = headers.indexOf('Published Date');
-  var idxSync = headers.indexOf('Synced At');
+  // Column indices (−1 if column not found).
+  var idx = {
+    title:  headers.indexOf('Title'),
+    cat:    headers.indexOf('Category'),
+    url:    headers.indexOf('YouTubeURL'),
+    id:     headers.indexOf('YouTube ID'),
+    type:   headers.indexOf('Video Type'),
+    date:   headers.indexOf('Published Date'),
+    status: headers.indexOf('Status'),
+    slug:   headers.indexOf('Slug'),
+    sync:   headers.indexOf('Synced At'),
+  };
 
-  if (idxId < 0 || idxUrl < 0) return;
+  if (idx.url < 0 || idx.id < 0) {
+    SpreadsheetApp.getUi().alert('Error: "YouTubeURL" or "YouTube ID" column not found.');
+    return;
+  }
 
   var YT_RE   = /(?:[?&]v=|youtu\.be\/|\/shorts\/|\/embed\/|\/v\/|\/live\/)([a-zA-Z0-9_-]{11})/;
-  var changed = false;
+  var today   = formatDateCell(new Date());
+  var updated = 0;
 
   for (var r = 1; r < data.length; r++) {
-    var row   = data[r];
-    var rawId = String(row[idxId] || '').trim();
+    var row = data[r];
+    var url = String(row[idx.url] || '').trim();
+    if (!url) continue; // Skip rows with no URL
 
-    // Extract YouTube ID from URL if missing or invalid.
-    if (!rawId || rawId.length !== 11) {
-      var url   = String(row[idxUrl] || '').trim();
-      var match = url.match(YT_RE);
-      if (match) {
-        sheet.getRange(r + 1, idxId + 1).setValue(match[1]);
-        changed = true;
+    var isShort = url.indexOf('/shorts/') !== -1;
+    var match   = url.match(YT_RE);
+
+    // ── YouTube ID ──────────────────────────────────────────────────────
+    var rawId = String(row[idx.id] || '').trim();
+    if ((!rawId || rawId.length !== 11) && match) {
+      sheet.getRange(r + 1, idx.id + 1).setValue(match[1]);
+      updated++;
+    }
+
+    // ── Video Type ──────────────────────────────────────────────────────
+    if (idx.type >= 0) {
+      var rawType = String(row[idx.type] || '').trim();
+      if (!rawType) {
+        sheet.getRange(r + 1, idx.type + 1).setValue(isShort ? 'Short' : 'Long');
+        updated++;
       }
     }
 
-    // Fill Published Date from Synced At if Published Date is blank.
-    if (idxDate >= 0 && idxSync >= 0) {
-      var pub  = row[idxDate];
-      var sync = row[idxSync];
-      var pubEmpty = (pub === '' || pub === null || pub === undefined);
-      if (pubEmpty && sync && sync !== '') {
-        sheet.getRange(r + 1, idxDate + 1).setValue(sync);
-        changed = true;
+    // ── Published Date — set to today only if empty ─────────────────────
+    if (idx.date >= 0) {
+      var rawDate  = row[idx.date];
+      var dateEmpty = (rawDate === '' || rawDate === null || rawDate === undefined);
+      if (dateEmpty) {
+        sheet.getRange(r + 1, idx.date + 1).setValue(today);
+        updated++;
+      }
+    }
+
+    // ── Status — default to Published ───────────────────────────────────
+    if (idx.status >= 0) {
+      var rawStatus = String(row[idx.status] || '').trim();
+      if (!rawStatus) {
+        sheet.getRange(r + 1, idx.status + 1).setValue('Published');
+        updated++;
+      }
+    }
+
+    // ── Synced At — timestamp of last processing ─────────────────────────
+    if (idx.sync >= 0) {
+      var rawSync  = row[idx.sync];
+      var syncEmpty = (rawSync === '' || rawSync === null || rawSync === undefined);
+      if (syncEmpty) {
+        sheet.getRange(r + 1, idx.sync + 1).setValue(today);
+        updated++;
+      }
+    }
+
+    // ── Slug — auto-generate from title ─────────────────────────────────
+    if (idx.slug >= 0 && idx.title >= 0) {
+      var rawSlug = String(row[idx.slug] || '').trim();
+      if (!rawSlug) {
+        var title = String(row[idx.title] || '').trim();
+        if (title) {
+          var slug = title.toLowerCase()
+            .replace(/[^a-z0-9ఀ-౿\s-]/g, '') // keep Telugu chars too
+            .replace(/\s+/g, '-')
+            .replace(/-+/g, '-')
+            .replace(/^-|-$/g, '')
+            .slice(0, 80);
+          if (slug) {
+            sheet.getRange(r + 1, idx.slug + 1).setValue(slug);
+            updated++;
+          }
+        }
       }
     }
   }
 
-  if (changed) {
-    // Flush cache so the next web-app request picks up the updated data.
-    try { CacheService.getScriptCache().remove(CACHE_KEY); } catch (_) {}
-  }
+  // Flush script cache so next website request gets fresh data.
+  try { CacheService.getScriptCache().remove(CACHE_KEY); } catch (_) {}
+
+  var msg = updated > 0
+    ? 'Done! ' + updated + ' cells updated.\n\nThe website will show the new videos within 60 seconds.'
+    : 'Nothing to update — all rows already have complete data.';
+  SpreadsheetApp.getUi().alert('Metro TV CMS', msg, SpreadsheetApp.getUi().ButtonSet.OK);
 }
 
 // ── Save helpers ───────────────────────────────────────────────────────────
