@@ -6,7 +6,7 @@ import SectionTitle from "../../components/SectionTitle";
 
 export const metadata = {
   title: "Programs & Shows | Metro TV Telugu",
-  description: "Explore Metro TV Telugu programs, YouTube channels for Entertainment and Health content in Telugu.",
+  description: "Explore Metro TV Telugu programs and YouTube channels for news, digital and entertainment content in Telugu.",
 };
 
 const youtubeChannels = [
@@ -21,24 +21,14 @@ const youtubeChannels = [
     banner: "/metro-entertainment.jpg",
   },
   {
-    label:  "Health",
-    name:   "Metro Health Updates",
-    desc:   "Health tips, medical advice, wellness programs, doctor interviews and health awareness content in Telugu.",
-    url:    "https://www.youtube.com/@metrohealthupdates",
-    color:  "#4ade80",
-    bg:     "rgba(74,222,128,0.10)",
-    border: "rgba(74,222,128,0.25)",
-    banner: "/metro-health.jpg",
-  },
-  {
-    label:  "Metro TV Telugu",
-    name:   "Metro TV Telugu",
-    desc:   "Live news, breaking stories, political updates and regional coverage for Telugu-speaking audiences.",
-    url:    "https://www.youtube.com/@metrotvtelugunews",
+    label:  "Digital",
+    name:   "Metro TV Digital Telugu News",
+    desc:   "Latest Telugu news, public-interest reporting, regional updates and live coverage.",
+    url:    "https://www.youtube.com/@MetroTvDigitalTeluguNews",
     color:  "#ff4444",
     bg:     "rgba(232,0,29,0.10)",
     border: "rgba(232,0,29,0.30)",
-    banner: "/metro-telugu.jpg",
+    banner: "/metro-news.jpg",
   },
   {
     label:  "News",
@@ -67,8 +57,7 @@ export default function ShowsPage() {
                   <span style={{ color: "var(--red)" }}>YouTube Channels</span>
                 </h1>
                 <p className="mt-5 text-lg leading-8" style={{ color: "var(--muted)" }}>
-                  Follow Metro TV Telugu&apos;s dedicated YouTube channels for Entertainment
-                  and Health content in Telugu.
+                  Follow Metro TV Telugu&apos;s dedicated YouTube channels for news, digital and entertainment content in Telugu.
                 </p>
                 <div className="mt-8 flex flex-wrap gap-3">
                   <Link href="/videos" className="btn-primary">Watch featured videos</Link>
@@ -89,7 +78,7 @@ export default function ShowsPage() {
             <SectionTitle
               eyebrow="YouTube Channels"
               title="Follow us on YouTube"
-              desc="Dedicated channels for Entertainment and Health content in Telugu."
+              desc="Dedicated channels for news, digital and entertainment content in Telugu."
             />
           </FadeIn>
 
