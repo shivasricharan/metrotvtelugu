@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import {
-  Mail, Phone, MapPin,
+  Mail, Phone,
   Video, Building2, UserRound, ExternalLink,
 } from "lucide-react";
 import FadeIn from "../../components/FadeIn";
@@ -290,7 +290,7 @@ export default async function ContactPage() {
       {/* ── FORM + SIDEBAR ── */}
       <section className="section-space">
         <div className="container">
-          <div className="grid gap-8 lg:grid-cols-2">
+          <div>
             <FadeIn>
               <div
                 className="rounded-3xl p-8 md:p-10"
@@ -299,46 +299,13 @@ export default async function ContactPage() {
                 <SectionTitle
                   eyebrow="Send an Enquiry"
                   title="Tell us how you would like to connect"
-                  desc="Submit advertising, editorial, event, partnership or business enquiries. Continues as a structured WhatsApp conversation."
+                  desc="Submit advertising, editorial, event, partnership or business enquiries."
                 />
                 <ContactForm />
               </div>
             </FadeIn>
 
-            <FadeIn delay={0.1}>
-              <div
-                className="rounded-3xl p-8 md:p-10"
-                style={{ background: "var(--bg-card)", border: "1px solid var(--border)" }}
-              >
-                <div
-                  className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl"
-                  style={{ background: "rgba(232,0,29,0.10)" }}
-                >
-                  <MapPin className="h-6 w-6" style={{ color: "var(--red)" }} />
-                </div>
-                <h2 className="text-2xl font-black leading-tight">Reach the right team faster</h2>
-                <p className="mt-4 leading-7" style={{ color: "var(--muted)" }}>
-                  The contact page supports communication across advertising, partnerships,
-                  event coverage and business enquiries.
-                </p>
-                <div className="mt-6 grid gap-3">
-                  {[
-                    { title: "For advertisers",             body: "Sponsored content, brand visibility, video promotions and media campaigns." },
-                    { title: "For editorial communication", body: "Public-interest stories, news inputs, press information and community updates." },
-                    { title: "For events and partnerships", body: "Event coverage, interviews, collaborations and institutional partnerships." },
-                  ].map((item) => (
-                    <div
-                      key={item.title}
-                      className="rounded-xl p-4"
-                      style={{ background: "var(--card)", border: "1px solid var(--border)" }}
-                    >
-                      <h3 className="text-sm font-bold" style={{ color: "var(--red)" }}>{item.title}</h3>
-                      <p className="mt-1 text-sm leading-6" style={{ color: "var(--muted)" }}>{item.body}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </FadeIn>
+
           </div>
         </div>
       </section>
