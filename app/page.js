@@ -35,13 +35,13 @@ const youtubeChannels = [
     border:"rgba(245,158,11,0.25)",
   },
   {
-    label: "Health",
-    name:  "Metro Health Updates",
-    desc:  "Health tips, medical advice, wellness programs, doctor interviews and health awareness content in Telugu.",
-    url:   "https://www.youtube.com/@metrohealthupdates",
-    color: "#4ade80",
-    bg:    "rgba(74,222,128,0.10)",
-    border:"rgba(74,222,128,0.25)",
+    label: "News",
+    name:  "Metro TV Digital Telugu News",
+    desc:  "Latest Telugu news, public-interest reporting, regional updates and live coverage.",
+    url:   "https://www.youtube.com/@MetroTvDigitalTeluguNews",
+    color: "#e8001d",
+    bg:    "rgba(232,0,29,0.10)",
+    border:"rgba(232,0,29,0.25)",
   },
 ];
 
