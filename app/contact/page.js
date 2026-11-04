@@ -228,7 +228,7 @@ export default async function ContactPage() {
         <div className="container">
           <FadeIn>
             <SectionTitle
-              eyebrow="Key Contacts"
+              eyebrow="Key Contact"
               title="Leadership Contact"
               desc="Contact our Managing Director for business, partnership and organisational enquiries."
               center={true}
