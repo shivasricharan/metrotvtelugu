@@ -27,10 +27,7 @@ const fallbackSocial = {
 };
 
 const fallbackContacts = [
-  { name: "Mr. Rakesh Dasari",           role: "Managing Director", phone: "+91 40-40159550", mobile: "+91 9490235700",  email: "rakesh@metrotvtelugu.com",        desc: "Leadership and overall business direction." },
-  { name: "Mr. Kondaveeti Jayaprasad",   role: "Chief Editor",      phone: "+91 40-40159550", mobile: "+91 9848038375",  email: "admin@metrotvtelugu.com",          desc: "Editorial leadership, news direction and content oversight." },
-  { name: "Mr. B. Chandrasekhar",        role: "Editor",            phone: "+91 40-40159550", mobile: "+91 9963996704",  email: "chandrasekhar@metrotvtelugu.com",  desc: "Editorial coordination, news inputs and content-related communication." },
-  { name: "Mr. Sagar Pragnapuram",       role: "CEO",               phone: "+91 40-40159550", mobile: "+91 8790739192",  email: "sagar@metrotvtelugu.com",          desc: "Business operations, partnerships, growth and strategic enquiries." },
+  { name: "Mr. Rakesh Dasari", role: "Managing Director", phone: "+91 40-40159550", mobile: "+91 9490235700", email: "rakesh@metrotvtelugu.com", desc: "Leadership and overall business direction." },
 ];
 
 
@@ -81,7 +78,10 @@ export default async function ContactPage() {
   const instagramUrl = get(settings, "instagramurl",     fallbackSocial.instagramurl);
   const facebookUrl  = get(settings, "facebookurl",      fallbackSocial.facebookurl);
   const youtubeUrl   = get(settings, "youtubechannelurl",fallbackSocial.youtubechannelurl);
-  const keyContacts  = cmsContacts.length > 0 ? cmsContacts.map(normalizeContact) : fallbackContacts;
+  const rakeshContacts = cmsContacts
+    .map(normalizeContact)
+    .filter((contact) => contact.name.toLowerCase().includes("rakesh dasari"));
+  const keyContacts = rakeshContacts.length > 0 ? rakeshContacts : fallbackContacts;
 
   return (
     <>
