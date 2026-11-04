@@ -229,8 +229,8 @@ export default async function ContactPage() {
           <FadeIn>
             <SectionTitle
               eyebrow="Key Contacts"
-              title="Leadership and editorial contacts"
-              desc="Connect with the official leadership and editorial team for organisational, business, editorial and partnership communication."
+              title="Leadership Contact"
+              desc="Contact our Managing Director for business, partnership and organisational enquiries."
               center={true}
             />
           </FadeIn>
