@@ -1,8 +1,7 @@
 import Link from "next/link";
 import {
   Tv, Radio, MonitorSmartphone, Newspaper, Users, Megaphone,
-  PlayCircle, Smartphone, Briefcase, HeartPulse, GraduationCap,
-  Building2, Leaf, Sparkles, ExternalLink,
+  PlayCircle, Smartphone, ExternalLink,
 } from "lucide-react";
 import FadeIn from "../../components/FadeIn";
 import SectionTitle from "../../components/SectionTitle";
@@ -21,15 +20,6 @@ const highlights = [
   { icon: PlayCircle,   title: "Videos & Shorts",    desc: "Long-format YouTube videos and short-format updates presented in a cleaner digital experience." },
   { icon: MonitorSmartphone, title: "App & Digital Access", desc: "The channel can be discovered through the website, mobile app, YouTube and digital-first viewing habits." },
   { icon: Megaphone,    title: "Advertiser Ready",   desc: "Clear pathways for brands, agencies and local businesses to explore partnership and campaign opportunities." },
-];
-
-const coverageAreas = [
-  { icon: Briefcase,      title: "Business & Industry",       desc: "Service sector, manufacturing, finance, banking, insurance, trade, investments and local business stories." },
-  { icon: HeartPulse,     title: "Health & Lifestyle",        desc: "Health, beauty, wellness, yoga, meditation, hospitals, lifestyle and family-focused programming." },
-  { icon: GraduationCap, title: "Education & Career",        desc: "Education, training, youth, career guidance, skills and opportunities for students and professionals." },
-  { icon: Building2,      title: "Civic & Community",         desc: "Cities, municipalities, colonies, public issues, transport, local communities and people-led concerns." },
-  { icon: Leaf,           title: "Agriculture & Environment", desc: "Agriculture, agro industries, renewable energy, sustainability and environment-focused stories." },
-  { icon: Sparkles,       title: "Entertainment & Culture",   desc: "Cinema, cultural activities, sports, fitness, religious activities, astrology and public celebrations." },
 ];
 
 const focusCards = [
@@ -155,43 +145,6 @@ export default async function AboutPage() {
               const Icon = item.icon;
               return (
                 <FadeIn key={item.title} delay={i * 0.08}>
-                  <div
-                    className="card-hover rounded-2xl p-6"
-                    style={{ background: "var(--bg-card)", border: "1px solid var(--border)" }}
-                  >
-                    <div
-                      className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl"
-                      style={{ background: "rgba(232,0,29,0.10)" }}
-                    >
-                      <Icon className="h-5 w-5" style={{ color: "var(--red)" }} />
-                    </div>
-                    <h3 className="text-base font-bold">{item.title}</h3>
-                    <p className="mt-2 text-sm leading-6" style={{ color: "var(--muted)" }}>{item.desc}</p>
-                  </div>
-                </FadeIn>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      <div className="section-divider" />
-
-      {/* ── COVERAGE AREAS ── */}
-      <section className="section-space">
-        <div className="container">
-          <FadeIn>
-            <SectionTitle
-              eyebrow="Coverage Areas"
-              title="Stories across public life, business, culture and communities"
-              desc="The channel covers a broad set of content verticals relevant to Telugu-speaking audiences and regional businesses."
-            />
-          </FadeIn>
-          <div className="grid gap-5 md:grid-cols-3">
-            {coverageAreas.map((item, i) => {
-              const Icon = item.icon;
-              return (
-                <FadeIn key={item.title} delay={i * 0.06}>
                   <div
                     className="card-hover rounded-2xl p-6"
                     style={{ background: "var(--bg-card)", border: "1px solid var(--border)" }}
