@@ -58,6 +58,7 @@ const cableNetworks = [
   { name: "Rayalaseema SSC",      ch: "Ch. 16"   },
   { name: "Lakshmi Cable",        ch: "Ch. 16"   },
   { name: "GTPL Network",         ch: "Ch. 41"   },
+  { name: "Telangana SSC",        ch: "Ch. 62"   },
 ];
 
 function SectionHeader({ label, linkHref, linkLabel }) {
